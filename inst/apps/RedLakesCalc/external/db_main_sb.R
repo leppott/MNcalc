@@ -27,14 +27,14 @@ function(id) {
                                , tabName = "tab_filebuilder_taxatrans"
                                , icon = icon("language")
                                )
-                 , menuSubItem("Generate BCG Class Parameters"
-                               , tabName = "tab_filebuilder_indexclassparam"
-                               , icon = icon("signs-post")
-                               )
-                 , menuSubItem("Assign BCG Index Name and Class"
-                               , tabName = "tab_filebuilder_indexclass"
-                               , icon = icon("address-book")
-                               )
+                 # , menuSubItem("Generate BCG Class Parameters"
+                 #               , tabName = "tab_filebuilder_indexclassparam"
+                 #               , icon = icon("signs-post")
+                 #               )
+                 # , menuSubItem("Assign BCG Index Name and Class"
+                 #               , tabName = "tab_filebuilder_indexclass"
+                 #               , icon = icon("address-book")
+                 #               )
                  , menuSubItem("Merge Files"
                                , tabName = "tab_filebuilder_mergefiles"
                                , icon = icon("code-merge")
@@ -46,18 +46,18 @@ function(id) {
                  , menuSubItem("BCG Models"
                                , tabName = "tab_calc_bcg"
                                , icon = icon("award"))
-                 , menuSubItem("Thermal Preference Metrics [DRAFT]"
-                               , tabName = "tab_calc_thermalmetrics"
-                               , icon = icon("temperature-empty"))
-                 , menuSubItem("Fuzzy Set Temperature Model [DRAFT]"
-                               , tabName = "tab_calc_thermalfuzzy"
-                               , icon = icon("square-check"))
-                 , menuSubItem("MTTI [DRAFT]"
-                               , tabName = "tab_calc_mtti"
-                               , icon = icon("microscope"))
-                 , menuSubItem("BioDiversity Index [DRAFT]"
-                               , tabName = "tab_calc_bdi"
-                               , icon = icon("flask"))
+                 # , menuSubItem("Thermal Preference Metrics [DRAFT]"
+                 #               , tabName = "tab_calc_thermalmetrics"
+                 #               , icon = icon("temperature-empty"))
+                 # , menuSubItem("Fuzzy Set Temperature Model [DRAFT]"
+                 #               , tabName = "tab_calc_thermalfuzzy"
+                 #               , icon = icon("square-check"))
+                 # , menuSubItem("MTTI [DRAFT]"
+                 #               , tabName = "tab_calc_mtti"
+                 #               , icon = icon("microscope"))
+                 # , menuSubItem("BioDiversity Index [DRAFT]"
+                 #               , tabName = "tab_calc_bdi"
+                 #               , icon = icon("flask"))
                  )## menuItem ~ BCG
       # , menuItem(text = "Temperature"
       #            , icon = icon("temperature-full") #
@@ -80,19 +80,19 @@ function(id) {
       #                          , tabName = "tab_about"
       #                          , icon = icon("calculator"))
       #            )## menuItem ~ Analysis ~ END
-      , menuItem(text = "Map"
-                 , tabName = "tab_map"
-                 , icon = icon("map"))## menuItem ~ Map
-      , menuItem(text = "Reports"
-                 , icon = icon("clipboard-check")
-                 , menuSubItem("Single Site"
-                               , tabName = "tab_rep_single"
-                               , icon = icon("pen")
-                               )
-                 , menuSubItem("Multiple Sites"
-                               , tabName = "tab_rep_multi"
-                               , icon = icon("pen-to-square"))
-                 )## menuItem ~ Reports ~ END
+      # , menuItem(text = "Map"
+      #            , tabName = "tab_map"
+      #            , icon = icon("map"))## menuItem ~ Map
+      # , menuItem(text = "Reports"
+      #            , icon = icon("clipboard-check")
+      #            , menuSubItem("Single Site"
+      #                          , tabName = "tab_rep_single"
+      #                          , icon = icon("pen")
+      #                          )
+      #            , menuSubItem("Multiple Sites"
+      #                          , tabName = "tab_rep_multi"
+      #                          , icon = icon("pen-to-square"))
+      #            )## menuItem ~ Reports ~ END
       , menuItem(text = "Relevant Resources"
                  , tabName = "tab_resources"
                  , icon = icon("book"))

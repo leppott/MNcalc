@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9123"
+pkg_version <- "2.0.0.9112_RedLakes"
 
 # Packages----
 # nolint start
@@ -30,7 +30,6 @@ library(zip)
 library(StreamCatTools)
 library(nhdplusTools)
 library(ComplexUpset)
-library(MazamaSpatialUtils) # ecoregion assignment
 # MTTI
 # library(plyr)
 # library(dplyr)
@@ -51,7 +50,7 @@ db_main_sb                     <- source("external/db_main_sb.R"
                                          , local = TRUE)$value
 db_main_body                   <- source("external/db_main_body.R"
                                         , local = TRUE)$value
-tab_code_about                 <- source("external/tab_about.R" 
+tab_code_about                 <- source("external/tab_about.R"
                                          , local = TRUE)$value
 tab_code_import                <- source("external/tab_import.R"
                                          , local = TRUE)$value
@@ -59,31 +58,31 @@ tab_code_filebuilder           <- source("external/tab_filebuilder.R"
                                          , local = TRUE)$value
 tab_code_filebuilder_taxatrans <- source("external/tab_filebuilder_taxatrans.R"
                                          , local = TRUE)$value
-tab_code_filebuilder_indexclass <- source(
-                                         "external/tab_filebuilder_indexclass.R"
-                                         , local = TRUE)$value
-tab_code_filebuilder_indexclassparam <- source(
-                                    "external/tab_filebuilder_indexclassparam.R"
-                                         , local = TRUE)$value
+# tab_code_filebuilder_indexclass <- source(
+#                                          "external/tab_filebuilder_indexclass.R"
+#                                          , local = TRUE)$value
+# tab_code_filebuilder_indexclassparam <- source(
+#                                     "external/tab_filebuilder_indexclassparam.R"
+#                                          , local = TRUE)$value
 tab_code_filebuilder_mergefiles <- source(
                                          "external/tab_filebuilder_mergefiles.R"
                                          , local = TRUE)$value
 tab_code_calc_bcg              <- source("external/tab_calc_bcg.R"
                                          , local = TRUE)$value
-tab_code_calc_thermalmetrics   <- source("external/tab_calc_thermalmetrics.R"
-                                         , local = TRUE)$value
-tab_code_calc_thermalfuzzy     <- source("external/tab_calc_thermalfuzzy.R"
-                                         , local = TRUE)$value
-tab_code_calc_mtti             <- source("external/tab_calc_mtti.R"
-                                         , local = TRUE)$value
-tab_code_calc_bdi              <- source("external/tab_calc_bdi.R"
-                                         , local = TRUE)$value
-tab_code_map                   <- source("external/tab_map.R"
-                                         , local = TRUE)$value
-tab_code_rep_single            <- source("external/tab_report_single.R"
-                                         , local = TRUE)$value
-tab_code_rep_multi             <- source("external/tab_report_multi.R"
-                                         , local = TRUE)$value
+# tab_code_calc_thermalmetrics   <- source("external/tab_calc_thermalmetrics.R"
+#                                          , local = TRUE)$value
+# tab_code_calc_thermalfuzzy     <- source("external/tab_calc_thermalfuzzy.R"
+#                                          , local = TRUE)$value
+# tab_code_calc_mtti             <- source("external/tab_calc_mtti.R"
+#                                          , local = TRUE)$value
+# tab_code_calc_bdi              <- source("external/tab_calc_bdi.R"
+#                                          , local = TRUE)$value
+# tab_code_map                   <- source("external/tab_map.R"
+#                                          , local = TRUE)$value
+# tab_code_rep_single            <- source("external/tab_report_single.R"
+#                                          , local = TRUE)$value
+# tab_code_rep_multi             <- source("external/tab_report_multi.R"
+#                                          , local = TRUE)$value
 tab_code_resources             <- source("external/tab_resources.R"
                                          , local = TRUE)$value
 
@@ -145,7 +144,7 @@ dn_files_bsti   <- paste(abr_results, abr_bsti, sep = "_")
 dn_files_report <- paste(abr_results, abr_report, sep = "_")
 
 # Selection Choices----
-sel_community <- c("bugs", "fish", "algae")
+sel_community <- c("bugs", "fish") #, "algae")
 
 ##  BCG Models ----
 url_bcg_base <- "https://github.com/leppott/BCGcalc/raw/main/inst/extdata"
@@ -156,7 +155,8 @@ httr::GET(url_bcg_models, httr::write_disk(temp_bcg_models <- tempfile(fileext =
 df_bcg_models <- as.data.frame(readxl::read_excel(temp_bcg_models
                                                   , guess_max = 10^3
                                                   , sheet = "Rules"))
-sel_bcg_models <- sort(unique(df_bcg_models$Index_Name))
+#sel_bcg_models <- sort(unique(df_bcg_models$Index_Name))
+sel_bcg_models <- "MN_BCG"
 
 ## Metric Suites
 sel_metric_suites <- ("ThermalHydro")
@@ -174,7 +174,7 @@ df_checks <- as.data.frame(readxl::read_excel(temp_bcg_checks, sheet = "Flags"))
 # BMT, Taxa Official Pick----
 url_taxa_official_pick <- file.path(url_bmt_base
                                     , "taxa_official"
-                                    , "_pick_files.csv")
+                                    , "_pick_files_RedLakes.csv")
 httr::GET(url_taxa_official_pick
     , httr::write_disk(temp_taxa_official_pick <- tempfile(fileext = ".csv")))
 
@@ -185,7 +185,7 @@ url_indexclass_crit <- file.path(url_bmt_base
                                  , "index_class"
                                  , "IndexClass.xlsx")
 httr::GET(url_indexclass_crit
-    , httr::write_disk(temp_indexclass_crit <- tempfile(fileext = ".xlsx")))
+    , write_disk(temp_indexclass_crit <- tempfile(fileext = ".xlsx")))
 
 df_indexclass_crit <- readxl::read_excel(temp_indexclass_crit
                                          , sheet = "Index_Class")
@@ -243,4 +243,3 @@ map_meta <- as.data.frame(readxl::read_excel(file.path(path_data, fn_map_meta)
                                              , skip = 7))
 
 # Report ----
-

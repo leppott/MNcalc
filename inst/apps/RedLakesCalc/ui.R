@@ -8,7 +8,7 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 dashboardPage(
-  header = dashboardHeader(title = "BCGcalc")
+  header = dashboardHeader(title = "BCGcalc_RedLakes")
   #, sidebar = dashboardSidebar(sb_main("leftsidebarmenu"))
   , sidebar = dashboardSidebar(db_main_sb("leftsidebarmenu"))
   , body = dashboardBody(db_main_body("dbBody"))
