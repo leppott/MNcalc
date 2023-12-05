@@ -1,0 +1,56 @@
+---
+title: "RedLakesCalc-README"
+author: "Erik.Leppo@tetratech.com"
+date: "`r Sys.time()`"
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE
+                      , collapse = TRUE
+                      , comment = "#>"
+                      , fig.path = "README-")
+
+```
+
+```{r, echo = FALSE}
+cat(paste0("Last Update: ",Sys.time()))
+```
+# RedLakesCalc
+Biological Condition Gradient (BCG) and Index of Biotic Integrity (IBI)
+calculator Shiny app.  For the Red Lakes Tribe in Minnesota.  Calculates the MN
+state BCG and IBI in a Shiny app using the BioMonTools and BCGcalc R packages.
+
+Badges
+-----------
+to come later
+
+Installation
+-----------------
+To install the current version use the code below to install from GitHub. The 
+use of “force = TRUE” ensures the package is installed even if already present. 
+If the package `remotes` is missing the code below will install it.
+
+```{r Install, eval=FALSE}
+if(!require(remotes)){install.packages("remotes")}  #install if needed
+install_github("leppott/RedLakesCalc", force=TRUE)
+```
+
+Purpose
+--------------
+To aid users in the calculation of the MN BCG and IBI (bugs and fish).
+
+Usage
+------------
+After installing the package can launch the app using the code below.
+```{r usage, eval=FALSE}
+app("RedLakesCalc")
+```
+
+Shiny
+------------
+The Shiny app code is included in the package but is also on the web.
+
+https://tetratech-wtr-wne.shinyapps.io/RedLakesCalc/

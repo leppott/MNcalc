@@ -1,0 +1,13 @@
+RedLakesCalc-NEWS
+================
+<Erik.Leppo@tetratech.com>
+2023-12-05 10:09:42.62008
+
+<!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
+
+    #> Last Update: 2023-12-05 10:09:42.650524
+
+# BCGcalc 0.1.0 (2023-12-05)
+
+- Created GitHub repository
+  - Included NEWS and README

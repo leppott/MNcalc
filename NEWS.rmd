@@ -1,0 +1,35 @@
+---
+title: "RedLakesCalc-NEWS"
+author: "Erik.Leppo@tetratech.com"
+date: "`r Sys.time()`"
+output: github_document
+  #md_document:
+   # variant: markdown_github
+---
+
+<!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "NEWS-"
+)
+```
+
+```{r, echo = FALSE}
+cat(paste0("Last Update: ",Sys.time()))
+```
+
+# RedLakesCalc 0.1.0.9001 (2023-12-05)
+
+* Add base package files
+   + DESCRIPTION
+   + NEWS
+   + README
+   + app function
+
+# RedLakesCalc 0.1.0 (2023-12-05)
+
+* Created GitHub repository
+
