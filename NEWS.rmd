@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# RedLakesCalc 0.1.0.9005 (2023-12-07)
+
+* refactor: Add complete pop up to merge files
+
 # RedLakesCalc 0.1.0.9004 (2023-12-07)
 
 * fix: Update app BCG calculation for cases where have no flags

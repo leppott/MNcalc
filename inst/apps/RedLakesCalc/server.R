@@ -2191,6 +2191,19 @@ shinyServer(function(input, output) {
       # button, enable, download
       shinyjs::enable("b_download_mergefiles")
 
+      # time, end
+      toc <- Sys.time()
+      duration <- difftime(toc, tic)
+
+      # pop up
+      msg <- paste0("Elapse Time (", units(duration), ") = ", round(duration, 2))
+      shinyalert::shinyalert(title = "Task Compete"
+                             , text = msg
+                             , type = "success"
+                             , closeOnEsc = TRUE
+                             , closeOnClickOutside = TRUE)
+      # validate(msg)
+
     }## expr ~ withProgress ~ END
     , message = "Merging Files"
     )## withProgress ~ END

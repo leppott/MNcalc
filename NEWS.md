@@ -1,11 +1,15 @@
 RedLakesCalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-12-07 10:36:52.099266
+2023-12-07 10:44:09.088427
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-12-07 10:36:52.130779
+    #> Last Update: 2023-12-07 10:44:09.144945
+
+# RedLakesCalc 0.1.0.9005 (2023-12-07)
+
+- refactor: Add complete pop up to merge files
 
 # RedLakesCalc 0.1.0.9004 (2023-12-07)
 
