@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# RedLakesCalc 0.1.0.9004 (2023-12-07)
+
+* fix: Update app BCG calculation for cases where have no flags
+    + Same as BCGcalc v2.0.0.9126 commit
+
 # RedLakesCalc 0.1.0.9003 (2023-12-05)
 
 * refactor: Update Shiny to work with Red Lakes data

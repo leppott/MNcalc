@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "2.0.0.9112_RedLakes"
+pkg_version <- "0.1.0.9004"
 
 # Packages----
 # nolint start

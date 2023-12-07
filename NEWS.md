@@ -1,11 +1,16 @@
 RedLakesCalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-12-05 10:49:45.984062
+2023-12-07 10:36:52.099266
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-12-05 10:49:46.009941
+    #> Last Update: 2023-12-07 10:36:52.130779
+
+# RedLakesCalc 0.1.0.9004 (2023-12-07)
+
+- fix: Update app BCG calculation for cases where have no flags
+  - Same as BCGcalc v2.0.0.9126 commit
 
 # RedLakesCalc 0.1.0.9003 (2023-12-05)
 
