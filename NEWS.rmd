@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# RedLakesCalc 0.1.0.9006 (2023-12-07)
+
+* refactor: modify global packages order
+
 # RedLakesCalc 0.1.0.9005 (2023-12-07)
 
 * refactor: Add complete pop up to merge files

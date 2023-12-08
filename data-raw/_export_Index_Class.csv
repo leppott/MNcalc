@@ -1,0 +1,24 @@
+"Index","VisitType","GroupNumber","GroupName","GP/RR","CountOfStationNum"
+"MN_BCG","bug","1","Northern Forest Rivers","RR",13733
+"MN_BCG","bug","2","Prairie Forest Rivers","GP",16264
+"MN_BCG","bug","3","Northern Forest Streams RR","RR",38764
+"MN_BCG","bug","4","Northern Forest Streams GP","GP",41679
+"MN_BCG","bug","4","Northern Streams GP","GP",56
+"MN_BCG","bug","5","Southern Streams RR","RR",51966
+"MN_BCG","bug","6","Southern Forest Streams GP","GP",32814
+"MN_BCG","bug","7","Prairie Stream GP","GP",23
+"MN_BCG","bug","7","Prairie Streams GP","GP",49635
+"MN_BCG","bug","8","Northern Coldwater","",31910
+"MN_BCG","bug","9","Southern Coldwater","",20008
+"MN_BCG","fish","1","Southern Rivers","",24048
+"MN_BCG","fish","10","Southern Coldwater","",4632
+"MN_BCG","fish","11","Northern Coldwater","",9326
+"MN_BCG","fish","2","Northern Streams","",21
+"MN_BCG","fish","2","Southern Streams","",22226
+"MN_BCG","fish","3","Northern Headwaters","",1
+"MN_BCG","fish","3","Southern Headwaters","",12361
+"MN_BCG","fish","3","Southern Streams","",14
+"MN_BCG","fish","4","Northern Rivers","",13288
+"MN_BCG","fish","5","Northern Streams","",19873
+"MN_BCG","fish","6","Northern Headwaters","",12977
+"MN_BCG","fish","7","Low Gradient","",8019

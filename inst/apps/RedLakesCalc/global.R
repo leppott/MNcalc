@@ -31,10 +31,14 @@ library(StreamCatTools)
 library(nhdplusTools)
 library(ComplexUpset)
 # MTTI
-# library(plyr)
-# library(dplyr)
+#library(plyr) # ok server 3567, MTTI?
 # library(tidyr)
 # library(tibble)
+library(shinyalert)#ok
+library(readr)#ok
+library(rmarkdown) #ok
+library(tools)#ok
+library(openxlsx) #ok
 # nolint end
 
 # Source ----
