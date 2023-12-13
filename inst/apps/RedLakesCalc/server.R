@@ -620,8 +620,8 @@ shinyServer(function(input, output) {
       url_taxoff <- file.path(url_bmt_base
                               , "taxa_official"
                               , fn_taxoff)
-      httr::GET(url_taxoff
-                , write_disk(temp_taxoff <- tempfile(fileext = ".csv")))
+      temp_taxoff <- tempfile(fileext = ".csv")
+      httr::GET(url_taxoff, write_disk(temp_taxoff))
 
       df_taxoff <- read.csv(temp_taxoff)
 
@@ -630,8 +630,8 @@ shinyServer(function(input, output) {
         url_taxoff_meta <- file.path(url_bmt_base
                                      , "taxa_official"
                                      , fn_taxoff_meta)
-        httr::GET(url_taxoff_meta
-            , write_disk(temp_taxoff_meta <- tempfile(fileext = ".csv")))
+        temp_taxoff_meta <- tempfile(fileext = ".csv")
+        httr::GET(url_taxoff_meta, write_disk(temp_taxoff_meta))
 
         df_taxoff_meta <- read.csv(temp_taxoff_meta)
       }## IF ~ fn_taxaoff_meta
@@ -641,8 +641,8 @@ shinyServer(function(input, output) {
         url_taxoff_attr <- file.path(url_bmt_base
                                      , "taxa_official"
                                      , fn_taxoff_attr)
-        httr::GET(url_taxoff_attr
-            , write_disk(temp_taxoff_attr <- tempfile(fileext = ".csv")))
+        temp_taxoff_attr <- tempfile(fileext = ".csv")
+        httr::GET(url_taxoff_attr, write_disk(temp_taxoff_attr))
 
         df_taxoff_attr <- read.csv(temp_taxoff_attr)
       }## IF ~ fn_taxoff_attr
@@ -652,8 +652,8 @@ shinyServer(function(input, output) {
         url_taxoff_attr_meta <- file.path(url_bmt_base
                                      , "taxa_official"
                                      , fn_taxoff_attr_meta)
-        httr::GET(url_taxoff_attr_meta
-                  , write_disk(temp_taxoff_attr_meta <- tempfile(fileext = ".csv")))
+        temp_taxoff_attr_meta <- tempfile(fileext = ".csv")
+        httr::GET(url_taxoff_attr_meta, write_disk(temp_taxoff_attr_meta))
 
         df_taxoff_attr_meta <- read.csv(temp_taxoff_attr_meta)
       }## IF ~ fn_taxaoff_meta
@@ -788,29 +788,30 @@ shinyServer(function(input, output) {
           taxatrans_results$merge <- taxatrans_results$merge[,
                                         !toupper(names(taxatrans_results$merge))
                                         %in% "BCG_ATTR"]
-          taxatrans_results$merge$BCG_ATTR <- NA
+          taxatrans_results$merge$BCG_ATTR <- NA_character_
         }## IF ~ BCG_ATTR
         #
         # BCG_ATTR, Define
+        ## ensure all MN BCG are character or fails
         taxatrans_results$merge <- taxatrans_results$merge %>%
-          mutate(BCG_ATTR = case_when(.data[[sel_user_indexclass]] == "bug1" & .data[[sel_user_gprr]] == "GP" ~ BCG_Attr_GP
-                                      , .data[[sel_user_indexclass]] == "bug2" & .data[[sel_user_gprr]] == "GP" ~ BCG_Attr_GP
-                                      , .data[[sel_user_indexclass]] == "bug3" & .data[[sel_user_gprr]] == "GP" ~ BCG_Attr_GP
-                                      , .data[[sel_user_indexclass]] == "bug4" & .data[[sel_user_gprr]] == "GP" ~ BCG_Attr_GP
-                                      , .data[[sel_user_indexclass]] == "bug5" & .data[[sel_user_gprr]] == "GP" ~ BCG_Attr_GP
-                                      , .data[[sel_user_indexclass]] == "bug6" & .data[[sel_user_gprr]] == "GP" ~ BCG_Attr_GP
-                                      , .data[[sel_user_indexclass]] == "bug7" & .data[[sel_user_gprr]] == "GP" ~ BCG_Attr_GP
-                                      , .data[[sel_user_indexclass]] == "bug1" & .data[[sel_user_gprr]] == "RR" ~ BCG_Attr_RR
-                                      , .data[[sel_user_indexclass]] == "bug2" & .data[[sel_user_gprr]] == "RR" ~ BCG_Attr_RR
-                                      , .data[[sel_user_indexclass]] == "bug3" & .data[[sel_user_gprr]] == "RR" ~ BCG_Attr_RR
-                                      , .data[[sel_user_indexclass]] == "bug4" & .data[[sel_user_gprr]] == "RR" ~ BCG_Attr_RR
-                                      , .data[[sel_user_indexclass]] == "bug5" & .data[[sel_user_gprr]] == "RR" ~ BCG_Attr_RR
-                                      , .data[[sel_user_indexclass]] == "bug6" & .data[[sel_user_gprr]] == "RR" ~ BCG_Attr_RR
-                                      , .data[[sel_user_indexclass]] == "bug7" & .data[[sel_user_gprr]] == "RR" ~ BCG_Attr_RR
-                                      , .data[[sel_user_indexclass]] == "bug8" ~ BCG_Cool_8
-                                      , .data[[sel_user_indexclass]] == "bug9" ~ BCG_Cold_9
-                                      , .default = NA
-                                      )## case_when
+          dplyr::mutate(BCG_ATTR = dplyr::case_when(.data[[sel_user_indexclass]] == "bug1" & .data[[sel_user_gprr]] == "GP" ~ as.character(BCG_Attr_GP)
+                                                    , .data[[sel_user_indexclass]] == "bug2" & .data[[sel_user_gprr]] == "GP" ~ as.character(BCG_Attr_GP)
+                                                    , .data[[sel_user_indexclass]] == "bug3" & .data[[sel_user_gprr]] == "GP" ~ as.character(BCG_Attr_GP)
+                                                    , .data[[sel_user_indexclass]] == "bug4" & .data[[sel_user_gprr]] == "GP" ~ as.character(BCG_Attr_GP)
+                                                    , .data[[sel_user_indexclass]] == "bug5" & .data[[sel_user_gprr]] == "GP" ~ as.character(BCG_Attr_GP)
+                                                    , .data[[sel_user_indexclass]] == "bug6" & .data[[sel_user_gprr]] == "GP" ~ as.character(BCG_Attr_GP)
+                                                    , .data[[sel_user_indexclass]] == "bug7" & .data[[sel_user_gprr]] == "GP" ~ as.character(BCG_Attr_GP)
+                                                    , .data[[sel_user_indexclass]] == "bug1" & .data[[sel_user_gprr]] == "RR" ~ as.character(BCG_Attr_RR)
+                                                    , .data[[sel_user_indexclass]] == "bug2" & .data[[sel_user_gprr]] == "RR" ~ as.character(BCG_Attr_RR)
+                                                    , .data[[sel_user_indexclass]] == "bug3" & .data[[sel_user_gprr]] == "RR" ~ as.character(BCG_Attr_RR)
+                                                    , .data[[sel_user_indexclass]] == "bug4" & .data[[sel_user_gprr]] == "RR" ~ as.character(BCG_Attr_RR)
+                                                    , .data[[sel_user_indexclass]] == "bug5" & .data[[sel_user_gprr]] == "RR" ~ as.character(BCG_Attr_RR)
+                                                    , .data[[sel_user_indexclass]] == "bug6" & .data[[sel_user_gprr]] == "RR" ~ as.character(BCG_Attr_RR)
+                                                    , .data[[sel_user_indexclass]] == "bug7" & .data[[sel_user_gprr]] == "RR" ~ as.character(BCG_Attr_RR)
+                                                    , .data[[sel_user_indexclass]] == "bug8" ~ BCG_Cool_8
+                                                    , .data[[sel_user_indexclass]] == "bug9" ~ BCG_Cold_9
+                                                    , .default = NA
+                                                    )## case_when
           )## mutate
 
       } else if (sel_proj == "MN BCG (fish)") {
@@ -819,22 +820,27 @@ shinyServer(function(input, output) {
           taxatrans_results$merge <- taxatrans_results$merge[,
                                                              !toupper(names(taxatrans_results$merge))
                                                              %in% "BCG_ATTR"]
-          taxatrans_results$merge$BCG_ATTR <- NA
+          taxatrans_results$merge$BCG_ATTR <- NA_character_
         }## IF ~ BCG_ATTR
         #
         # BCG_ATTR, Define
+        ## ensure all MN BCG are character or fails
         taxatrans_results$merge <- taxatrans_results$merge %>%
-          mutate(BCG_ATTR = case_when(.data[[sel_user_indexclass]] == "fish1" ~ BCG_Attr_MN2_01
-                                      , .data[[sel_user_indexclass]] == "fish2" ~ BCG_Attr_MN2_02
-                                      , .data[[sel_user_indexclass]] == "fish3" ~ BCG_Attr_MN2_03
-                                      , .data[[sel_user_indexclass]] == "fish4" ~ BCG_Attr_MN2_04
-                                      , .data[[sel_user_indexclass]] == "fish5" ~ BCG_Attr_MN2_05
-                                      , .data[[sel_user_indexclass]] == "fish6" ~ BCG_Attr_MN2_06
-                                      , .data[[sel_user_indexclass]] == "fish7" ~ BCG_Attr_MN2_07
-                                      , .data[[sel_user_indexclass]] == "fish10" ~ BCG_Attr_MN2_10
-                                      , .data[[sel_user_indexclass]] == "fish11" ~ BCG_Attr_MN2_11
-                                      , .default = NA
-                                      )## case_when
+          dplyr::mutate(BCG_ATTR = dplyr::case_when(.data[[sel_user_indexclass]] == "fish1" ~ as.character(BCG_Attr_MN2_01)
+                                                    , .data[[sel_user_indexclass]] == "fish2" ~ as.character(BCG_Attr_MN2_02)
+                                                    , .data[[sel_user_indexclass]] == "fish3" ~ as.character(BCG_Attr_MN2_03)
+                                                    , .data[[sel_user_indexclass]] == "fish4" ~ as.character(BCG_Attr_MN2_04)
+                                                    , .data[[sel_user_indexclass]] == "fish5" ~ as.character(BCG_Attr_MN2_05)
+                                                    , .data[[sel_user_indexclass]] == "fish6" ~ as.character(BCG_Attr_MN2_06)
+                                                    , .data[[sel_user_indexclass]] == "fish7" ~ as.character(BCG_Attr_MN2_07)
+                                                    , .data[[sel_user_indexclass]] == "fish10" ~ as.character(BCG_Attr_MN2_10)
+                                                    , .data[[sel_user_indexclass]] == "fish11" ~ as.character(BCG_Attr_MN2_11)
+                                                    , .data[[sel_user_indexclass]] == "fish10a" ~ as.character(BCG_Attr_MN2_10)
+                                                    , .data[[sel_user_indexclass]] == "fish11a" ~ as.character(BCG_Attr_MN2_11)
+                                                    , .data[[sel_user_indexclass]] == "fish10b" ~ as.character(BCG_Attr_MN2_10)
+                                                    , .data[[sel_user_indexclass]] == "fish11b" ~ as.character(BCG_Attr_MN2_11)
+                                                    , .default = NA
+                                      )## case_when  (10a, 10b, 11a, 11b)
           )## mutate
       }## IF ~ sel_proj
 
@@ -2248,7 +2254,7 @@ shinyServer(function(input, output) {
       message(paste0("\n", prog_detail))
 
       # Number of increments
-      prog_n <- 10
+      prog_n <- 11
       prog_sleep <- 0.25
 
       ## Calc, 1, Initialize ----
@@ -2527,7 +2533,7 @@ shinyServer(function(input, output) {
         # Flags Summary
         df_lev_flags_summ <- data.frame(x = str_nodata)
         # Results
-        df_results <- data.frame(x = str_nodata)
+        df_results <- df_lev_flags[, !names(df_lev_flags) %in% c(paste0("L", 1:6))]
         # Flag Metrics
         df_metflags <- data.frame(x = str_nodata)
 
@@ -2609,7 +2615,47 @@ shinyServer(function(input, output) {
                         , output_dir = dir.export
                         , quiet = TRUE)
 
-      ## Calc, 9, Clean Up----
+      ## Calc, 10, Save, Reference----
+      prog_detail <- "Calculate, Save, Reference"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(2 * prog_sleep)
+
+      path_results_ref <- file.path(path_results, dn_files_ref)
+
+      ## Index Class
+      fn_save <- "IndexClass.xlsx"
+      file_from <- temp_indexclass_crit
+      file_to <- file.path(path_results_ref, fn_save)
+      file.copy(file_from, file_to)
+
+      ## Metric Flags
+      fn_save <- "MetricFlags.xlsx"
+      file_from <- temp_bcg_checks
+      file_to <- file.path(path_results_ref, fn_save)
+      file.copy(file_from, file_to)
+
+      ## Metric Names
+      fn_save <- "MetricNames.xlsx"
+      file_from <- temp_metricnames
+      file_to <- file.path(path_results_ref, fn_save)
+      file.copy(file_from, file_to)
+
+      ## Metric Scoring
+      fn_save <- "MetricScoring.xlsx"
+      file_from <- temp_metricscoring
+      file_to <- file.path(path_results_ref, fn_save)
+      file.copy(file_from, file_to)
+
+      ## BCG Rules
+      fn_save <- "Rules.xlsx"
+      file_from <- temp_bcg_models
+      file_to <- file.path(path_results_ref, fn_save)
+      file.copy(file_from, file_to)
+
+
+      ## Calc, 11, Clean Up----
       prog_detail <- "Calculate, Clean Up"
       message(paste0("\n", prog_detail))
       # Increment the progress bar, and update the detail text.
@@ -3502,8 +3548,8 @@ shinyServer(function(input, output) {
                                           , fn_taxoff)
 
       # download so ensure have it before read
-      httr::GET(url_taxa_official
-          , httr::write_disk(temp_taxa_official <- tempfile(fileext = ".csv")))
+      temp_taxa_official <- tempfile(fileext = ".csv")
+      httr::GET(url_taxa_official, httr::write_disk(temp_taxa_official))
 
       df_tax <- read.csv(temp_taxa_official)
 

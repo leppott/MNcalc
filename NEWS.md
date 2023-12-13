@@ -1,11 +1,32 @@
 RedLakesCalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-12-07 10:44:09.088427
+2023-12-13 14:40:54.969928
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-12-07 10:44:09.144945
+    #> Last Update: 2023-12-13 14:40:55.013425
+
+# RedLakesCalc 0.1.0.9007 (2023-12-13)
+
+- refactor: Update language on screen for calculations
+  - BCG to BCG and IBI
+- fix: Update output for calculations results when no flags
+- refactor: Add files to results reference file
+  - MetricNames.xlsx
+  - MetricScoring.xlsx
+  - Rules.xlsx
+  - MetricFlags.xlsx
+  - IndexClass.xlsx
+- refactor: Update code for downloading reference files from GitHub
+  - global.R
+  - server.R
+- fix: Update taxa translate mutate case_when
+  - fails if columns not the same class
+
+# RedLakesCalc 0.1.0.9006 (2023-12-07)
+
+- refactor: modify global packages order
 
 # RedLakesCalc 0.1.0.9005 (2023-12-07)
 
