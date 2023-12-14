@@ -566,6 +566,18 @@ shinyServer(function(input, output) {
       message(paste0("User response to summarize duplicate sample taxa = "
                , sel_summ))
 
+      # Different result subfolder based on project (bugs/fish and BCG/IBI)
+      # 2023-12-14
+      if (sel_proj == "MN BCG (bugs)") {
+        dir_proj_results <- paste("bugs", dir_proj_results, sep = "_")
+      } else if (sel_proj == "MN IBI (bugs)") {
+        dir_proj_results <- paste("bugs", dir_proj_results, sep = "_")
+      } else if (sel_proj == "MN BCG (fish)") {
+        dir_proj_results <- paste("fish", dir_proj_results, sep = "_")
+      } else if (sel_proj == "MN IBI (fish)") {
+        dir_proj_results <- paste("fish", dir_proj_results, sep = "_")
+      }## IF ~ sel_proj
+
       dn_files <- paste(abr_results, dir_proj_results, sep = "_")
 
       # Add "Results" folder if missing
@@ -2254,7 +2266,7 @@ shinyServer(function(input, output) {
       message(paste0("\n", prog_detail))
 
       # Number of increments
-      prog_n <- 11
+      prog_n <- 12
       prog_sleep <- 0.25
 
       ## Calc, 1, Initialize ----
@@ -2271,10 +2283,12 @@ shinyServer(function(input, output) {
       copy_import_file(import_file = input$fn_input)
 
       # result folder and files
+      # 2023-12-14, add community
+      fn_comm <- input$si_community
       fn_abr <- abr_bcg
       fn_abr_save <- paste0("_", fn_abr, "_")
       path_results_sub <- file.path(path_results
-                                    , paste(abr_results, fn_abr, sep = "_"))
+                                    , paste(abr_results, fn_comm, fn_abr, sep = "_"))
       # Add "Results" folder if missing
       boo_Results <- dir.exists(file.path(path_results_sub))
       if (boo_Results == FALSE) {
@@ -2321,8 +2335,8 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
-      # Calc
 
+      # Calc
       message(paste0("User response to generate ExclTaxa = ", input$ExclTaxa))
 
       if (input$ExclTaxa) {
@@ -2381,6 +2395,7 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+
       # Rules - should all be metrics but leaving here just in case
       # Flags - not always metrics,
       # Index Name for import data
@@ -2399,6 +2414,7 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+
       # filter for data Index_Name in data (drop 2 extra columns)
       df_rules <- df_bcg_models[df_bcg_models$Index_Name == import_IndexName
                                 , !names(df_bcg_models) %in% c("SITE_TYPE", "INDEX_REGION")]
@@ -2415,6 +2431,7 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+
       # Calc
       # QC
       # df_input <- read.csv(file.path("inst", "extdata", "Data_BCG_PacNW.csv"))
@@ -2438,14 +2455,14 @@ shinyServer(function(input, output) {
 
       #df_metval$INDEX_CLASS <- df_metval$INDEX_CLASS
 
-      ## Save Results ----
+      ### Save Results ----
 
       fn_metval <- paste0(fn_input_base, fn_abr_save, "2metval_all.csv")
       dn_metval <- path_results_sub
       pn_metval <- file.path(dn_metval, fn_metval)
       write.csv(df_metval, pn_metval, row.names = FALSE)
 
-      ## Save Results (BCG) ----
+      ### Save Results (BCG) ----
       # Munge
       ## Model and QC Flag metrics only
       # cols_flags defined above
@@ -2470,6 +2487,7 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+
       # Calc
       df_metmemb <- BCGcalc::BCG.Metric.Membership(df_metval, df_bcg_models)
       # Save Results
@@ -2485,6 +2503,7 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+
       # Calc
       df_levmemb <- BCGcalc::BCG.Level.Membership(df_metmemb, df_bcg_models)
       # Save Results
@@ -2500,6 +2519,7 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+
       # Calc
       df_levassign <- BCGcalc::BCG.Level.Assignment(df_levmemb)
       # Save Results

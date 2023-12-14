@@ -1,11 +1,17 @@
 RedLakesCalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-12-14 13:58:49.299676
+2023-12-14 14:39:19.36505
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-12-14 13:58:49.344108
+    #> Last Update: 2023-12-14 14:39:19.452788
+
+# RedLakesCalc 0.1.0.9110 (2023-12-14)
+
+- refactor: Modify results subfolder to include community
+  - Taxa Translate
+  - Calculate BCG (and later IBI)
 
 # RedLakesCalc 0.1.0.9009 (2023-12-14)
 

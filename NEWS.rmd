@@ -21,6 +21,12 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# RedLakesCalc 0.1.0.9110 (2023-12-14)
+
+* refactor: Modify results subfolder to include community
+    + Taxa Translate
+    + Calculate BCG  (and later IBI)
+
 # RedLakesCalc 0.1.0.9009 (2023-12-14)
 
 * refactor: Auto add INDEX_NAME if missing for BCG calculation
