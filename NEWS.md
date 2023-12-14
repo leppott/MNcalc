@@ -1,11 +1,17 @@
 RedLakesCalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-12-13 14:40:54.969928
+2023-12-14 11:21:52.270858
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-12-13 14:40:55.013425
+    #> Last Update: 2023-12-14 11:21:52.304065
+
+# RedLakesCalc 0.1.0.9008 (2023-12-14)
+
+- refactor: Update on-screen text from OR-WA to MN
+- refactor: Add MN BCG and IBI documentation
+- refactor: Remove some OR-WA specific files
 
 # RedLakesCalc 0.1.0.9007 (2023-12-13)
 

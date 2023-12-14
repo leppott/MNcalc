@@ -3,15 +3,15 @@
 function() {
   sidebarLayout(
     sidebarPanel(
-       h2("Calculate BCG and IBI Models")
+       h2("Calculate BCG Models")
        , p("This function will render all steps and make available files for download.")
        , br()
 
-       , h4("A. Upload a file.")
+       , h4("A. Upload a file")
        , p("If no file name showing below repeat 'Import File' in the left sidebar.")
        , p(textOutput("fn_input_display_bcg"))
 
-       , h4("B. Define Community (for metrics).")
+       , h4("B. Define Community (for metrics)")
        , selectInput("si_community"
                      , label = "Community"
                      , choices = sel_community
@@ -23,7 +23,7 @@ function() {
                        , "Generate Redundant Taxa Column"
                        , TRUE)
 
-       , h4("D. Define BCG Model.")
+       , h4("D. Define BCG Model")
        , p("Determined by INDEX_NAME and INDEX_CLASS in data input file.")
        # , selectInput("si_model"
        #               , label = "BCG Model"

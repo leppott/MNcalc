@@ -43,7 +43,7 @@ function(id) {
       , menuItem(text = "Calculation"
                  , icon = icon("gears")
                  , tabName = "tab_calc"
-                 , menuSubItem("BCG and IBI Models"
+                 , menuSubItem("BCG Models"
                                , tabName = "tab_calc_bcg"
                                , icon = icon("award"))
                  # , menuSubItem("Thermal Preference Metrics [DRAFT]"
