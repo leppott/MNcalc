@@ -2308,6 +2308,13 @@ shinyServer(function(input, output) {
       # QC, names to upper case
       names(df_input) <- toupper(names(df_input))
 
+      # QC, Index_Name
+      # Only MN_BCG so can add if missing
+      if (!"INDEX_NAME" %in% toupper(names(df_input))) {
+        df_input[, "INDEX_NAME"] <- "MN_BCG"
+      }## IF ~ INDEX_NAME
+
+
       ## Calc, 2, Exclude Taxa ----
       prog_detail <- "Calculate, Exclude Taxa"
       message(paste0("\n", prog_detail))

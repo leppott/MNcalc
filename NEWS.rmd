@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# RedLakesCalc 0.1.0.9009 (2023-12-14)
+
+* refactor: Auto add INDEX_NAME if missing for BCG calculation
+
 # RedLakesCalc 0.1.0.9008 (2023-12-14)
 
 * refactor: Update on-screen text from OR-WA to MN

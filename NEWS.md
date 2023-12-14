@@ -1,11 +1,15 @@
 RedLakesCalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-12-14 11:21:52.270858
+2023-12-14 13:58:49.299676
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-12-14 11:21:52.304065
+    #> Last Update: 2023-12-14 13:58:49.344108
+
+# RedLakesCalc 0.1.0.9009 (2023-12-14)
+
+- refactor: Auto add INDEX_NAME if missing for BCG calculation
 
 # RedLakesCalc 0.1.0.9008 (2023-12-14)
 
