@@ -1,11 +1,18 @@
 RedLakesCalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-12-14 14:39:19.36505
+2023-12-21 13:27:19.980681
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-12-14 14:39:19.452788
+    #> Last Update: 2023-12-21 13:27:20.010984
+
+# RedLakesCalc 0.1.0.9111 (2023-12-21)
+
+- refactor: Calculation community buttons to default to NA
+  - calc_BCG
+  - calc_thermalfuzzy
+  - calc_thermalmetrics
 
 # RedLakesCalc 0.1.0.9110 (2023-12-14)
 

@@ -21,6 +21,13 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# RedLakesCalc 0.1.0.9111 (2023-12-21)
+
+* refactor: Calculation community buttons to default to NA
+    + calc_BCG
+    + calc_thermalfuzzy
+    + calc_thermalmetrics
+
 # RedLakesCalc 0.1.0.9110 (2023-12-14)
 
 * refactor: Modify results subfolder to include community
