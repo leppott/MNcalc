@@ -24,6 +24,8 @@ function(id) {
                 , tab_code_filebuilder_mergefiles())
       , tabItem(tabName = "tab_calc_bcg"
                 , tab_code_calc_bcg())
+      , tabItem(tabName = "tab_calc_ibi"
+                , tab_code_calc_ibi())
       # , tabItem(tabName = "tab_calc_thermalmetrics"
       #           , tab_code_calc_thermalmetrics())
       # , tabItem(tabName = "tab_calc_thermalfuzzy"

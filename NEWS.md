@@ -1,13 +1,23 @@
 RedLakesCalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2023-12-21 13:27:19.980681
+2024-06-04 14:32:29.911848
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2023-12-21 13:27:20.010984
+    #> Last Update: 2024-06-04 14:32:29.933753
 
-# RedLakesCalc 0.1.0.9111 (2023-12-21)
+# RedLakesCalc 0.1.0.9013 (2024-06-04)
+
+- fix: Change IBI Calc output tab from “Calc_BCG_Ouput” to
+  “Calc_IBI_Output”
+- refactor: New PC so more files showing as changed
+
+# RedLakesCalc 0.1.0.9012 (2024-01-10)
+
+- feature: Add IBI calculation to Shiny app
+
+# RedLakesCalc 0.1.0.9011 (2023-12-21)
 
 - refactor: Calculation community buttons to default to NA
   - calc_BCG

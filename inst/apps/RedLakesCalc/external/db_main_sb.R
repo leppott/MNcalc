@@ -46,6 +46,9 @@ function(id) {
                  , menuSubItem("BCG Models"
                                , tabName = "tab_calc_bcg"
                                , icon = icon("award"))
+                 , menuSubItem("IBI Models"
+                               , tabName = "tab_calc_ibi"
+                               , icon = icon("compass-drafting"))
                  # , menuSubItem("Thermal Preference Metrics [DRAFT]"
                  #               , tabName = "tab_calc_thermalmetrics"
                  #               , icon = icon("temperature-empty"))

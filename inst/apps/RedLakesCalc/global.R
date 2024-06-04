@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "0.1.0.9011"
+pkg_version <- "0.1.0.9013"
 
 # Packages----
 # nolint start
@@ -25,9 +25,9 @@ library(httr)
 library(reshape2)
 library(knitr)
 library(leaflet)
-library(rioja)   # MTTI model predict
+#library(rioja)   # MTTI model predict
 library(zip)
-library(StreamCatTools)
+library(StreamCatTools)  # remotes::install_github("USEPA/StreamCatTools")
 library(nhdplusTools)
 library(ComplexUpset)
 # MTTI
@@ -72,6 +72,8 @@ tab_code_filebuilder_mergefiles <- source(
                                          "external/tab_filebuilder_mergefiles.R"
                                          , local = TRUE)$value
 tab_code_calc_bcg              <- source("external/tab_calc_bcg.R"
+                                         , local = TRUE)$value
+tab_code_calc_ibi              <- source("external/tab_calc_ibi.R"
                                          , local = TRUE)$value
 # tab_code_calc_thermalmetrics   <- source("external/tab_calc_thermalmetrics.R"
 #                                          , local = TRUE)$value
@@ -132,6 +134,7 @@ abr_fuzzy       <- "FuzzyTemp"
 abr_mtti        <- "MTTI"
 abr_bdi         <- "BDI"
 abr_bsti        <- "BSTI"
+abr_ibi         <- "IBI"
 abr_map         <- "map"
 abr_report      <- "report"
 abr_results     <- "results"
@@ -145,6 +148,7 @@ dn_files_fuzzy  <- paste(abr_results, abr_fuzzy, sep = "_")
 dn_files_mtti   <- paste(abr_results, abr_mtti, sep = "_")
 dn_files_bdi    <- paste(abr_results, abr_bdi, sep = "_")
 dn_files_bsti   <- paste(abr_results, abr_bsti, sep = "_")
+dn_files_ibi    <- paste(abr_results, abr_ibi, sep = "_")
 dn_files_report <- paste(abr_results, abr_report, sep = "_")
 
 # Selection Choices----
@@ -219,9 +223,9 @@ url_metricscoring <- file.path(url_bmt_pkg, "MetricScoring.xlsx")
 temp_metricscoring <- tempfile(fileext = ".xlsx")
 httr::GET(url_metricscoring, httr::write_disk(temp_metricscoring))
 
-# df_metricscoring <- readxl::read_excel(temp_metricnames
-#                                      , sheet = "MetricMetadata"
-#                                      , skip = 4)
+df_metricscoring <- readxl::read_excel(temp_metricscoring
+                                     , sheet = "metric.scoring"
+                                     , skip = 0)
 
 # BMT, Fuzzy Therm Narrative ----
 url_fuzzytherm_crit <- file.path(url_bmt_base

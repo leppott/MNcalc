@@ -19,26 +19,26 @@ Calculate outputs for the Minnesota BCG models.
 
 * BCG Calibration Report, bugs and fish
 
-    + [Gerritsen et al. 2012](links/wq-s6-32_BCG.pdf)
+    + [Gerritsen et al. 2012](links/wq-s6-32_BCG.pdf) [PDF]
 
 * BCG Journal Article, bugs and fish
 
-    + [Gerritsen et al. 2016](links/Gerritsen_etal_2017_BCGinMinn_FWS.pdf)
+    + [Gerritsen et al. 2016](links/Gerritsen_etal_2017_BCGinMinn_FWS.pdf) [PDF]
 
 * BCG, bugs and fish
 
-    + [MPCA 2016](links/wq-bsm4-02_BCG_bugs_fish.pdf)
+    + [MPCA 2016](links/wq-bsm4-02_BCG_bugs_fish.pdf) [PDF]
 
 * IBI, bugs
 
-    + [MPCA 2017](links/wq-bsm3-12a_MN_IBI_Bugs.pdf)
+    + [MPCA 2017](links/wq-bsm3-12a_MN_IBI_Bugs.pdf) [PDF]
 
 
 * IBI, fish
 
-    + [MPCA 2016](links/wq-bsm3-12b_MN_IBI_Fish.pdf)
+    + [MPCA 2016](links/wq-bsm3-12b_MN_IBI_Fish.pdf) [PDF]
 
 
 ---
 
-*Last updated 2023-12-14*
+*Last updated 2024-01-10*

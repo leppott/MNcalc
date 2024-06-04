@@ -21,7 +21,16 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
-# RedLakesCalc 0.1.0.9111 (2023-12-21)
+# RedLakesCalc 0.1.0.9013 (2024-06-04)
+
+* fix: Change IBI Calc output tab from "Calc_BCG_Ouput" to "Calc_IBI_Output"
+* refactor: New PC so more files showing as changed
+
+# RedLakesCalc 0.1.0.9012 (2024-01-10)
+
+* feature: Add IBI calculation to Shiny app
+
+# RedLakesCalc 0.1.0.9011 (2023-12-21)
 
 * refactor: Calculation community buttons to default to NA
     + calc_BCG

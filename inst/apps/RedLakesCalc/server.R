@@ -27,6 +27,17 @@ shinyServer(function(input, output) {
 
   })## fn_input_display_bcg
 
+  output$fn_input_display_ibi <- renderText({
+    inFile <- input$fn_input
+
+    if (is.null(inFile)) {
+      return("..No file uploaded yet...")
+    }##IF~is.null~END
+
+    return(paste0("'", inFile$name, "'"))
+
+  })## fn_input_display_ibi
+
   output$fn_input_display_taxatrans <- renderText({
     inFile <- input$fn_input
 
@@ -259,6 +270,7 @@ shinyServer(function(input, output) {
     shinyjs::enable("b_calc_indexclass")
     shinyjs::enable("b_calc_indexclassparam")
     shinyjs::enable("b_calc_bcg")
+    shinyjs::enable("b_calc_ibi")
     shinyjs::enable("b_calc_met_therm")
     shinyjs::enable("b_calc_modtherm")
     shinyjs::enable("b_calc_mtti")
@@ -2266,7 +2278,7 @@ shinyServer(function(input, output) {
       message(paste0("\n", prog_detail))
 
       # Number of increments
-      prog_n <- 12
+      prog_n <- 13
       prog_sleep <- 0.25
 
       ## Calc, 1, Initialize ----
@@ -2319,6 +2331,13 @@ shinyServer(function(input, output) {
         return(NULL)
       }
 
+      ## Calc, 1.5, QC and Test Inputs ----
+      prog_detail <- "Calculate, QC and Test Inputs"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+
       # QC, names to upper case
       names(df_input) <- toupper(names(df_input))
 
@@ -2327,6 +2346,23 @@ shinyServer(function(input, output) {
       if (!"INDEX_NAME" %in% toupper(names(df_input))) {
         df_input[, "INDEX_NAME"] <- "MN_BCG"
       }## IF ~ INDEX_NAME
+
+      # QC, check for required fields
+      col_req <- c("INDEX_NAME", "INDEX_CLASS", "SAMPLEID", "TAXAID", "N_TAXA")
+      col_req_boo <- col_req %in% names(df_input)
+      col_req_missing <- col_req[!col_req_boo]
+
+      if (sum(col_req_boo) != length(col_req)) {
+        msg <- paste0("Required fields (columns) missing!"
+                      , "\n\n"
+                      , paste(col_req_missing, collapse = ", "))
+        shinyalert::shinyalert(title = "Index Calculation Error"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## IF ~ sum(col_req_boo) != length(col_req)
 
 
       ## Calc, 2, Exclude Taxa ----
@@ -2738,6 +2774,575 @@ shinyServer(function(input, output) {
     }##content~END
     #, contentType = "application/zip"
   )##download ~ BCG
+
+  # Calc, IBI ----
+  ## b_Calc_IBI ----
+  observeEvent(input$b_calc_ibi, {
+    shiny::withProgress({
+
+      # time, start
+      tic <- Sys.time()
+
+      ### Calc, 0, Set Up Shiny Code ----
+
+      prog_detail <- "Calculation, IBI..."
+      message(paste0("\n", prog_detail))
+
+      # Number of increments
+      prog_n <- 13
+      prog_sleep <- 0.25
+
+      ## Calc, 1, Initialize ----
+      prog_detail <- "Initialize Data"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+
+      # Remove existing files in "results"
+      clean_results()
+
+      # Copy user files to results sub-folder
+      copy_import_file(import_file = input$fn_input)
+
+      # result folder and files
+      # 2023-12-14, add community
+      fn_comm <- input$si_community_ibi
+      fn_abr <- abr_ibi
+      fn_abr_save <- paste0("_", fn_abr, "_")
+      path_results_sub <- file.path(path_results
+                                    , paste(abr_results, fn_comm, fn_abr, sep = "_"))
+      # Add "Results" folder if missing
+      boo_Results <- dir.exists(file.path(path_results_sub))
+      if (boo_Results == FALSE) {
+        dir.create(file.path(path_results_sub))
+      }
+
+      # reference folder
+      path_results_ref <- file.path(path_results, dn_files_ref)
+      # Add "Results" folder if missing
+      boo_Results <- dir.exists(file.path(path_results_ref))
+      if (boo_Results == FALSE) {
+        dir.create(file.path(path_results_ref))
+      }
+
+      # button, disable, download
+      shinyjs::disable("b_download_ibi")
+
+      # data
+      inFile <- input$fn_input
+      fn_input_base <- tools::file_path_sans_ext(inFile$name)
+      message(paste0("Import, file name, base: ", fn_input_base))
+      df_input <- read.delim(inFile$datapath
+                             , header = TRUE
+                             , sep = input$sep
+                             , stringsAsFactors = FALSE)
+      # QC, FAIL if TRUE
+      if (is.null(df_input)) {
+        return(NULL)
+      }
+
+      ## Calc, 3, QC and Test Inputs ----
+      prog_detail <- "Calculate, QC and Test Inputs"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+
+      # QC, names to upper case
+      names(df_input) <- toupper(names(df_input))
+
+      # QC, Index_Name
+      # Only MN_IBI so can add if missing
+      if (!"INDEX_NAME" %in% toupper(names(df_input))) {
+        df_input[, "INDEX_NAME"] <- paste0("MN_IBI_", fn_comm)
+      }## IF ~ INDEX_NAME
+
+      # QC, check for required fields
+      col_req <- c("INDEX_NAME", "INDEX_CLASS", "SAMPLEID", "TAXAID", "N_TAXA")
+      col_req_boo <- col_req %in% names(df_input)
+      col_req_missing <- col_req[!col_req_boo]
+
+      if (sum(col_req_boo) != length(col_req)) {
+        msg <- paste0("Required fields (columns) missing!"
+                      , "\n\n"
+                      , paste(col_req_missing, collapse = ", "))
+        shinyalert::shinyalert(title = "Index Calculation Error"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## IF ~ sum(col_req_boo) != length(col_req)
+
+
+      ## Calc, 4, Exclude Taxa ----
+      prog_detail <- "Calculate, Exclude Taxa"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+
+      # Calc
+      message(paste0("User response to generate ExclTaxa = ", input$ExclTaxa_ibi))
+
+      if (input$ExclTaxa_ibi) {
+        ## Get TaxaLevel names present in user file
+        phylo_all <- c("Kingdom"
+                       , "Phylum"
+                       , "SubPhylum"
+                       , "Class"
+                       , "SubClass"
+                       , "Order"
+                       , "SubOrder"
+                       , "InfraOrder"
+                       , "SuperFamily"
+                       , "Family"
+                       , "SubFamily"
+                       , "Tribe"
+                       , "Genus"
+                       , "SubGenus"
+                       , "Species"
+                       , "Variety")
+        phylo_all <- toupper(phylo_all) # so matches rest of file
+
+        # case and matching of taxa levels handled inside of markExluded
+
+        # Overwrite existing column if present
+        # ok since user checked the box to calculate
+        if ("EXCLUDE" %in% toupper(names(df_input))) {
+          # save original user input
+          df_input[, "EXCLUDE_USER"] <- df_input[, "EXCLUDE"]
+          # drop column
+          df_input <- df_input[, !names(df_input) %in% "EXCLUDE"]
+        }## IF ~ Exclude
+
+        # Skip if no Phylo data
+        TaxaLevels <- c("Kingdom"
+                        , "Phylum"
+                        , "SubPhylum"
+                        , "Class"
+                        , "SubClass"
+                        , "Order"
+                        , "SubOrder"
+                        , "SuperFamily"
+                        , "Family"
+                        , "SubFamily"
+                        , "Tribe"
+                        , "Genus"
+                        , "SubGenus"
+                        , "Species"
+                        , "Variety")
+        TaxaLevels_boo <- toupper(TaxaLevels) %in% toupper(names(df_input))
+        if (sum(TaxaLevels_boo) == 0) {
+          boo_Exclude <- "EXCLUDE" %in% toupper(names(df_input))
+          if (boo_Exclude == FALSE) {
+            df_input[, "EXCLUDE"] <- FALSE
+          }## IF ~ boo_Exclude == FALSE
+        } else {
+          # overwrite current data frame
+          df_input <- BioMonTools::markExcluded(df_samptax = df_input
+                                                , SampID = "SAMPLEID"
+                                                , TaxaID = "TAXAID"
+                                                , TaxaCount = "N_TAXA"
+                                                , Exclude = "EXCLUDE"
+                                                , TaxaLevels = phylo_all
+                                                , Exceptions = NA)
+
+        }## IF ~ sum(TaxaLevels_boo) == 0
+
+        # Save Results
+        fn_excl <- paste0(fn_input_base, fn_abr_save, "1markexcl.csv")
+        dn_excl <- path_results_sub
+        pn_excl <- file.path(dn_excl, fn_excl)
+        write.csv(df_input, pn_excl, row.names = FALSE)
+
+      }## IF ~ input$ExclTaxa
+
+
+
+
+
+
+      ## Calc, x3, IBI Flag Cols ----
+      # get columns from Flags (non-metrics) to carry through
+      prog_detail <- "Calculate, Keep IBI Model Columns"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+
+      # Rules - should all be metrics but leaving here just in case
+      # Flags - not always metrics,
+      # Index Name for import data
+      import_IndexName <- unique(df_input$INDEX_NAME)
+      # QC Flags for chosen IBI model (non-metrics)
+      cols_flags <- unique(df_checks[df_checks$Index_Name == import_IndexName
+                                     , "Metric_Name"])
+      # can also add other columns to keep if feel so inclined
+      cols_flags_keep <- cols_flags[cols_flags %in% names(df_input)]
+
+
+      ## Calc, x3b, Rules ----
+      prog_detail <- "Calculate, IBI Rules"
+      message(paste0("\n", prog_detail))
+      message(paste0("Community = ", input$si_community))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+browser()
+      # filter for data Index_Name in data (drop 2 extra columns)
+      col_drop <- c("SITE_TYPE", "INDEX_REGION") # none
+      df_rules <- df_metricscoring[df_metricscoring$INDEX_NAME == import_IndexName
+                                , !names(df_metricscoring) %in% col_drop]
+      # Save
+      fn_rules <- paste0(fn_input_base, fn_abr_save, "3metrules.csv")
+      dn_rules <- path_results_sub
+      pn_rules <- file.path(dn_rules, fn_rules)
+      write.csv(df_rules, pn_rules, row.names = FALSE)
+
+      ## Calc, 4, MetVal----
+      prog_detail <- "Calculate, Metric, Values"
+      message(paste0("\n", prog_detail))
+      message(paste0("Community = ", input$si_community))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+
+      # Calc
+      # QC
+      # df_input <- read.csv(file.path("inst", "extdata", "Data_BCG_PacNW.csv"))
+      # df_metval <- BioMonTools::metric.values(df_input, "bugs", boo.Shiny = TRUE)
+
+      if (length(cols_flags_keep) > 0) {
+        # keep extra cols from Flags (non-metric)
+        df_metval <- BioMonTools::metric.values(df_input
+                                                , input$si_community_ibi
+                                                , fun.cols2keep = cols_flags_keep
+                                                , boo.Shiny = TRUE
+                                                , verbose = TRUE
+                                                , taxaid_dni = "DNI")
+      } else {
+        df_metval <- BioMonTools::metric.values(df_input
+                                                , input$si_community_ibi
+                                                , boo.Shiny = TRUE
+                                                , verbose = TRUE
+                                                , taxaid_dni = "DNI")
+      }## IF ~ length(col_rules_keep)
+
+      #df_metval$INDEX_CLASS <- df_metval$INDEX_CLASS
+
+      ### Save Results ----
+
+      fn_metval <- paste0(fn_input_base, fn_abr_save, "2metval_all.csv")
+      dn_metval <- path_results_sub
+      pn_metval <- file.path(dn_metval, fn_metval)
+      write.csv(df_metval, pn_metval, row.names = FALSE)
+
+      ### Save Results (IBI) ----
+      # Munge
+      ## Model and QC Flag metrics only
+      # cols_flags defined above
+      cols_model_metrics <- unique(df_ibi_models[
+        df_ibi_models$Index_Name == import_IndexName, "Metric_Name"])
+      cols_req <- c("SAMPLEID", "INDEX_NAME", "INDEX_CLASS"
+                    , "ni_total", "nt_total")
+      cols_metrics_flags_keep <- unique(c(cols_req
+                                          , cols_flags
+                                          , cols_model_metrics))
+      df_metval_slim <- df_metval[, names(df_metval) %in% cols_metrics_flags_keep]
+      # Save
+      fn_metval_slim <- paste0(fn_input_base, fn_abr_save, "2metval_IBI.csv")
+      dn_metval_slim <- path_results_sub
+      pn_metval_slim <- file.path(dn_metval_slim, fn_metval_slim)
+      write.csv(df_metval_slim, pn_metval_slim, row.names = FALSE)
+
+
+      ## Calc, 55, IBI Scores ----
+      prog_detail <- "Calculate, IBI Scores"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+
+      # EXAMPLE
+      # Thresholds
+      fn_thresh <- file.path(system.file(package = "BioMonTools")
+                             , "extdata"
+                             , "MetricScoring.xlsx")
+      df_thresh_metric <- read_excel(fn_thresh, sheet = "metric.scoring")
+      df_thresh_index <- read_excel(fn_thresh, sheet = "index.scoring")
+
+      # index to BCG.PacNW.L1
+      df_metric_values_bugs$INDEX_NAME <- myIndex
+      df_metric_values_bugs$INDEX_CLASS <- "ALL"
+
+      # SCORE Metrics
+      df_metric_scores_bugs <- metric.scores(df_metric_values_bugs
+                                             , myMetrics.Bugs
+                                             , "INDEX_NAME"
+                                             , "INDEX_CLASS"
+                                             , df_thresh_metric
+                                             , df_thresh_index)
+
+
+      # ## Calc, x5, MetMemb----
+      # prog_detail <- "Calculate, Metric, Membership"
+      # message(paste0("\n", prog_detail))
+      # # Increment the progress bar, and update the detail text.
+      # incProgress(1/prog_n, detail = prog_detail)
+      # Sys.sleep(prog_sleep)
+      #
+      # # Calc
+      # df_metmemb <- BCGcalc::BCG.Metric.Membership(df_metval, df_bcg_models)
+      # # Save Results
+      # fn_metmemb <- paste0(fn_input_base, fn_abr_save, "3metmemb.csv")
+      # dn_metmemb <- path_results_sub
+      # pn_metmemb <- file.path(dn_metmemb, fn_metmemb)
+      # write.csv(df_metmemb, pn_metmemb, row.names = FALSE)
+      #
+      #
+      # ## Calc, x6, LevMemb----
+      # prog_detail <- "Calculate, Level, Membership"
+      # message(paste0("\n", prog_detail))
+      # # Increment the progress bar, and update the detail text.
+      # incProgress(1/prog_n, detail = prog_detail)
+      # Sys.sleep(prog_sleep)
+      #
+      # # Calc
+      # df_levmemb <- BCGcalc::BCG.Level.Membership(df_metmemb, df_bcg_models)
+      # # Save Results
+      # fn_levmemb <- paste0(fn_input_base, fn_abr_save, "4levmemb.csv")
+      # dn_levmemb <- path_results_sub
+      # pn_levmemb <- file.path(dn_levmemb, fn_levmemb)
+      # write.csv(df_levmemb, pn_levmemb, row.names = FALSE)
+      #
+      #
+      # ## Calc, x7, LevAssign----
+      # prog_detail <- "Calculate, Level, Assignment"
+      # message(paste0("\n", prog_detail))
+      # # Increment the progress bar, and update the detail text.
+      # incProgress(1/prog_n, detail = prog_detail)
+      # Sys.sleep(prog_sleep)
+      #
+      # # Calc
+      # df_levassign <- BCGcalc::BCG.Level.Assignment(df_levmemb)
+      # # Save Results
+      # fn_levassign <- paste0(fn_input_base, fn_abr_save, "5levassign.csv")
+      # dn_levassign <- path_results_sub
+      # pn_levassign <- file.path(dn_levassign, fn_levassign)
+      # write.csv(df_levassign, pn_levassign, row.names = FALSE)
+
+
+      ## Calc, 8, QC Flags----
+      prog_detail <- "Calculate, QC Flags"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+
+      # 2023-12-06
+      # Split if no flags so doesn't crash
+
+      # Check if Flags exist for data
+      col_index_metval <- c("INDEX_NAME", "INDEX_CLASS")
+      col_index_checks <- c("Index_Name", "INDEX_CLASS")
+      index_metval <- unique(df_metval[, col_index_metval])
+      index_checks <- unique(df_checks[, col_index_checks])
+      index_merge <- merge(index_metval, index_checks
+                           , by.x = col_index_metval
+                           , by.y = col_index_checks)
+
+      if (nrow(index_merge) == 0) {
+
+        # create dummy files
+        str_nodata <- "No flags for the Index Name/Class combinations present in data"
+        # Flags
+        df_flags <- data.frame(x = str_nodata
+                               , CHECKNAME = "No Flags"
+                               , FLAG = NA)
+        df_lev_flags <- df_levassign
+        # Flags Summary
+        df_lev_flags_summ <- data.frame(x = str_nodata)
+        # Results
+        df_results <- df_lev_flags[, !names(df_lev_flags) %in% c(paste0("L", 1:6))]
+        # Flag Metrics
+        df_metflags <- data.frame(x = str_nodata)
+
+      } else {
+
+        # Calc
+        # df_checks loaded in global.R
+        df_flags <- BioMonTools::qc.checks(df_metval, df_checks)
+        # Change terminology; PASS/FAIL to NA/flag
+        df_flags[, "FLAG"][df_flags[, "FLAG"] == "FAIL"] <- "flag"
+        df_flags[, "FLAG"][df_flags[, "FLAG"] == "PASS"] <- NA
+        # long to wide format
+        df_flags_wide <- reshape2::dcast(df_flags
+                                         , SAMPLEID ~ CHECKNAME
+                                         , value.var = "FLAG")
+        # Calc number of "flag"s by row.
+        df_flags_wide$NumFlags <- rowSums(df_flags_wide == "flag", na.rm = TRUE)
+        # Rearrange columns
+        NumCols <- ncol(df_flags_wide)
+        df_flags_wide <- df_flags_wide[, c(1, NumCols, 2:(NumCols - 1))]
+        # Merge Levels and Flags
+        df_lev_flags <- merge(df_levassign
+                              , df_flags_wide
+                              , by.x = "SampleID"
+                              , by.y = "SAMPLEID"
+                              , all.x = TRUE)
+        # Flags Summary
+        df_lev_flags_summ <- as.data.frame.matrix(table(df_flags[, "CHECKNAME"]
+                                                        , df_flags[, "FLAG"]
+                                                        , useNA = "ifany"))
+        # Results
+        df_results <- df_lev_flags[, !names(df_lev_flags) %in% c(paste0("L", 1:6))]
+        ## remove L1:6
+
+        # Flag Metrics
+        col2keep_metflags <- c("SAMPLEID", "INDEX_NAME", "INDEX_CLASS"
+                               , "METRIC_NAME", "CHECKNAME", "METRIC_VALUE"
+                               , "SYMBOL", "VALUE", "FLAG")
+        df_metflags <- df_flags[, col2keep_metflags]
+
+      }## IF ~ check for matching index name and class
+
+
+      # Save, Flags Summary
+      fn_levflags <- paste0(fn_input_base, fn_abr_save, "6levflags.csv")
+      dn_levflags <- path_results_sub
+      pn_levflags <- file.path(dn_levflags, fn_levflags)
+      write.csv(df_lev_flags_summ, pn_levflags, row.names = TRUE)
+
+      # Save, Results
+      fn_results <- paste0(fn_input_base, fn_abr_save, "RESULTS.csv")
+      dn_results <- path_results_sub
+      pn_results <- file.path(dn_results, fn_results)
+      write.csv(df_results, pn_results, row.names = FALSE)
+
+      # Save, Flag Metrics
+      fn_metflags <- paste0(fn_input_base, fn_abr_save, "6metflags.csv")
+      dn_metflags <- path_results_sub
+      pn_metflags <- file.path(dn_metflags, fn_metflags)
+      write.csv(df_metflags, pn_metflags, row.names = FALSE)
+
+
+      ## Calc, 9, RMD----
+      prog_detail <- "Calculate, Create Report"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(2 * prog_sleep)
+
+      strFile.RMD <- file.path("external"
+                               , "RMD_Results"
+                               , "Results_IBI_Summary.Rmd")
+      strFile.RMD.format <- "html_document"
+      strFile.out <- paste0(fn_input_base, fn_abr_save, "RESULTS.html")
+      dir.export <- path_results_sub
+      rmarkdown::render(strFile.RMD
+                        , output_format = strFile.RMD.format
+                        , output_file = strFile.out
+                        , output_dir = dir.export
+                        , quiet = TRUE)
+
+      ## Calc, 10, Save, Reference----
+      prog_detail <- "Calculate, Save, Reference"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(2 * prog_sleep)
+
+      path_results_ref <- file.path(path_results, dn_files_ref)
+
+      ## Index Class
+      fn_save <- "IndexClass.xlsx"
+      file_from <- temp_indexclass_crit
+      file_to <- file.path(path_results_ref, fn_save)
+      file.copy(file_from, file_to)
+
+      ## Metric Flags
+      fn_save <- "MetricFlags.xlsx"
+      file_from <- temp_ibi_checks
+      file_to <- file.path(path_results_ref, fn_save)
+      file.copy(file_from, file_to)
+
+      ## Metric Names
+      fn_save <- "MetricNames.xlsx"
+      file_from <- temp_metricnames
+      file_to <- file.path(path_results_ref, fn_save)
+      file.copy(file_from, file_to)
+
+      ## Metric Scoring
+      fn_save <- "MetricScoring.xlsx"
+      file_from <- temp_metricscoring
+      file_to <- file.path(path_results_ref, fn_save)
+      file.copy(file_from, file_to)
+
+      ## IBI Rules
+      fn_save <- "Rules.xlsx"
+      file_from <- temp_ibi_models
+      file_to <- file.path(path_results_ref, fn_save)
+      file.copy(file_from, file_to)
+
+
+      ## Calc, 11, Clean Up----
+      prog_detail <- "Calculate, Clean Up"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(2 * prog_sleep)
+
+      # Create zip file of results
+      fn_4zip <- list.files(path = path_results
+                            , full.names = TRUE)
+      zip::zip(file.path(path_results, "results.zip"), fn_4zip)
+
+      # button, enable, download
+      shinyjs::enable("b_download_ibi")
+
+      # time, end
+      toc <- Sys.time()
+      duration <- difftime(toc, tic)
+
+      # pop up
+      msg <- paste0("Total Records (Input) = ", nrow(df_input)
+                    , "\n\n"
+                    , "Elapse Time (", units(duration), ") = ", round(duration, 2))
+      shinyalert::shinyalert(title = "Task Compete"
+                             , text = msg
+                             , type = "success"
+                             , closeOnEsc = TRUE
+                             , closeOnClickOutside = TRUE)
+      # validate(msg)
+
+    }## expr ~ withProgress ~ END
+    , message = "Calculating IBI"
+    )## withProgress ~ END
+  }##expr ~ ObserveEvent ~ END
+  )##observeEvent ~ b_calc_ibi ~ END
+
+  ## b_download_IBI ----
+  output$b_download_ibi <- downloadHandler(
+
+    filename = function() {
+      inFile <- input$fn_input
+      fn_input_base <- tools::file_path_sans_ext(inFile$name)
+      fn_abr <- abr_ibi
+      fn_abr_save <- paste0("_", fn_abr, "_")
+      paste0(fn_input_base
+             , fn_abr_save
+             , format(Sys.time(), "%Y%m%d_%H%M%S")
+             , ".zip")
+    } ,
+    content = function(fname) {##content~START
+
+      file.copy(file.path(path_results, "results.zip"), fname)
+
+    }##content~END
+    #, contentType = "application/zip"
+  )##download ~ IBI
 
   # Calc, THERMAL METRICS ----
 

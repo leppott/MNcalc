@@ -1,6 +1,6 @@
 ---
 title: "Minnesota"
-subtitle: "Results BCG Summary"
+subtitle: "Results IBI Summary"
 author: "`r Sys.getenv('USERNAME')`"
 date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
 output:
@@ -11,10 +11,10 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(results = 'asis', echo = FALSE, warning = FALSE)
+knitr::opts_chunk$set(results = 'asis', echo = FALSE, warning = FALSE, eval = FALSE)
 ```
 
-```{r}
+```{r, eval=TRUE}
 cat("**Filename:** ", inFile$name, "\n\n", sep = "")
 ```
 

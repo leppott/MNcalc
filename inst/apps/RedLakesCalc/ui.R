@@ -8,12 +8,12 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 dashboardPage(
-  header = dashboardHeader(title = "BCGcalc_RedLakes")
+  header = dashboardHeader(title = "BCG_IBI_Calc_RedLakes")
   #, sidebar = dashboardSidebar(sb_main("leftsidebarmenu"))
   , sidebar = dashboardSidebar(db_main_sb("leftsidebarmenu"))
   , body = dashboardBody(db_main_body("dbBody"))
   , footer = dashboardFooter(left = pkg_version
-                             , right = "https://github.com/leppott/BCGcalc")
+                             , right = "https://github.com/leppott/RedLakesCalc")
 ) ## dashboardPage ~ END
 
 # https://rstudio.github.io/shinydashboard/get_started.html
