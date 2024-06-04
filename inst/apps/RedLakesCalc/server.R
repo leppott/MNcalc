@@ -3086,6 +3086,33 @@ browser()
                                              , df_thresh_index)
 
 
+      ## Calc, 99, Post Index Adjustments ----
+      prog_detail <- "Calculate, Post IBI Score Adjustments"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+      ### Bugs
+
+      ### Fish
+      # Low End Scoring
+      # Some metrics to score of zero
+      # INDEX_CLASS 1, 2, 4, 5
+      # pi_* to zero when ni_total < 25
+      # nt_* and pt_* to zero when nt_total < 6
+      # INDEX_CLASS 3, 6, 7
+      # pi_* to zero when ni_total < 25
+      # nt_* and pt_* to zero when nt_total < 6
+      # INDEX_CLASS 8 and 9
+      # no adjustment
+
+      # case when then recalc index
+      # Then apply pi_DELT_ExclSchool
+
+
+
+
+
       # ## Calc, x5, MetMemb----
       # prog_detail <- "Calculate, Metric, Membership"
       # message(paste0("\n", prog_detail))

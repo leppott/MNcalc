@@ -1,11 +1,16 @@
 RedLakesCalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-06-04 14:32:29.911848
+2024-06-04 15:48:33.269682
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-06-04 14:32:29.933753
+    #> Last Update: 2024-06-04 15:48:33.305587
+
+# RedLakesCalc 0.1.0.9014 (2024-06-04)
+
+- fix: Update file to avoid readxl import message
+  - data/BCGcalc_Shiny_map_inputs_20230828.xlsx
 
 # RedLakesCalc 0.1.0.9013 (2024-06-04)
 
