@@ -2990,7 +2990,7 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
-browser()
+
       # filter for data Index_Name in data (drop 2 extra columns)
       col_drop <- c("SITE_TYPE", "INDEX_REGION") # none
       df_rules <- df_metricscoring[df_metricscoring$INDEX_NAME == import_IndexName
@@ -3004,7 +3004,7 @@ browser()
       ## Calc, 4, MetVal----
       prog_detail <- "Calculate, Metric, Values"
       message(paste0("\n", prog_detail))
-      message(paste0("Community = ", input$si_community))
+      message(paste0("Community = ", input$si_community_ibi))
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
@@ -3039,12 +3039,11 @@ browser()
       pn_metval <- file.path(dn_metval, fn_metval)
       write.csv(df_metval, pn_metval, row.names = FALSE)
 
-      ### Save Results (IBI) ----
+      ### Save, MetVal ----
       # Munge
       ## Model and QC Flag metrics only
       # cols_flags defined above
-      cols_model_metrics <- unique(df_ibi_models[
-        df_ibi_models$Index_Name == import_IndexName, "Metric_Name"])
+      cols_model_metrics <- unique(df_rules[, "METRIC_NAME", TRUE])
       cols_req <- c("SAMPLEID", "INDEX_NAME", "INDEX_CLASS"
                     , "ni_total", "nt_total")
       cols_metrics_flags_keep <- unique(c(cols_req
@@ -3073,13 +3072,13 @@ browser()
       df_thresh_metric <- read_excel(fn_thresh, sheet = "metric.scoring")
       df_thresh_index <- read_excel(fn_thresh, sheet = "index.scoring")
 
-      # index to BCG.PacNW.L1
-      df_metric_values_bugs$INDEX_NAME <- myIndex
-      df_metric_values_bugs$INDEX_CLASS <- "ALL"
+      # # index to BCG.PacNW.L1
+      # df_metric_values_bugs$INDEX_NAME <- myIndex
+      # df_metric_values_bugs$INDEX_CLASS <- "ALL"
 
       # SCORE Metrics
-      df_metric_scores_bugs <- metric.scores(df_metric_values_bugs
-                                             , myMetrics.Bugs
+      df_metric_scores <- metric.scores(df_metval
+                                             , cols_model_metrics
                                              , "INDEX_NAME"
                                              , "INDEX_CLASS"
                                              , df_thresh_metric
@@ -3092,7 +3091,9 @@ browser()
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+
       ### Bugs
+      # No Adjustments
 
       ### Fish
       # Low End Scoring
@@ -3105,60 +3106,99 @@ browser()
       # nt_* and pt_* to zero when nt_total < 6
       # INDEX_CLASS 8 and 9
       # no adjustment
+      ic_les_1 <- c("1", "2", "4", "5")
+      ic_les_2 <- c("3", "6", "7")
+      ic_les_all <- c(ic_les_1, ic_les_2)
+      if (input$si_community_ibi == "fish") {
 
-      # case when then recalc index
-      # Then apply pi_DELT_ExclSchool
+        # Rework Final Scoring, part 1/2
+        df_metric_scores <- df_metric_scores %>%
+          # Add Index_n_metrics
+          mutate(Index_n_metrics = case_when(INDEX_CLASS == "1" ~ 11
+                                             , INDEX_CLASS == "2" ~ 8
+                                             , INDEX_CLASS == "3" ~ 6
+                                             , INDEX_CLASS == "4" ~ 10
+                                             , INDEX_CLASS == "5" ~ 11
+                                             , INDEX_CLASS == "6" ~ 10
+                                             , INDEX_CLASS == "7" ~ 9
+                                             , INDEX_CLASS == "8" ~ 7
+                                             , INDEX_CLASS == "9" ~ 8
+                                             , .default = NA)) %>%
+          # modify index columns
+          mutate(sum_Index_ORIG = sum_Index
+                 , Index_ORIG = Index
+                 , sum_Index = 0
+                 , Index = 0
+                 ) %>%
+          # LES, Multiplier
+          mutate(les_mult_ni = case_when(ni_total < 25
+                                    & INDEX_CLASS %in% ic_les_1 ~ 0
+                                    , .default = 1)) %>%
+          mutate(les_mult_ni = case_when(ni_total < 25
+                                         & INDEX_CLASS %in% ic_les_2 ~ 0
+                                         , .default = les_mult_ni)) %>%
+          mutate(les_mult_nt = case_when(nt_total < 6
+                                         & INDEX_CLASS %in% ic_les_1 ~ 0
+                                         , .default = 1)) %>%
+          mutate(les_mult_nt = case_when(nt_total < 4
+                                         & INDEX_CLASS %in% ic_les_2 ~ 0
+                                         , .default = les_mult_nt)) %>%
+          # LES, Adjust Scores, pi
+          mutate(across(starts_with("SC_pi_"), ~ . * les_mult_ni)) %>%
+          # LES, Adjust Scores, nt
+          mutate(across(starts_with("SC_nt_"), ~ . * les_mult_nt)) %>%
+          # LES, Adjust Scores, pt
+          mutate(across(starts_with("SC_pt_"), ~ . * les_mult_nt)) %>%
+          # Re-sum SCORES
+          rowwise() %>%
+            mutate(sum_Index = sum(c_across(cols = starts_with("SC_"))
+                                    , na.rm = TRUE))
+
+
+        # QC
+        show_msg <- FALSE
+        if(show_msg) {
+          select(df_metric_scores, c(INDEX_CLASS
+                                     , ni_total
+                                     , les_mult_ni
+                                     , nt_total
+                                     , les_mult_nt))
+        }## show_msg
+
+        # Rework Final Scoring, part 2/2
+        df_metric_scores <- df_metric_scores %>%
+          # Recalc Index
+          mutate(Index = round(sum_Index * 10 / Index_n_metrics)) %>%
+          # Score % DELT
+          mutate(Index_mod_delt = case_when(pi_delt_ExclSchool >= 2 ~ -5
+                                            , pi_delt_ExclSchool >= 4 ~ -10
+                                            , .default = 0)) %>%
+          # Update sum_index
+          mutate(Index = Index + Index_mod_delt)
+
+
+
+
+        # QC
+        if(show_msg) {
+          select(df_metric_scores, c(sum_Index_ORIG
+                                     , Index_ORIG
+                                     , sum_Index
+                                     , Index
+                                     , Index_mod_delt
+                                     , pi_delt_ExclSchool
+                                     , Index_n_metrics
+                                     ))
+        }## show_msg
+
+      }## IF ~ FIBI
 
 
 
 
 
-      # ## Calc, x5, MetMemb----
-      # prog_detail <- "Calculate, Metric, Membership"
-      # message(paste0("\n", prog_detail))
-      # # Increment the progress bar, and update the detail text.
-      # incProgress(1/prog_n, detail = prog_detail)
-      # Sys.sleep(prog_sleep)
-      #
-      # # Calc
-      # df_metmemb <- BCGcalc::BCG.Metric.Membership(df_metval, df_bcg_models)
-      # # Save Results
-      # fn_metmemb <- paste0(fn_input_base, fn_abr_save, "3metmemb.csv")
-      # dn_metmemb <- path_results_sub
-      # pn_metmemb <- file.path(dn_metmemb, fn_metmemb)
-      # write.csv(df_metmemb, pn_metmemb, row.names = FALSE)
-      #
-      #
-      # ## Calc, x6, LevMemb----
-      # prog_detail <- "Calculate, Level, Membership"
-      # message(paste0("\n", prog_detail))
-      # # Increment the progress bar, and update the detail text.
-      # incProgress(1/prog_n, detail = prog_detail)
-      # Sys.sleep(prog_sleep)
-      #
-      # # Calc
-      # df_levmemb <- BCGcalc::BCG.Level.Membership(df_metmemb, df_bcg_models)
-      # # Save Results
-      # fn_levmemb <- paste0(fn_input_base, fn_abr_save, "4levmemb.csv")
-      # dn_levmemb <- path_results_sub
-      # pn_levmemb <- file.path(dn_levmemb, fn_levmemb)
-      # write.csv(df_levmemb, pn_levmemb, row.names = FALSE)
-      #
-      #
-      # ## Calc, x7, LevAssign----
-      # prog_detail <- "Calculate, Level, Assignment"
-      # message(paste0("\n", prog_detail))
-      # # Increment the progress bar, and update the detail text.
-      # incProgress(1/prog_n, detail = prog_detail)
-      # Sys.sleep(prog_sleep)
-      #
-      # # Calc
-      # df_levassign <- BCGcalc::BCG.Level.Assignment(df_levmemb)
-      # # Save Results
-      # fn_levassign <- paste0(fn_input_base, fn_abr_save, "5levassign.csv")
-      # dn_levassign <- path_results_sub
-      # pn_levassign <- file.path(dn_levassign, fn_levassign)
-      # write.csv(df_levassign, pn_levassign, row.names = FALSE)
+
+
 
 
       ## Calc, 8, QC Flags----
@@ -3180,79 +3220,80 @@ browser()
                            , by.x = col_index_metval
                            , by.y = col_index_checks)
 
-      if (nrow(index_merge) == 0) {
+      # if (nrow(index_merge) == 0) {
+      #
+      #   # create dummy files
+      #   str_nodata <- "No flags for the Index Name/Class combinations present in data"
+      #   # Flags
+      #   df_flags <- data.frame(x = str_nodata
+      #                          , CHECKNAME = "No Flags"
+      #                          , FLAG = NA)
+      #   df_lev_flags <- df_levassign
+      #   # Flags Summary
+      #   df_lev_flags_summ <- data.frame(x = str_nodata)
+      #   # Results
+      #   df_results <- df_lev_flags[, !names(df_lev_flags) %in% c(paste0("L", 1:6))]
+      #   # Flag Metrics
+      #   df_metflags <- data.frame(x = str_nodata)
+      #
+      # } else {
+      #
+      #   # Calc
+      #   # df_checks loaded in global.R
+      #   df_flags <- BioMonTools::qc.checks(df_metval, df_checks)
+      #   # Change terminology; PASS/FAIL to NA/flag
+      #   df_flags[, "FLAG"][df_flags[, "FLAG"] == "FAIL"] <- "flag"
+      #   df_flags[, "FLAG"][df_flags[, "FLAG"] == "PASS"] <- NA
+      #   # long to wide format
+      #   df_flags_wide <- reshape2::dcast(df_flags
+      #                                    , SAMPLEID ~ CHECKNAME
+      #                                    , value.var = "FLAG")
+      #   # Calc number of "flag"s by row.
+      #   df_flags_wide$NumFlags <- rowSums(df_flags_wide == "flag", na.rm = TRUE)
+      #   # Rearrange columns
+      #   NumCols <- ncol(df_flags_wide)
+      #   df_flags_wide <- df_flags_wide[, c(1, NumCols, 2:(NumCols - 1))]
+      #   # Merge Levels and Flags
+      #   df_lev_flags <- merge(df_levassign
+      #                         , df_flags_wide
+      #                         , by.x = "SampleID"
+      #                         , by.y = "SAMPLEID"
+      #                         , all.x = TRUE)
+      #   # Flags Summary
+      #   df_lev_flags_summ <- as.data.frame.matrix(table(df_flags[, "CHECKNAME"]
+      #                                                   , df_flags[, "FLAG"]
+      #                                                   , useNA = "ifany"))
+      #   # Results
+      #   df_results <- df_lev_flags[, !names(df_lev_flags) %in% c(paste0("L", 1:6))]
+      #   ## remove L1:6
+      #
+      #   # Flag Metrics
+      #   col2keep_metflags <- c("SAMPLEID", "INDEX_NAME", "INDEX_CLASS"
+      #                          , "METRIC_NAME", "CHECKNAME", "METRIC_VALUE"
+      #                          , "SYMBOL", "VALUE", "FLAG")
+      #   df_metflags <- df_flags[, col2keep_metflags]
+      #
+      # }## IF ~ check for matching index name and class
 
-        # create dummy files
-        str_nodata <- "No flags for the Index Name/Class combinations present in data"
-        # Flags
-        df_flags <- data.frame(x = str_nodata
-                               , CHECKNAME = "No Flags"
-                               , FLAG = NA)
-        df_lev_flags <- df_levassign
-        # Flags Summary
-        df_lev_flags_summ <- data.frame(x = str_nodata)
-        # Results
-        df_results <- df_lev_flags[, !names(df_lev_flags) %in% c(paste0("L", 1:6))]
-        # Flag Metrics
-        df_metflags <- data.frame(x = str_nodata)
 
-      } else {
-
-        # Calc
-        # df_checks loaded in global.R
-        df_flags <- BioMonTools::qc.checks(df_metval, df_checks)
-        # Change terminology; PASS/FAIL to NA/flag
-        df_flags[, "FLAG"][df_flags[, "FLAG"] == "FAIL"] <- "flag"
-        df_flags[, "FLAG"][df_flags[, "FLAG"] == "PASS"] <- NA
-        # long to wide format
-        df_flags_wide <- reshape2::dcast(df_flags
-                                         , SAMPLEID ~ CHECKNAME
-                                         , value.var = "FLAG")
-        # Calc number of "flag"s by row.
-        df_flags_wide$NumFlags <- rowSums(df_flags_wide == "flag", na.rm = TRUE)
-        # Rearrange columns
-        NumCols <- ncol(df_flags_wide)
-        df_flags_wide <- df_flags_wide[, c(1, NumCols, 2:(NumCols - 1))]
-        # Merge Levels and Flags
-        df_lev_flags <- merge(df_levassign
-                              , df_flags_wide
-                              , by.x = "SampleID"
-                              , by.y = "SAMPLEID"
-                              , all.x = TRUE)
-        # Flags Summary
-        df_lev_flags_summ <- as.data.frame.matrix(table(df_flags[, "CHECKNAME"]
-                                                        , df_flags[, "FLAG"]
-                                                        , useNA = "ifany"))
-        # Results
-        df_results <- df_lev_flags[, !names(df_lev_flags) %in% c(paste0("L", 1:6))]
-        ## remove L1:6
-
-        # Flag Metrics
-        col2keep_metflags <- c("SAMPLEID", "INDEX_NAME", "INDEX_CLASS"
-                               , "METRIC_NAME", "CHECKNAME", "METRIC_VALUE"
-                               , "SYMBOL", "VALUE", "FLAG")
-        df_metflags <- df_flags[, col2keep_metflags]
-
-      }## IF ~ check for matching index name and class
-
-
-      # Save, Flags Summary
-      fn_levflags <- paste0(fn_input_base, fn_abr_save, "6levflags.csv")
-      dn_levflags <- path_results_sub
-      pn_levflags <- file.path(dn_levflags, fn_levflags)
-      write.csv(df_lev_flags_summ, pn_levflags, row.names = TRUE)
+      # # Save, Flags Summary
+      # fn_levflags <- paste0(fn_input_base, fn_abr_save, "6levflags.csv")
+      # dn_levflags <- path_results_sub
+      # pn_levflags <- file.path(dn_levflags, fn_levflags)
+      # write.csv(df_lev_flags_summ, pn_levflags, row.names = TRUE)
 
       # Save, Results
+      df_results <- df_metric_scores
       fn_results <- paste0(fn_input_base, fn_abr_save, "RESULTS.csv")
       dn_results <- path_results_sub
       pn_results <- file.path(dn_results, fn_results)
       write.csv(df_results, pn_results, row.names = FALSE)
 
       # Save, Flag Metrics
-      fn_metflags <- paste0(fn_input_base, fn_abr_save, "6metflags.csv")
-      dn_metflags <- path_results_sub
-      pn_metflags <- file.path(dn_metflags, fn_metflags)
-      write.csv(df_metflags, pn_metflags, row.names = FALSE)
+      # fn_metflags <- paste0(fn_input_base, fn_abr_save, "6metflags.csv")
+      # dn_metflags <- path_results_sub
+      # pn_metflags <- file.path(dn_metflags, fn_metflags)
+      # write.csv(df_metflags, pn_metflags, row.names = FALSE)
 
 
       ## Calc, 9, RMD----
@@ -3290,10 +3331,10 @@ browser()
       file.copy(file_from, file_to)
 
       ## Metric Flags
-      fn_save <- "MetricFlags.xlsx"
-      file_from <- temp_ibi_checks
-      file_to <- file.path(path_results_ref, fn_save)
-      file.copy(file_from, file_to)
+      # fn_save <- "MetricFlags.xlsx"
+      # file_from <- temp_ibi_checks
+      # file_to <- file.path(path_results_ref, fn_save)
+      # file.copy(file_from, file_to)
 
       ## Metric Names
       fn_save <- "MetricNames.xlsx"
@@ -3307,11 +3348,11 @@ browser()
       file_to <- file.path(path_results_ref, fn_save)
       file.copy(file_from, file_to)
 
-      ## IBI Rules
-      fn_save <- "Rules.xlsx"
-      file_from <- temp_ibi_models
-      file_to <- file.path(path_results_ref, fn_save)
-      file.copy(file_from, file_to)
+      # ## IBI Rules
+      # fn_save <- "Rules.xlsx"
+      # file_from <- temp_ibi_models
+      # file_to <- file.path(path_results_ref, fn_save)
+      # file.copy(file_from, file_to)
 
 
       ## Calc, 11, Clean Up----
