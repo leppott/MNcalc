@@ -1,11 +1,15 @@
 RedLakesCalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-06-06 22:31:28.20816
+2024-06-10 20:07:31.531609
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-06-06 22:31:28.232666
+    #> Last Update: 2024-06-10 20:07:31.553572
+
+# RedLakesCalc 0.1.0.9016 (2024-06-10)
+
+- refactor: Update Fish IBI post calculation adjustments
 
 # RedLakesCalc 0.1.0.9015 (2024-06-06)
 

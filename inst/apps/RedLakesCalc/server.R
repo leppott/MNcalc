@@ -2348,7 +2348,11 @@ shinyServer(function(input, output) {
       }## IF ~ INDEX_NAME
 
       # QC, check for required fields
-      col_req <- c("INDEX_NAME", "INDEX_CLASS", "SAMPLEID", "TAXAID", "N_TAXA")
+      col_req <- c("INDEX_NAME"
+                   , "INDEX_CLASS"
+                   , "SAMPLEID"
+                   , "TAXAID"
+                   , "N_TAXA")
       col_req_boo <- col_req %in% names(df_input)
       col_req_missing <- col_req[!col_req_boo]
 
@@ -2363,6 +2367,9 @@ shinyServer(function(input, output) {
                                , closeOnClickOutside = TRUE)
         validate(msg)
       }## IF ~ sum(col_req_boo) != length(col_req)
+
+      # QC, Index Class to Character
+      df_input[, "INDEX_CLASS"] <- as.character(df_input[, "INDEX_CLASS"])
 
 
       ## Calc, 2, Exclude Taxa ----
@@ -2488,6 +2495,7 @@ shinyServer(function(input, output) {
                                                 , verbose = TRUE
                                                 , taxaid_dni = "DNI")
       }## IF ~ length(col_rules_keep)
+
 
       #df_metval$INDEX_CLASS <- df_metval$INDEX_CLASS
 
@@ -2859,7 +2867,16 @@ shinyServer(function(input, output) {
       }## IF ~ INDEX_NAME
 
       # QC, check for required fields
-      col_req <- c("INDEX_NAME", "INDEX_CLASS", "SAMPLEID", "TAXAID", "N_TAXA")
+      col_req <- c("INDEX_NAME"
+                   , "INDEX_CLASS"
+                   , "SAMPLEID"
+                   , "TAXAID"
+                   , "N_TAXA"
+                   , "N_ANOMALIES"
+                   , "LENGTH_M"
+                   , "WIDTH_M"
+                   , "GRADIENT"
+                   , "DRAINSQMI")
       col_req_boo <- col_req %in% names(df_input)
       col_req_missing <- col_req[!col_req_boo]
 
@@ -2981,7 +2998,9 @@ shinyServer(function(input, output) {
                                      , "Metric_Name"])
       # can also add other columns to keep if feel so inclined
       cols_flags_keep <- cols_flags[cols_flags %in% names(df_input)]
-
+      cols_flags_keep <- unique(c(cols_flags_keep
+                                , "GRADIENT"
+                                , "DRAINSQMI"))
 
       ## Calc, x3b, Rules ----
       prog_detail <- "Calculate, IBI Rules"
@@ -3031,6 +3050,55 @@ shinyServer(function(input, output) {
       }## IF ~ length(col_rules_keep)
 
       #df_metval$INDEX_CLASS <- df_metval$INDEX_CLASS
+
+      ### MetVal MODS----
+      # Value Modifications for MN
+      df_metval <- df_metval %>%
+        mutate(
+          # y = x - m * log10(z) + b
+          # z is gradient or drainage area
+          , nt_simplelithophil = case_when(INDEX_CLASS == "1"
+                                           ~ nt_simplelithophil - ((3.945 * log10(GRADIENT)) + 11.187)
+                                           , .default = nt_simplelithophil)
+          , pt_tv_sens = case_when(INDEX_CLASS == "1"
+                                   ~ pt_tv_sens - ((16.042 * log10(GRADIENT)) + 33.5)
+                                   , .default = pt_tv_sens)
+          , pt_tv_sens = case_when(INDEX_CLASS == "4"
+                                   ~ pt_tv_sens - ((11.902 * log10(GRADIENT)) + 43.121)
+                                   , .default = pt_tv_sens)
+          , pi_tv_sens_ExclSchool = case_when(INDEX_CLASS == "4"
+                                              ~ pi_tv_sens_ExclSchool - ((22.503 * log10(GRADIENT)) + 51.121)
+                                              , .default = pi_tv_sens_ExclSchool)
+          , pi_tv_senscoldwater_ExclSchool = case_when(INDEX_CLASS == "8"
+                                                       ~ pi_tv_senscoldwater_ExclSchool - ((-27.382 * log10(DRAINSQMI)) + 114.322)
+                                                       , .default = pi_tv_senscoldwater_ExclSchool)
+          , pt_detritivore = case_when(INDEX_CLASS == "8"
+                                       ~ pt_detritivore - ((16.211 * log10(DRAINSQMI)) + -5.276)
+                                       , .default = pt_detritivore)
+          , nt_tv_tolercoldwater = case_when(INDEX_CLASS == "8"
+                                             ~ nt_tv_tolercoldwater - ((1.089 * log10(DRAINSQMI)) + -0.827)
+                                             , .default = nt_tv_tolercoldwater)
+          , pt_natcoldwater = case_when(INDEX_CLASS == "8"
+                                        ~ pt_natcoldwater - ((-24.242 * log10(DRAINSQMI)) + 54.017)
+                                        , .default = pt_natcoldwater)
+          , pt_tv_senscoldwater = case_when(INDEX_CLASS == "9"
+                                            ~ pt_tv_senscoldwater - ((23.788 * log10(GRADIENT)) + 24.437)
+                                            , .default = pt_tv_senscoldwater)
+          # Log10(x+1)
+          , pi_natcoldwater_ExclSchool = case_when(INDEX_CLASS == "8"
+                                                   ~ log10(pi_natcoldwater_ExclSchool + 1)
+                                                   , .default = pi_natcoldwater_ExclSchool)
+          , pi_tv_tolercoldwater_ExclSchool = case_when(INDEX_CLASS == "9"
+                                                        ~ log10(pi_tv_tolercoldwater_ExclSchool + 1)
+                                                        , .default = pi_tv_tolercoldwater_ExclSchool)
+          , pi_nonlithophil_ExclSchool = case_when(INDEX_CLASS == "9"
+                                                   ~ log10(pi_nonlithophil_ExclSchool + 1)
+                                                   , .default = pi_nonlithophil_ExclSchool)
+          , pi_Perciformes_ExclSchool = case_when(INDEX_CLASS == "9"
+                                                  ~ log10(pi_Perciformes_ExclSchool + 1)
+                                                  , .default = pi_Perciformes_ExclSchool)
+        )## MUTATE
+
 
       ### Save Results ----
 

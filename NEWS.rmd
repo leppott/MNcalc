@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# RedLakesCalc 0.1.0.9016 (2024-06-10)
+
+* refactor: Update Fish IBI post calculation adjustments
+
 # RedLakesCalc 0.1.0.9015 (2024-06-06)
 
 * refactor: Update Fish IBI post Index calculation adjustments
