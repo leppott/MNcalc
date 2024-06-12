@@ -2815,7 +2815,7 @@ shinyServer(function(input, output) {
 
       # result folder and files
       # 2023-12-14, add community
-      fn_comm <- input$si_community_ibi
+      fn_comm <- .simpleCap(input$si_community_ibi)
       fn_abr <- abr_ibi
       fn_abr_save <- paste0("_", fn_abr, "_")
       path_results_sub <- file.path(path_results
@@ -2857,26 +2857,80 @@ shinyServer(function(input, output) {
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
 
-      # QC, names to upper case
+      ### QC, names to upper case
       names(df_input) <- toupper(names(df_input))
 
-      # QC, Index_Name
+      ### QC, Index_Name
       # Only MN_IBI so can add if missing
       if (!"INDEX_NAME" %in% toupper(names(df_input))) {
         df_input[, "INDEX_NAME"] <- paste0("MN_IBI_", fn_comm)
       }## IF ~ INDEX_NAME
 
-      # QC, check for required fields
-      col_req <- c("INDEX_NAME"
-                   , "INDEX_CLASS"
-                   , "SAMPLEID"
-                   , "TAXAID"
-                   , "N_TAXA"
-                   , "N_ANOMALIES"
-                   , "LENGTH_M"
-                   , "WIDTH_M"
-                   , "GRADIENT"
-                   , "DRAINSQMI")
+      ### QC, Index_Name, Community
+      # confirm data matches selection
+      comm_sel <- paste0("MN_IBI_", fn_comm)
+      comm_dat <- unique(df_input[, "INDEX_NAME"])
+
+      if (length(comm_dat) > 1) {
+        msg <- paste0("More than one INDEX_NAME in data!"
+                      , "\n\n"
+                      , "Only a single index community can be used at one time.")
+        shinyalert::shinyalert(title = "Index Calculation Error"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## Mult comm-data
+
+      if (comm_sel != comm_dat) {
+        msg <- paste0("Community selection does not match data!"
+                      , "\n\n"
+                      , "Selection = ", comm_sel
+                      , "\n\n"
+                      , "Data = ", comm_dat)
+        shinyalert::shinyalert(title = "Index Calculation Error"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## IF ~ comm_sel != comm_dat
+
+
+      ### QC, check for required fields
+      col_req_both <- c("INDEX_NAME"
+                        , "INDEX_CLASS"
+                        , "SAMPLEID"
+                        , "TAXAID"
+                        , "N_TAXA"
+                        , "DRAINSQMI")
+      col_req_bugs <- c("LARGERARECOUNT"
+                        , "FFG"
+                        , "TOLVAL"
+                        , "TOLVAL2"
+                        , "ORDER"
+                        , "FAMILY"
+                        , "HABIT"
+                        , "LONGLIVED"
+                        , "CLASS")
+      col_req_fish <- c("N_ANOMALIES"
+                        , "LENGTH_M"
+                        , "WIDTH_M"
+                        , "GRADIENT"
+                        , "SCHOOLING"
+                        , "TYPE"
+                        , "HABITAT"
+                        , "REPRODUCTION"
+                        , "TOLER"
+                        , "TROPHIC")
+      # set col_req for check by community
+      if (input$si_community_ibi == "bugs") {
+        col_req <- c(col_req_both, col_req_bugs)
+      } else if (input$si_community_ibi == "fish") {
+        col_req <- c(col_req_both, col_req_fish)
+      }## IF ~ community
+
       col_req_boo <- col_req %in% names(df_input)
       col_req_missing <- col_req[!col_req_boo]
 
@@ -2893,6 +2947,7 @@ shinyServer(function(input, output) {
       }## IF ~ sum(col_req_boo) != length(col_req)
 
 
+
       ## Calc, 4, Exclude Taxa ----
       prog_detail <- "Calculate, Exclude Taxa"
       message(paste0("\n", prog_detail))
@@ -2905,7 +2960,8 @@ shinyServer(function(input, output) {
 
       if (input$ExclTaxa_ibi) {
         ## Get TaxaLevel names present in user file
-        phylo_all <- c("Kingdom"
+        # to upper so matches rest of file
+        phylo_all <- toupper(c("Kingdom"
                        , "Phylum"
                        , "SubPhylum"
                        , "Class"
@@ -2920,8 +2976,7 @@ shinyServer(function(input, output) {
                        , "Genus"
                        , "SubGenus"
                        , "Species"
-                       , "Variety")
-        phylo_all <- toupper(phylo_all) # so matches rest of file
+                       , "Variety"))
 
         # case and matching of taxa levels handled inside of markExluded
 
@@ -2935,7 +2990,7 @@ shinyServer(function(input, output) {
         }## IF ~ Exclude
 
         # Skip if no Phylo data
-        TaxaLevels <- c("Kingdom"
+        TaxaLevels <- toupper(c("Kingdom"
                         , "Phylum"
                         , "SubPhylum"
                         , "Class"
@@ -2949,8 +3004,8 @@ shinyServer(function(input, output) {
                         , "Genus"
                         , "SubGenus"
                         , "Species"
-                        , "Variety")
-        TaxaLevels_boo <- toupper(TaxaLevels) %in% toupper(names(df_input))
+                        , "Variety"))
+        TaxaLevels_boo <- TaxaLevels %in% toupper(names(df_input))
         if (sum(TaxaLevels_boo) == 0) {
           boo_Exclude <- "EXCLUDE" %in% toupper(names(df_input))
           if (boo_Exclude == FALSE) {
@@ -2998,14 +3053,20 @@ shinyServer(function(input, output) {
                                      , "Metric_Name"])
       # can also add other columns to keep if feel so inclined
       cols_flags_keep <- cols_flags[cols_flags %in% names(df_input)]
-      cols_flags_keep <- unique(c(cols_flags_keep
+      if (input$si_community_ibi == "bugs") {
+        cols_flags_keep <- unique(c(cols_flags_keep
+                                    , "DRAINSQMI"))
+      } else if (input$si_community_ibi == "fish") {
+        cols_flags_keep <- unique(c(cols_flags_keep
                                 , "GRADIENT"
                                 , "DRAINSQMI"))
+      }## IF ~ community
+
 
       ## Calc, x3b, Rules ----
       prog_detail <- "Calculate, IBI Rules"
       message(paste0("\n", prog_detail))
-      message(paste0("Community = ", input$si_community))
+      message(paste0("Community = ", input$si_community_ibi))
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
@@ -3014,6 +3075,13 @@ shinyServer(function(input, output) {
       col_drop <- c("SITE_TYPE", "INDEX_REGION") # none
       df_rules <- df_metricscoring[df_metricscoring$INDEX_NAME == import_IndexName
                                 , !names(df_metricscoring) %in% col_drop]
+
+      # Metric names
+      metnames <- sort(unique(df_rules$METRIC_NAME))
+      metnames_grepl_lr <- grepl("^nt_|^pt_", metnames)
+      metnames_lr_t <- metnames[metnames_grepl_lr]
+      metnames_lr_f <- metnames[!metnames_grepl_lr]
+
       # Save
       fn_rules <- paste0(fn_input_base, fn_abr_save, "3metrules.csv")
       dn_rules <- path_results_sub
@@ -3028,77 +3096,152 @@ shinyServer(function(input, output) {
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
 
-      # Calc
-      # QC
-      # df_input <- read.csv(file.path("inst", "extdata", "Data_BCG_PacNW.csv"))
-      # df_metval <- BioMonTools::metric.values(df_input, "bugs", boo.Shiny = TRUE)
 
-      if (length(cols_flags_keep) > 0) {
-        # keep extra cols from Flags (non-metric)
+      if(input$si_community_ibi == "bugs") {
+        ### Calc, MetVal, Bugs ----
+        #### LargeRare MOD ----
+        df_input_lr_t <- df_input %>%
+          dplyr::mutate(LARGERARECOUNT = tidyr::replace_na(LARGERARECOUNT, 0)) %>%
+          dplyr::mutate(N_TAXA = N_TAXA + LARGERARECOUNT)
+        df_input_lr_f <- df_input # no changes needed
+
+        if (length(cols_flags_keep) > 0) {
+          # keep extra cols from Flags (non-metric)
+          fun_cols2keep <- cols_flags_keep
+        } else {
+          fun_cols2keep <- NULL
+        }## IF ~ length(col_rules_keep)
+        df_metval_lr_t <- BioMonTools::metric.values(df_input_lr_t
+                                        , fun.Community = input$si_community_ibi
+                                        , fun.MetricNames = metnames_lr_t
+                                        , fun.cols2keep = fun_cols2keep
+                                        , boo.Shiny = TRUE
+                                        , verbose = TRUE
+                                        , taxaid_dni = "DNI")
+        df_metval_lr_f <- BioMonTools::metric.values(df_input_lr_f
+                                                     , fun.Community = input$si_community_ibi
+                                                     , fun.MetricNames = metnames_lr_f
+                                                     , fun.cols2keep = fun_cols2keep
+                                                     , boo.Shiny = TRUE
+                                                     , verbose = TRUE
+                                                     , taxaid_dni = "DNI")
+        # merge two outputs
+        # drop ni_total (default) from lr_t
+        df_metval <- merge(df_metval_lr_t[, !(names(df_metval_lr_t) %in% "ni_total")]
+                           , df_metval_lr_f
+                           , by = c("SAMPLEID"
+                                    , "INDEX_NAME"
+                                    , "INDEX_CLASS"
+                                    , "DRAINSQMI"))
+
+
+      } else if (input$si_community_ibi == "fish") {
+        ### Calc, MetVal, Fish ----
+        if (length(cols_flags_keep) > 0) {
+          # keep extra cols from Flags (non-metric)
+          fun_cols2keep <- cols_flags_keep
+        } else {
+          fun_cols2keep <- NULL
+        }## IF ~ length(col_rules_keep)
         df_metval <- BioMonTools::metric.values(df_input
                                                 , input$si_community_ibi
-                                                , fun.cols2keep = cols_flags_keep
+                                                , fun.cols2keep = fun_cols2keep
                                                 , boo.Shiny = TRUE
                                                 , verbose = TRUE
                                                 , taxaid_dni = "DNI")
-      } else {
-        df_metval <- BioMonTools::metric.values(df_input
-                                                , input$si_community_ibi
-                                                , boo.Shiny = TRUE
-                                                , verbose = TRUE
-                                                , taxaid_dni = "DNI")
-      }## IF ~ length(col_rules_keep)
+      }## IF ~ community
 
-      #df_metval$INDEX_CLASS <- df_metval$INDEX_CLASS
 
       ### MetVal MODS----
       # Value Modifications for MN
-      df_metval <- df_metval %>%
-        mutate(
-          # y = x - m * log10(z) + b
-          # z is gradient or drainage area
-          , nt_simplelithophil = case_when(INDEX_CLASS == "1"
-                                           ~ nt_simplelithophil - ((3.945 * log10(GRADIENT)) + 11.187)
-                                           , .default = nt_simplelithophil)
-          , pt_tv_sens = case_when(INDEX_CLASS == "1"
-                                   ~ pt_tv_sens - ((16.042 * log10(GRADIENT)) + 33.5)
-                                   , .default = pt_tv_sens)
-          , pt_tv_sens = case_when(INDEX_CLASS == "4"
-                                   ~ pt_tv_sens - ((11.902 * log10(GRADIENT)) + 43.121)
-                                   , .default = pt_tv_sens)
-          , pi_tv_sens_ExclSchool = case_when(INDEX_CLASS == "4"
-                                              ~ pi_tv_sens_ExclSchool - ((22.503 * log10(GRADIENT)) + 51.121)
-                                              , .default = pi_tv_sens_ExclSchool)
-          , pi_tv_senscoldwater_ExclSchool = case_when(INDEX_CLASS == "8"
-                                                       ~ pi_tv_senscoldwater_ExclSchool - ((-27.382 * log10(DRAINSQMI)) + 114.322)
-                                                       , .default = pi_tv_senscoldwater_ExclSchool)
-          , pt_detritivore = case_when(INDEX_CLASS == "8"
-                                       ~ pt_detritivore - ((16.211 * log10(DRAINSQMI)) + -5.276)
-                                       , .default = pt_detritivore)
-          , nt_tv_tolercoldwater = case_when(INDEX_CLASS == "8"
-                                             ~ nt_tv_tolercoldwater - ((1.089 * log10(DRAINSQMI)) + -0.827)
-                                             , .default = nt_tv_tolercoldwater)
-          , pt_natcoldwater = case_when(INDEX_CLASS == "8"
-                                        ~ pt_natcoldwater - ((-24.242 * log10(DRAINSQMI)) + 54.017)
-                                        , .default = pt_natcoldwater)
-          , pt_tv_senscoldwater = case_when(INDEX_CLASS == "9"
-                                            ~ pt_tv_senscoldwater - ((23.788 * log10(GRADIENT)) + 24.437)
-                                            , .default = pt_tv_senscoldwater)
-          # Log10(x+1)
-          , pi_natcoldwater_ExclSchool = case_when(INDEX_CLASS == "8"
-                                                   ~ log10(pi_natcoldwater_ExclSchool + 1)
-                                                   , .default = pi_natcoldwater_ExclSchool)
-          , pi_tv_tolercoldwater_ExclSchool = case_when(INDEX_CLASS == "9"
-                                                        ~ log10(pi_tv_tolercoldwater_ExclSchool + 1)
-                                                        , .default = pi_tv_tolercoldwater_ExclSchool)
-          , pi_nonlithophil_ExclSchool = case_when(INDEX_CLASS == "9"
-                                                   ~ log10(pi_nonlithophil_ExclSchool + 1)
-                                                   , .default = pi_nonlithophil_ExclSchool)
-          , pi_Perciformes_ExclSchool = case_when(INDEX_CLASS == "9"
-                                                  ~ log10(pi_Perciformes_ExclSchool + 1)
-                                                  , .default = pi_Perciformes_ExclSchool)
-        )## MUTATE
+      if (input$si_community_ibi == "bugs") {
+        # Log10(x+1)
+        df_metval <- dplyr::mutate(df_metval
+            # y = x - ((m * log10(z)) + b)
+            # z is gradient or drainage area
+            # , x_HBI2 = dplyr::case_when(INDEX_CLASS == "9"
+            #                     ~ x_HBI2 - ((0.579 * log10(DRAINSQMI)) + 17.923)
+            #                     , .default = x_HBI2)
+            # , pi_Chi2Dipt = dplyr::case_when(INDEX_CLASS == "9"
+            #                          ~ pi_Chi2Dipt - ((9.428 * log10(DRAINSQMI)) + 45.12)
+            #                          , .default = pi_Chi2Dipt)
+            # , x_HBI = dplyr::case_when(INDEX_CLASS == "9"
+            #                    ~ x_HBI - ((0.375 * log10(DRAINSQMI)) + 6.048)
+            #                    , .default = x_HBI)
+            # , pi_tv_toler8 = dplyr::case_when(INDEX_CLASS == "9"
+            #                           ~ pi_tv_toler8 - ((4.239 * log10(DRAINSQMI)) + 7.249)
+            #                           , .default = pi_tv_toler8)
+            # Log10(x+1)
+            # , pi_TrichNoHydro = dplyr::case_when(INDEX_CLASS == "1" | INDEX_CLASS == "2"
+            #                            ~ log10(pi_TrichNoHydro + 1)
+            #                            , .default = pi_TrichNoHydro)
+            # , nt_Odon = dplyr::case_when(INDEX_CLASS == "3" | INDEX_CLASS == "5"
+            #                      ~ log10(nt_Odon + 1)
+            #                      , .default = nt_Odon)
+            # , nt_Pleco = dplyr::case_when(INDEX_CLASS == "3" | INDEX_CLASS == "5"
+            #                       ~ log10(nt_Pleco + 1)
+            #                       , .default = nt_Pleco)
+            # , nt_tv_intol2 = dplyr::case_when(INDEX_CLASS == "4" | INDEX_CLASS == "6" | INDEX_CLASS == "7"
+            #                           ~ log10(nt_tv_intol2 + 1)
+            #                           , .default = nt_tv_intol2)
+            # Log10(x+1) where x is 0-1 not 0-100
+            # , pi_TrichNoHydro = dplyr::case_when(INDEX_CLASS == "4" | INDEX_CLASS == "6" | INDEX_CLASS == "7"
+            #                              ~ log10((pi_TrichNoHydro / 100) + 1)
+            #                              , .default = pi_TrichNoHydro)
+            # ArcSin(Sqrt)
+            # , pt_Insect = dplyr::case_when(INDEX_CLASS == "3" | INDEX_CLASS == "5"
+            #                        ~ asin(sqrt(pt_Insect / 100))
+            #                        , .default = pt_Insect)
 
+        )## mutate
+      }## IF ~ bugs
+
+      if (input$si_community_ibi == "fish") {
+        df_metval <- dplyr::mutate(df_metval
+            # y = x - ((m * log10(z)) + b)
+            # z is gradient or drainage area
+            , nt_simplelithophil = dplyr::case_when(INDEX_CLASS == "1"
+                                             ~ nt_simplelithophil - ((3.945 * log10(GRADIENT)) + 11.187)
+                                             , .default = nt_simplelithophil)
+            , pt_tv_sens = dplyr::case_when(INDEX_CLASS == "1"
+                                     ~ pt_tv_sens - ((16.042 * log10(GRADIENT)) + 33.5)
+                                     , .default = pt_tv_sens)
+            , pt_tv_sens = dplyr::case_when(INDEX_CLASS == "4"
+                                     ~ pt_tv_sens - ((11.902 * log10(GRADIENT)) + 43.121)
+                                     , .default = pt_tv_sens)
+            , pi_tv_sens_ExclSchool = dplyr::case_when(INDEX_CLASS == "4"
+                                                ~ pi_tv_sens_ExclSchool - ((22.503 * log10(GRADIENT)) + 51.121)
+                                                , .default = pi_tv_sens_ExclSchool)
+            , pi_tv_senscoldwater_ExclSchool = dplyr::case_when(INDEX_CLASS == "8"
+                                                         ~ pi_tv_senscoldwater_ExclSchool - ((-27.382 * log10(DRAINSQMI)) + 114.322)
+                                                         , .default = pi_tv_senscoldwater_ExclSchool)
+            , pt_detritivore = dplyr::case_when(INDEX_CLASS == "8"
+                                         ~ pt_detritivore - ((16.211 * log10(DRAINSQMI)) + -5.276)
+                                         , .default = pt_detritivore)
+            , nt_tv_tolercoldwater = dplyr::case_when(INDEX_CLASS == "8"
+                                               ~ nt_tv_tolercoldwater - ((1.089 * log10(DRAINSQMI)) + -0.827)
+                                               , .default = nt_tv_tolercoldwater)
+            , pt_natcoldwater = dplyr::case_when(INDEX_CLASS == "8"
+                                          ~ pt_natcoldwater - ((-24.242 * log10(DRAINSQMI)) + 54.017)
+                                          , .default = pt_natcoldwater)
+            , pt_tv_senscoldwater = dplyr::case_when(INDEX_CLASS == "9"
+                                              ~ pt_tv_senscoldwater - ((23.788 * log10(GRADIENT)) + 24.437)
+                                              , .default = pt_tv_senscoldwater)
+            # Log10(x+1)
+            , pi_natcoldwater_ExclSchool = dplyr::case_when(INDEX_CLASS == "8"
+                                                     ~ log10(pi_natcoldwater_ExclSchool + 1)
+                                                     , .default = pi_natcoldwater_ExclSchool)
+            , pi_tv_tolercoldwater_ExclSchool = dplyr::case_when(INDEX_CLASS == "9"
+                                                          ~ log10(pi_tv_tolercoldwater_ExclSchool + 1)
+                                                          , .default = pi_tv_tolercoldwater_ExclSchool)
+            , pi_nonlithophil_ExclSchool = dplyr::case_when(INDEX_CLASS == "9"
+                                                     ~ log10(pi_nonlithophil_ExclSchool + 1)
+                                                     , .default = pi_nonlithophil_ExclSchool)
+            , pi_Perciformes_ExclSchool = dplyr::case_when(INDEX_CLASS == "9"
+                                                    ~ log10(pi_Perciformes_ExclSchool + 1)
+                                                    , .default = pi_Perciformes_ExclSchool)
+          )## MUTATE
+      }## IF ~ fish
 
       ### Save Results ----
 

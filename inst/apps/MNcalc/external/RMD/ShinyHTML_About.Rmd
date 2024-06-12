@@ -14,9 +14,9 @@ knitr::opts_chunk$set(echo = FALSE
                       , message = FALSE)
 ```
 
-Tool for Minnesota BCG and MMI (bugs and fish).
+Tool for calculating Minnesota BCG and MMI (bugs and fish).
 
-Red Lakes
+Red Lake
 
 
 

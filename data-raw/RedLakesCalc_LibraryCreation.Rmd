@@ -55,7 +55,7 @@ fn_results <- list.files(path_results
                          , recursive = TRUE)
 unlink(fn_results, recursive = TRUE) # to include dir use unlink instead of file.remove
 # Copy file to ensure directory not empty
-path_shiny <- file.path("inst", "app", "RedLakesCalc")
+path_shiny <- file.path("inst", "app", "MNcalc")
 fn_copy    <- "remove.txt"
 path_from  <- file.path(path_shiny, "data", fn_copy)
 path_to    <- file.path(path_shiny, "results", fn_copy)
@@ -68,22 +68,22 @@ file.copy("NEWS.md", "NEWS", overwrite = TRUE)
 file.remove("NEWS.html")
 #file.remove("NEWS.md")
 #
-myPkg <- "BCGcalc"
-# Load Library
-library(devtools)
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Create Package
-# create(myPkg)
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Document, Install, and Reload Library
-## Generate Documentation
-#setwd(paste0("./",myPkg))  # will fail as already in this directory
-devtools::document()
-## Install New Package (locally)
-setwd("..") # return to root directory first
-devtools::install(myPkg, quick=FALSE, reload=TRUE, build_vignettes = FALSE)
+# myPkg <- "MNcalc"
+# # Load Library
+# library(devtools)
+# #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# # Create Package
+# # create(myPkg)
+# #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# #
+# #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# # Document, Install, and Reload Library
+# ## Generate Documentation
+# #setwd(paste0("./",myPkg))  # will fail as already in this directory
+# devtools::document()
+# ## Install New Package (locally)
+# setwd("..") # return to root directory first
+# devtools::install(myPkg, quick=FALSE, reload=TRUE, build_vignettes = FALSE)
 
 ## Reload library
 library(myPkg, character.only = TRUE)
