@@ -2296,7 +2296,7 @@ shinyServer(function(input, output) {
 
       # result folder and files
       # 2023-12-14, add community
-      fn_comm <- input$si_community
+      fn_comm <- .simpleCap(input$si_community)
       fn_abr <- abr_bcg
       fn_abr_save <- paste0("_", fn_abr, "_")
       path_results_sub <- file.path(path_results
@@ -2347,6 +2347,32 @@ shinyServer(function(input, output) {
         df_input[, "INDEX_NAME"] <- "MN_BCG"
       }## IF ~ INDEX_NAME
 
+      indexname_dat <- unique(df_input$INDEX_NAME)
+
+      if (length(indexname_dat) > 1) {
+        msg <- paste0("More than one INDEX_NAME in data!"
+                      , "\n\n"
+                      , "Only a single index can be used at one time.")
+        shinyalert::shinyalert(title = "Index Calculation Error"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## Mult indexname-data
+
+      if (indexname_dat != "MN_BCG") {
+        msg <- paste0("Incorrect INDEX_NAME in data!"
+                      , "\n\n"
+                      , "Only a value of 'MN_BCG' is acceptable.")
+        shinyalert::shinyalert(title = "Index Calculation Error"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## wrong indexname-data
+
       # QC, check for required fields
       col_req <- c("INDEX_NAME"
                    , "INDEX_CLASS"
@@ -2370,6 +2396,33 @@ shinyServer(function(input, output) {
 
       # QC, Index Class to Character
       df_input[, "INDEX_CLASS"] <- as.character(df_input[, "INDEX_CLASS"])
+
+      ### QC, Index_CLASS, Community
+      # confirm data matches selection
+      comm_sel <- tolower(fn_comm)
+      if(comm_sel == "bugs") {comm_sel <- "bug"} # match BCG Rules
+      comm_dat <- gsub("[0-9]+"
+                       , ""
+                       , tolower(unique(substr(df_input[, "INDEX_CLASS"]
+                                               , 1
+                                               , 4))))
+      # fish extra letters in number combo for 10 and 11
+
+
+      if (!comm_sel %in% comm_dat) {
+        msg <- paste0("Community selection does not match data!"
+                      , "\n\n"
+                      , "Selection = ", comm_sel
+                      , "\n\n"
+                      , "Data = ", comm_dat)
+        shinyalert::shinyalert(title = "Index Calculation Error"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## IF ~ comm_sel !%in% comm_dat
+
 
 
       ## Calc, 2, Exclude Taxa ----
@@ -3159,39 +3212,39 @@ shinyServer(function(input, output) {
         df_metval <- dplyr::mutate(df_metval
             # y = x - ((m * log10(z)) + b)
             # z is gradient or drainage area
-            # , x_HBI2 = dplyr::case_when(INDEX_CLASS == "9"
-            #                     ~ x_HBI2 - ((0.579 * log10(DRAINSQMI)) + 17.923)
-            #                     , .default = x_HBI2)
-            # , pi_Chi2Dipt = dplyr::case_when(INDEX_CLASS == "9"
-            #                          ~ pi_Chi2Dipt - ((9.428 * log10(DRAINSQMI)) + 45.12)
-            #                          , .default = pi_Chi2Dipt)
-            # , x_HBI = dplyr::case_when(INDEX_CLASS == "9"
-            #                    ~ x_HBI - ((0.375 * log10(DRAINSQMI)) + 6.048)
-            #                    , .default = x_HBI)
-            # , pi_tv_toler8 = dplyr::case_when(INDEX_CLASS == "9"
-            #                           ~ pi_tv_toler8 - ((4.239 * log10(DRAINSQMI)) + 7.249)
-            #                           , .default = pi_tv_toler8)
+            , x_HBI2 = dplyr::case_when(INDEX_CLASS == "9"
+                                ~ x_HBI2 - ((0.579 * log10(DRAINSQMI)) + 17.923)
+                                , .default = x_HBI2)
+            , pi_Chi2Dipt = dplyr::case_when(INDEX_CLASS == "9"
+                                     ~ pi_Chi2Dipt - ((9.428 * log10(DRAINSQMI)) + 45.12)
+                                     , .default = pi_Chi2Dipt)
+            , x_HBI = dplyr::case_when(INDEX_CLASS == "9"
+                               ~ x_HBI - ((0.375 * log10(DRAINSQMI)) + 6.048)
+                               , .default = x_HBI)
+            , pi_tv_toler8 = dplyr::case_when(INDEX_CLASS == "9"
+                                      ~ pi_tv_toler8 - ((4.239 * log10(DRAINSQMI)) + 7.249)
+                                      , .default = pi_tv_toler8)
             # Log10(x+1)
-            # , pi_TrichNoHydro = dplyr::case_when(INDEX_CLASS == "1" | INDEX_CLASS == "2"
-            #                            ~ log10(pi_TrichNoHydro + 1)
-            #                            , .default = pi_TrichNoHydro)
-            # , nt_Odon = dplyr::case_when(INDEX_CLASS == "3" | INDEX_CLASS == "5"
-            #                      ~ log10(nt_Odon + 1)
-            #                      , .default = nt_Odon)
-            # , nt_Pleco = dplyr::case_when(INDEX_CLASS == "3" | INDEX_CLASS == "5"
-            #                       ~ log10(nt_Pleco + 1)
-            #                       , .default = nt_Pleco)
-            # , nt_tv_intol2 = dplyr::case_when(INDEX_CLASS == "4" | INDEX_CLASS == "6" | INDEX_CLASS == "7"
-            #                           ~ log10(nt_tv_intol2 + 1)
-            #                           , .default = nt_tv_intol2)
+            , pi_TrichNoHydro = dplyr::case_when(INDEX_CLASS == "1" | INDEX_CLASS == "2"
+                                       ~ log10(pi_TrichNoHydro + 1)
+                                       , .default = pi_TrichNoHydro)
+            , nt_Odon = dplyr::case_when(INDEX_CLASS == "3" | INDEX_CLASS == "5"
+                                 ~ log10(nt_Odon + 1)
+                                 , .default = nt_Odon)
+            , nt_Pleco = dplyr::case_when(INDEX_CLASS == "3" | INDEX_CLASS == "5"
+                                  ~ log10(nt_Pleco + 1)
+                                  , .default = nt_Pleco)
+            , nt_tv_intol2 = dplyr::case_when(INDEX_CLASS == "4" | INDEX_CLASS == "6" | INDEX_CLASS == "7"
+                                      ~ log10(nt_tv_intol2 + 1)
+                                      , .default = nt_tv_intol2)
             # Log10(x+1) where x is 0-1 not 0-100
-            # , pi_TrichNoHydro = dplyr::case_when(INDEX_CLASS == "4" | INDEX_CLASS == "6" | INDEX_CLASS == "7"
-            #                              ~ log10((pi_TrichNoHydro / 100) + 1)
-            #                              , .default = pi_TrichNoHydro)
+            , pi_TrichNoHydro = dplyr::case_when(INDEX_CLASS == "4" | INDEX_CLASS == "6" | INDEX_CLASS == "7"
+                                         ~ log10((pi_TrichNoHydro / 100) + 1)
+                                         , .default = pi_TrichNoHydro)
             # ArcSin(Sqrt)
-            # , pt_Insect = dplyr::case_when(INDEX_CLASS == "3" | INDEX_CLASS == "5"
-            #                        ~ asin(sqrt(pt_Insect / 100))
-            #                        , .default = pt_Insect)
+            , pt_Insect = dplyr::case_when(INDEX_CLASS == "3" | INDEX_CLASS == "5"
+                                   ~ asin(sqrt(pt_Insect / 100))
+                                   , .default = pt_Insect)
 
         )## mutate
       }## IF ~ bugs
@@ -3520,11 +3573,11 @@ shinyServer(function(input, output) {
       strFile.RMD.format <- "html_document"
       strFile.out <- paste0(fn_input_base, fn_abr_save, "RESULTS.html")
       dir.export <- path_results_sub
-      rmarkdown::render(strFile.RMD
-                        , output_format = strFile.RMD.format
-                        , output_file = strFile.out
-                        , output_dir = dir.export
-                        , quiet = TRUE)
+      # rmarkdown::render(strFile.RMD
+      #                   , output_format = strFile.RMD.format
+      #                   , output_file = strFile.out
+      #                   , output_dir = dir.export
+      #                   , quiet = TRUE)
 
       ## Calc, 10, Save, Reference----
       prog_detail <- "Calculate, Save, Reference"

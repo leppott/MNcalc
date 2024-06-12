@@ -1,18 +1,24 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-06-12 14:50:03.295212
+2024-06-12 16:43:59.541171
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-06-12 14:50:03.311479
+    #> Last Update: 2024-06-12 16:43:59.576939
+
+# MNcalc 0.1.0.9018 (2024-06-12)
+
+- refactor: Add pop up to ensure BCG community selection matches data,
+  Issue#6
+- refactor: Uncomment the BIBI metric input transformations
 
 # MNcalc 0.1.0.9017 (2024-06-12)
 
 - feature: Add .simpleCaps function from `toupper` help
   - Shiny app, scripts; helper_functions.R
 - refactor: Add pop up to ensure IBI community selection matches data
-- refactor: Rename RedLake to MN
+- refactor: Rename RedLake to MN, Issue \#4
   - About
   - Apps directory
   - UI.R app title
