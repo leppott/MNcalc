@@ -25,8 +25,8 @@ function() {
             # N_Taxa (really for group_by)
             #, shinyjs::disableduiOutput("UI_taxatrans_user_col_n_taxa"))
             , uiOutput("UI_taxatrans_user_col_n_taxa")
-            , p("If calculation is 'MN BCG' need additional fields.")
             , uiOutput("UI_taxatrans_user_col_indexclass")
+            #, p("If calculation is 'MN BCG' need additional fields.")
             , uiOutput("UI_taxatrans_user_col_gprr")
 
             , h6("Optional Fields")
