@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0 (2024-06-12)
+
+* refactor: Update version number for deliverable
+
 # MNcalc 0.1.0.9019 (2024-06-12)
 
 * refactor: Add conditions for no matches for taxa translator

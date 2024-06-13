@@ -1,11 +1,15 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-06-12 16:43:59.541171
+2024-06-12 20:53:55.138004
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-06-12 16:43:59.576939
+    #> Last Update: 2024-06-12 20:53:55.15641
+
+# MNcalc 0.1.0.9019 (2024-06-12)
+
+- refactor: Add conditions for no matches for taxa translator
 
 # MNcalc 0.1.0.9018 (2024-06-12)
 
