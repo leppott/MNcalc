@@ -1,11 +1,19 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-06-13 08:42:19.572187
+2024-06-13 11:03:23.645039
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-06-13 08:42:19.58988
+    #> Last Update: 2024-06-13 11:03:23.66649
+
+# MNcalc 0.2.0.9004 (2024-06-13)
+
+- refactor: Update file builder taxa translator
+  - Add Index_Name as a required field
+  - Update pop ups for Index_Name, Index_Class, and GP/RR
+  - Ensure Index_Name, Index_Class, and GP/RR are carried through to
+    results, Issue \#8
 
 # MNcalc 0.2.0.9003 (2024-06-13)
 

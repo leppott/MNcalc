@@ -379,8 +379,17 @@ shinyServer(function(input, output) {
                 , multiple = FALSE)
   })## UI_colnames
 
+  output$UI_taxatrans_user_col_indexname <- renderUI({
+    str_col <- "Column, Index Name (e.g., Index_Name)"
+    selectInput("taxatrans_user_col_indexname"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "Index_Name"
+                , multiple = FALSE)
+  })## UI_colnames
+
   output$UI_taxatrans_user_col_indexclass <- renderUI({
-    str_col <- "Column, Index Class (bugs/fish BCG_ATTR) (e.g., Index_Class)"
+    str_col <- "Column, Index Class (e.g., Index_Class)"
     selectInput("taxatrans_user_col_indexclass"
                 , label = str_col
                 , choices = c("", names(df_import()))
@@ -396,6 +405,7 @@ shinyServer(function(input, output) {
                 , selected = "GP/RR"
                 , multiple = FALSE)
   })## UI_colnames
+
 
   # ## TaxaTrans, combine ----
   # observeEvent(input$cb_TaxaTrans_Summ, {
@@ -490,6 +500,7 @@ shinyServer(function(input, output) {
       sel_user_ntaxa <- input$taxatrans_user_col_n_taxa
       sel_user_groupby <- unlist(input$taxatrans_user_col_groupby)
       sel_summ <- input$cb_TaxaTrans_Summ
+      sel_user_indexname <- input$taxatrans_user_col_indexname
       sel_user_indexclass <- input$taxatrans_user_col_indexclass
       sel_user_gprr <- input$taxatrans_user_col_gprr
 
@@ -537,7 +548,10 @@ shinyServer(function(input, output) {
       user_col_keep <- names(df_input)[names(df_input) %in% c(sel_user_groupby
                                                               , sel_user_sampid
                                                               , sel_user_taxaid
-                                                              , sel_user_ntaxa)]
+                                                              , sel_user_ntaxa
+                                                              , sel_user_indexname
+                                                              , sel_user_indexclass
+                                                              , sel_user_gprr)]
       # flip to col_drop
       user_col_drop <- names(df_input)[!names(df_input) %in% user_col_keep]
 
@@ -571,9 +585,17 @@ shinyServer(function(input, output) {
         sel_taxaid_drop <- NULL
       }## IF ~ sel_taxaid_drop
 
+      if (is.na(sel_user_indexname) | sel_user_indexname == "") {
+        sel_user_indexname <- NULL
+      }## IF ~ sel_user_indexname
+
       if (is.na(sel_user_indexclass) | sel_user_indexclass == "") {
         sel_user_indexclass <- NULL
       }## IF ~ sel_user_indexclass
+
+      if (is.na(sel_user_gprr) | sel_user_gprr == "") {
+        sel_user_gprr <- NULL
+      }## IF ~ sel_user_gprr
 
       message(paste0("User response to summarize duplicate sample taxa = "
                , sel_summ))
@@ -600,38 +622,38 @@ shinyServer(function(input, output) {
       }
 
       ### MN  ----
-      if (is.null(sel_user_indexclass) & sel_proj == "MN BCG (fish)") {
+      if (is.null(sel_user_indexname)) {
         # end process with pop up
-        msg <- "'Index_Class' column name is required for 'MN BCG (fish)' and is missing!"
+        msg <- "'Index_Name' column name is required and is missing!"
         shinyalert::shinyalert(title = "Taxa Translate"
                                , text = msg
                                , type = "error"
                                , closeOnEsc = TRUE
                                , closeOnClickOutside = TRUE)
-        # validate(msg)
-      }## IF ~ sel_project and sel_user_indexclass
+        validate(msg)
+      }## IF ~ sel_user_indexname
 
-      if (is.null(sel_user_indexclass) & sel_proj == "MN BCG (bugs)") {
+      if (is.null(sel_user_indexclass)) {
         # end process with pop up
-        msg <- "'Index_Class' column name is required for 'MN BCG (bugs)' and is missing!"
+        msg <- "'Index_Class' column name is required and is missing!"
         shinyalert::shinyalert(title = "Taxa Translate"
                                , text = msg
                                , type = "error"
                                , closeOnEsc = TRUE
                                , closeOnClickOutside = TRUE)
-        # validate(msg)
-      }## IF ~ sel_project and sel_user_indexclass
+        validate(msg)
+      }## IF ~ sel_user_indexclass
 
-      if (is.null(sel_user_gprr) & sel_proj == "MN BCG (bugs)") {
+      if (is.null(sel_user_gprr)) {
         # end process with pop up
-        msg <- "'GP/RR' column name is required for 'MN BCG (bugs)' and is missing!"
+        msg <- "'GP/RR' column name is required and is missing!"
         shinyalert::shinyalert(title = "Taxa Translate"
                                , text = msg
                                , type = "error"
                                , closeOnEsc = TRUE
                                , closeOnClickOutside = TRUE)
-        # validate(msg)
-      }## IF ~ sel_project and sel_user_gprr
+        validate(msg)
+      }## IF ~ sel_user_gprr
 
       ## Calc, 03, Import Official Data (and Metadata)  ----
       prog_detail <- "Import Data, Official and Metadata"
@@ -705,7 +727,7 @@ shinyServer(function(input, output) {
                                    , sel_user_taxaid
                                    , sel_user_groupby)
 
-      ## run the function ----
+      ## RUN taxa_translate ----
       taxatrans_results <- BioMonTools::taxa_translate(df_user
                                                        , df_official
                                                        , df_official_metadata
@@ -739,6 +761,9 @@ shinyServer(function(input, output) {
         col_keep_ttrm <- names(df_ttrm)[names(df_ttrm) %in% c(sel_user_sampid
                                                             , sel_user_taxaid
                                                             , sel_user_ntaxa
+                                                            , sel_user_indexname
+                                                            , sel_user_indexclass
+                                                            , sel_user_gprr
                                                             , "Match_Official"
                                                             , sel_user_groupby)]
         df_ttrm <- df_ttrm[, col_keep_ttrm]
