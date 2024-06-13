@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "0.1.0.9018"
+pkg_version <- "0.1.0.9019"
 
 # Packages----
 # nolint start
@@ -226,16 +226,6 @@ httr::GET(url_metricscoring, httr::write_disk(temp_metricscoring))
 df_metricscoring <- readxl::read_excel(temp_metricscoring
                                      , sheet = "metric.scoring"
                                      , skip = 0)
-
-# BMT, Fuzzy Therm Narrative ----
-url_fuzzytherm_crit <- file.path(url_bmt_base
-                                 , "fuzzythermal"
-                                 , "FuzzyTherm_ScoringScale.xlsx")
-temp_fuzzytherm_crit <- tempfile(fileext = ".xlsx")
-httr::GET(url_fuzzytherm_crit, httr::write_disk(temp_fuzzytherm_crit))
-
-df_fuzzytherm_crit <- readxl::read_excel(temp_fuzzytherm_crit
-                                         , sheet = "Current")
 
 # EPSG ----
 epsg_wgs84 <- 4326

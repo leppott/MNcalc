@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.1.0.9019 (2024-06-12)
+
+* refactor: Add conditions for no matches for taxa translator
+
 # MNcalc 0.1.0.9018 (2024-06-12)
 
 * refactor: Add pop up to ensure BCG community selection matches data, Issue#6

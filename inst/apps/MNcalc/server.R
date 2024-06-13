@@ -580,13 +580,13 @@ shinyServer(function(input, output) {
 
       # Different result subfolder based on project (bugs/fish and BCG/IBI)
       # 2023-12-14
-      if (sel_proj == "MN BCG (bugs)") {
+      if (sel_proj == "MN_BCG_Bugs") {
         dir_proj_results <- paste("bugs", dir_proj_results, sep = "_")
-      } else if (sel_proj == "MN IBI (bugs)") {
+      } else if (sel_proj == "MN_IBI_bugs") {
         dir_proj_results <- paste("bugs", dir_proj_results, sep = "_")
-      } else if (sel_proj == "MN BCG (fish)") {
+      } else if (sel_proj == "MN_BCG_Fish") {
         dir_proj_results <- paste("fish", dir_proj_results, sep = "_")
-      } else if (sel_proj == "MN IBI (fish)") {
+      } else if (sel_proj == "MN_IBI_Fish") {
         dir_proj_results <- paste("fish", dir_proj_results, sep = "_")
       }## IF ~ sel_proj
 
@@ -716,17 +716,23 @@ shinyServer(function(input, output) {
                                                        , col_drop
                                                        , sum_n_taxa_boo
                                                        , sum_n_taxa_col
-                                                       , sum_n_taxa_group_by)
+                                                       , sum_n_taxa_group_by
+                                                       , trim_ws = TRUE
+                                                       , match_caps = TRUE)
 
       ## Munge ----
+
+      nrow_results_merge <- nrow(taxatrans_results$merge)
 
       # Remove non-project taxaID cols
       # Specific to shiny project, not a part of the taxa_translate function
       col_keep <- !names(taxatrans_results$merge) %in% col_drop_project
-      taxatrans_results$merge <- taxatrans_results$merge[, col_keep]
+      if (nrow_results_merge > 0) {
+        taxatrans_results$merge <- taxatrans_results$merge[, col_keep]
+      }## taxatrans_results$merge > 0
 
       # Attributes if have 2nd file
-      if (!is.na(fn_taxoff_attr)) {
+      if (!is.na(fn_taxoff_attr) & nrow_results_merge > 0) {
 
         df_ttrm <- taxatrans_results$merge
         # drop translation file columns
@@ -765,113 +771,111 @@ shinyServer(function(input, output) {
            order(taxatrans_results$merge[, sel_user_sampid]
                    , taxatrans_results$merge[, sel_user_taxaid]), ]
 
-      # Add input filenames
-      taxatrans_results$merge[, "file_taxatrans"] <- fn_taxoff
-      taxatrans_results$merge[, "file_attributes"] <- fn_taxoff_attr
-
-
-      # Resort columns
-      col_start <- c(sel_user_sampid
-                     , sel_user_taxaid
-                     , sel_user_ntaxa
-                     , "file_taxatrans"
-                     , "file_attributes")
-      col_other <- names(taxatrans_results$merge)[!names(taxatrans_results$merge)
-                                                  %in% col_start]
-      taxatrans_results$merge <- taxatrans_results$merge[, c(col_start
+      # Mod Results Merge if have data
+      if (nrow_results_merge > 0) {
+        # Add input filenames
+        taxatrans_results$merge[, "file_taxatrans"] <- fn_taxoff
+        taxatrans_results$merge[, "file_attributes"] <- fn_taxoff_attr
+        # Resort columns
+        col_start <- c(sel_user_sampid
+                       , sel_user_taxaid
+                       , sel_user_ntaxa
+                       , "file_taxatrans"
+                       , "file_attributes")
+        col_other <- names(taxatrans_results$merge)[!names(taxatrans_results$merge)
+                                                    %in% col_start]
+        taxatrans_results$merge <- taxatrans_results$merge[, c(col_start
                                                              , col_other)]
 
-      # Convert required file names to standard
-      ## do at end so don't have to modify any other variables
-      boo_req_names <- TRUE
-      if (boo_req_names == TRUE) {
-        names(taxatrans_results$merge)[names(taxatrans_results$merge)
-                                       %in% sel_user_sampid] <- "SampleID"
-        names(taxatrans_results$merge)[names(taxatrans_results$merge)
-                                       %in% sel_user_taxaid] <- "TaxaID"
-        names(taxatrans_results$merge)[names(taxatrans_results$merge)
-                                       %in% sel_user_ntaxa] <- "N_Taxa"
-      }## IF ~ boo_req_names
 
-      # Hack/Fix
-      # Noteworthy NA causing issue later in Shiny app
-      # 20231201, only if have Noteworthy
-      if ("NOTEWORTHY" %in% toupper(taxatrans_results$merge)) {
-        taxatrans_results$merge$Noteworthy <- ifelse(is.na(taxatrans_results$merge$Noteworthy)
-                                                     , FALSE
-                                                     , TRUE)
-      }## IF ~ Noteworthy
+        # Convert required file names to standard
+        ## do at end so don't have to modify any other variables
+        boo_req_names <- TRUE
+        if (boo_req_names == TRUE) {
+          names(taxatrans_results$merge)[names(taxatrans_results$merge)
+                                         %in% sel_user_sampid] <- "SampleID"
+          names(taxatrans_results$merge)[names(taxatrans_results$merge)
+                                         %in% sel_user_taxaid] <- "TaxaID"
+          names(taxatrans_results$merge)[names(taxatrans_results$merge)
+                                         %in% sel_user_ntaxa] <- "N_Taxa"
+        }## IF ~ boo_req_names
 
-      ### MN BCG_ATTR ----
-      # MN BCG_ATTR depends on Index_Class (and also GP/RR for bugs)
-      # taxa_translate added all the BCG Attr fields
-      # create single column
-      if (sel_proj == "MN BCG (bugs)") {
-        # BCG_ATTR, Reset
-        if ("BCG_ATTR" %in% toupper(names(taxatrans_results$merge))) {
-          taxatrans_results$merge <- taxatrans_results$merge[,
-                                        !toupper(names(taxatrans_results$merge))
-                                        %in% "BCG_ATTR"]
-          taxatrans_results$merge$BCG_ATTR <- NA_character_
-        }## IF ~ BCG_ATTR
-        #
-        # BCG_ATTR, Define
-        ## ensure all MN BCG are character or fails
-        taxatrans_results$merge <- taxatrans_results$merge %>%
-          dplyr::mutate(BCG_ATTR = dplyr::case_when(.data[[sel_user_indexclass]] == "bug1" & .data[[sel_user_gprr]] == "GP" ~ as.character(BCG_Attr_GP)
-                                                    , .data[[sel_user_indexclass]] == "bug2" & .data[[sel_user_gprr]] == "GP" ~ as.character(BCG_Attr_GP)
-                                                    , .data[[sel_user_indexclass]] == "bug3" & .data[[sel_user_gprr]] == "GP" ~ as.character(BCG_Attr_GP)
-                                                    , .data[[sel_user_indexclass]] == "bug4" & .data[[sel_user_gprr]] == "GP" ~ as.character(BCG_Attr_GP)
-                                                    , .data[[sel_user_indexclass]] == "bug5" & .data[[sel_user_gprr]] == "GP" ~ as.character(BCG_Attr_GP)
-                                                    , .data[[sel_user_indexclass]] == "bug6" & .data[[sel_user_gprr]] == "GP" ~ as.character(BCG_Attr_GP)
-                                                    , .data[[sel_user_indexclass]] == "bug7" & .data[[sel_user_gprr]] == "GP" ~ as.character(BCG_Attr_GP)
-                                                    , .data[[sel_user_indexclass]] == "bug1" & .data[[sel_user_gprr]] == "RR" ~ as.character(BCG_Attr_RR)
-                                                    , .data[[sel_user_indexclass]] == "bug2" & .data[[sel_user_gprr]] == "RR" ~ as.character(BCG_Attr_RR)
-                                                    , .data[[sel_user_indexclass]] == "bug3" & .data[[sel_user_gprr]] == "RR" ~ as.character(BCG_Attr_RR)
-                                                    , .data[[sel_user_indexclass]] == "bug4" & .data[[sel_user_gprr]] == "RR" ~ as.character(BCG_Attr_RR)
-                                                    , .data[[sel_user_indexclass]] == "bug5" & .data[[sel_user_gprr]] == "RR" ~ as.character(BCG_Attr_RR)
-                                                    , .data[[sel_user_indexclass]] == "bug6" & .data[[sel_user_gprr]] == "RR" ~ as.character(BCG_Attr_RR)
-                                                    , .data[[sel_user_indexclass]] == "bug7" & .data[[sel_user_gprr]] == "RR" ~ as.character(BCG_Attr_RR)
-                                                    , .data[[sel_user_indexclass]] == "bug8" ~ BCG_Cool_8
-                                                    , .data[[sel_user_indexclass]] == "bug9" ~ BCG_Cold_9
-                                                    , .default = NA
-                                                    )## case_when
-          )## mutate
+        # Hack/Fix
+        # Noteworthy NA causing issue later in Shiny app
+        # 20231201, only if have Noteworthy
+        if ("NOTEWORTHY" %in% toupper(taxatrans_results$merge)) {
+          taxatrans_results$merge$Noteworthy <- ifelse(is.na(taxatrans_results$merge$Noteworthy)
+                                                       , FALSE
+                                                       , TRUE)
+        }## IF ~ Noteworthy
 
-      } else if (sel_proj == "MN BCG (fish)") {
-        # BCG_ATTR, Reset
-        if ("BCG_ATTR" %in% toupper(names(taxatrans_results$merge))) {
-          taxatrans_results$merge <- taxatrans_results$merge[,
-                                                             !toupper(names(taxatrans_results$merge))
-                                                             %in% "BCG_ATTR"]
-          taxatrans_results$merge$BCG_ATTR <- NA_character_
-        }## IF ~ BCG_ATTR
-        #
-        # BCG_ATTR, Define
-        ## ensure all MN BCG are character or fails
-        taxatrans_results$merge <- taxatrans_results$merge %>%
-          dplyr::mutate(BCG_ATTR = dplyr::case_when(.data[[sel_user_indexclass]] == "fish1" ~ as.character(BCG_Attr_MN2_01)
-                                                    , .data[[sel_user_indexclass]] == "fish2" ~ as.character(BCG_Attr_MN2_02)
-                                                    , .data[[sel_user_indexclass]] == "fish3" ~ as.character(BCG_Attr_MN2_03)
-                                                    , .data[[sel_user_indexclass]] == "fish4" ~ as.character(BCG_Attr_MN2_04)
-                                                    , .data[[sel_user_indexclass]] == "fish5" ~ as.character(BCG_Attr_MN2_05)
-                                                    , .data[[sel_user_indexclass]] == "fish6" ~ as.character(BCG_Attr_MN2_06)
-                                                    , .data[[sel_user_indexclass]] == "fish7" ~ as.character(BCG_Attr_MN2_07)
-                                                    , .data[[sel_user_indexclass]] == "fish10" ~ as.character(BCG_Attr_MN2_10)
-                                                    , .data[[sel_user_indexclass]] == "fish11" ~ as.character(BCG_Attr_MN2_11)
-                                                    , .data[[sel_user_indexclass]] == "fish10a" ~ as.character(BCG_Attr_MN2_10)
-                                                    , .data[[sel_user_indexclass]] == "fish11a" ~ as.character(BCG_Attr_MN2_11)
-                                                    , .data[[sel_user_indexclass]] == "fish10b" ~ as.character(BCG_Attr_MN2_10)
-                                                    , .data[[sel_user_indexclass]] == "fish11b" ~ as.character(BCG_Attr_MN2_11)
-                                                    , .default = NA
-                                      )## case_when  (10a, 10b, 11a, 11b)
-          )## mutate
-      }## IF ~ sel_proj
+        ### MN BCG_ATTR ----
+        # MN BCG_ATTR depends on Index_Class (and also GP/RR for bugs)
+        # taxa_translate added all the BCG Attr fields
+        # create single column
+        if (sel_proj == "MN BCG (bugs)") {
+          # BCG_ATTR, Reset
+          if ("BCG_ATTR" %in% toupper(names(taxatrans_results$merge))) {
+            taxatrans_results$merge <- taxatrans_results$merge[,
+                                                               !toupper(names(taxatrans_results$merge))
+                                                               %in% "BCG_ATTR"]
+            taxatrans_results$merge$BCG_ATTR <- NA_character_
+          }## IF ~ BCG_ATTR
+          #
+          # BCG_ATTR, Define
+          ## ensure all MN BCG are character or fails
+          taxatrans_results$merge <- taxatrans_results$merge %>%
+            dplyr::mutate(BCG_ATTR = dplyr::case_when(.data[[sel_user_indexclass]] == "bug1" & .data[[sel_user_gprr]] == "GP" ~ as.character(BCG_Attr_GP)
+                                                      , .data[[sel_user_indexclass]] == "bug2" & .data[[sel_user_gprr]] == "GP" ~ as.character(BCG_Attr_GP)
+                                                      , .data[[sel_user_indexclass]] == "bug3" & .data[[sel_user_gprr]] == "GP" ~ as.character(BCG_Attr_GP)
+                                                      , .data[[sel_user_indexclass]] == "bug4" & .data[[sel_user_gprr]] == "GP" ~ as.character(BCG_Attr_GP)
+                                                      , .data[[sel_user_indexclass]] == "bug5" & .data[[sel_user_gprr]] == "GP" ~ as.character(BCG_Attr_GP)
+                                                      , .data[[sel_user_indexclass]] == "bug6" & .data[[sel_user_gprr]] == "GP" ~ as.character(BCG_Attr_GP)
+                                                      , .data[[sel_user_indexclass]] == "bug7" & .data[[sel_user_gprr]] == "GP" ~ as.character(BCG_Attr_GP)
+                                                      , .data[[sel_user_indexclass]] == "bug1" & .data[[sel_user_gprr]] == "RR" ~ as.character(BCG_Attr_RR)
+                                                      , .data[[sel_user_indexclass]] == "bug2" & .data[[sel_user_gprr]] == "RR" ~ as.character(BCG_Attr_RR)
+                                                      , .data[[sel_user_indexclass]] == "bug3" & .data[[sel_user_gprr]] == "RR" ~ as.character(BCG_Attr_RR)
+                                                      , .data[[sel_user_indexclass]] == "bug4" & .data[[sel_user_gprr]] == "RR" ~ as.character(BCG_Attr_RR)
+                                                      , .data[[sel_user_indexclass]] == "bug5" & .data[[sel_user_gprr]] == "RR" ~ as.character(BCG_Attr_RR)
+                                                      , .data[[sel_user_indexclass]] == "bug6" & .data[[sel_user_gprr]] == "RR" ~ as.character(BCG_Attr_RR)
+                                                      , .data[[sel_user_indexclass]] == "bug7" & .data[[sel_user_gprr]] == "RR" ~ as.character(BCG_Attr_RR)
+                                                      , .data[[sel_user_indexclass]] == "bug8" ~ BCG_Cool_8
+                                                      , .data[[sel_user_indexclass]] == "bug9" ~ BCG_Cold_9
+                                                      , .default = NA
+            )## case_when
+            )## mutate
 
+        } else if (sel_proj == "MN BCG (fish)") {
+          # BCG_ATTR, Reset
+          if ("BCG_ATTR" %in% toupper(names(taxatrans_results$merge))) {
+            taxatrans_results$merge <- taxatrans_results$merge[,
+                                                               !toupper(names(taxatrans_results$merge))
+                                                               %in% "BCG_ATTR"]
+            taxatrans_results$merge$BCG_ATTR <- NA_character_
+          }## IF ~ BCG_ATTR
+          #
+          # BCG_ATTR, Define
+          ## ensure all MN BCG are character or fails
+          taxatrans_results$merge <- taxatrans_results$merge %>%
+            dplyr::mutate(BCG_ATTR = dplyr::case_when(.data[[sel_user_indexclass]] == "fish1" ~ as.character(BCG_Attr_MN2_01)
+                                                      , .data[[sel_user_indexclass]] == "fish2" ~ as.character(BCG_Attr_MN2_02)
+                                                      , .data[[sel_user_indexclass]] == "fish3" ~ as.character(BCG_Attr_MN2_03)
+                                                      , .data[[sel_user_indexclass]] == "fish4" ~ as.character(BCG_Attr_MN2_04)
+                                                      , .data[[sel_user_indexclass]] == "fish5" ~ as.character(BCG_Attr_MN2_05)
+                                                      , .data[[sel_user_indexclass]] == "fish6" ~ as.character(BCG_Attr_MN2_06)
+                                                      , .data[[sel_user_indexclass]] == "fish7" ~ as.character(BCG_Attr_MN2_07)
+                                                      , .data[[sel_user_indexclass]] == "fish10" ~ as.character(BCG_Attr_MN2_10)
+                                                      , .data[[sel_user_indexclass]] == "fish11" ~ as.character(BCG_Attr_MN2_11)
+                                                      , .data[[sel_user_indexclass]] == "fish10a" ~ as.character(BCG_Attr_MN2_10)
+                                                      , .data[[sel_user_indexclass]] == "fish11a" ~ as.character(BCG_Attr_MN2_11)
+                                                      , .data[[sel_user_indexclass]] == "fish10b" ~ as.character(BCG_Attr_MN2_10)
+                                                      , .data[[sel_user_indexclass]] == "fish11b" ~ as.character(BCG_Attr_MN2_11)
+                                                      , .default = NA
+            )## case_when  (10a, 10b, 11a, 11b)
+            )## mutate
+        }## IF ~ sel_proj
 
-
-
-
+      }## taxatrans_results$merge > 0
 
 
 
