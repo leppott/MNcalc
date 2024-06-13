@@ -1002,6 +1002,8 @@ shinyServer(function(input, output) {
       # pop up
       msg <- paste0("Total Records (Input) = ", nrow(df_input)
                     , "\n\n"
+                    , "Number of mismatch taxa = ", nrow(taxatrans_results$nonmatch)
+                    , "\n\n"
                     , "Elapse Time (", units(duration), ") = ", round(duration, 2))
       shinyalert::shinyalert(title = "Task Complete"
                              , text = msg
