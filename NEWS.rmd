@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9001 (2024-06-12)
+
+* fix: Update complete pop up for misspelling, Issue #12
+
 # MNcalc 0.2.0 (2024-06-12)
 
 * refactor: Update version number for deliverable

@@ -1003,7 +1003,7 @@ shinyServer(function(input, output) {
       msg <- paste0("Total Records (Input) = ", nrow(df_input)
                     , "\n\n"
                     , "Elapse Time (", units(duration), ") = ", round(duration, 2))
-      shinyalert::shinyalert(title = "Task Compete"
+      shinyalert::shinyalert(title = "Task Complete"
                              , text = msg
                              , type = "success"
                              , closeOnEsc = TRUE
@@ -2231,7 +2231,7 @@ shinyServer(function(input, output) {
 
       # pop up
       msg <- paste0("Elapse Time (", units(duration), ") = ", round(duration, 2))
-      shinyalert::shinyalert(title = "Task Compete"
+      shinyalert::shinyalert(title = "Task Complete"
                              , text = msg
                              , type = "success"
                              , closeOnEsc = TRUE
@@ -2806,7 +2806,7 @@ shinyServer(function(input, output) {
       msg <- paste0("Total Records (Input) = ", nrow(df_input)
                     , "\n\n"
                     , "Elapse Time (", units(duration), ") = ", round(duration, 2))
-      shinyalert::shinyalert(title = "Task Compete"
+      shinyalert::shinyalert(title = "Task Complete"
                              , text = msg
                              , type = "success"
                              , closeOnEsc = TRUE
@@ -3646,7 +3646,7 @@ shinyServer(function(input, output) {
       msg <- paste0("Total Records (Input) = ", nrow(df_input)
                     , "\n\n"
                     , "Elapse Time (", units(duration), ") = ", round(duration, 2))
-      shinyalert::shinyalert(title = "Task Compete"
+      shinyalert::shinyalert(title = "Task Complete"
                              , text = msg
                              , type = "success"
                              , closeOnEsc = TRUE
