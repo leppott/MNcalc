@@ -1,23 +1,28 @@
 # About Panel
 
 function() {
-  tabPanel("tabpan_about"
-           , h2("About")
-           , p(paste0("Version: ", pkg_version))
-           # , fluidPage(h2("About"
-           #                #, style  = "text-align:center"
-           #                )
-           #             , p("Background info")
-           #
-           #             , p("Version 0.5.0.9080")
-           #
-           #
-           #              )## fluidPage ~ END
-            , includeHTML(file.path("www", "rmd_html", "ShinyHTML_About.html"))
-         #  , htmlOutput("html_about") # use with iframe
-           )##tabPanel ~ END
+  mainPanel(
+  tabsetPanel(type = "tabs"
+              , tabPanel(title = "About"
+                         ,includeHTML(file.path("www"
+                                                , "rmd_html"
+                                                , "ShinyHTML_About_1About.html"))
+              )
+              , tabPanel(title = "Study Area"
+                         ,includeHTML(file.path("www"
+                                                , "rmd_html"
+                                                , "ShinyHTML_About_2StudyArea.html"))
+              )
+              , tabPanel(title = "Basic Information"
+                         ,includeHTML(file.path("www"
+                                                , "rmd_html"
+                                                , "ShinyHTML_About_3BasicInfo.html"))
+              )
+              , tabPanel(title = "Funding"
+                         ,includeHTML(file.path("www"
+                                                , "rmd_html"
+                                                , "ShinyHTML_About_4Funding.html"))
+              )
+  )## tabPanel ~ END
+)## mainPanel ~ END
 }##FUNCTION ~ END
-
-# output$UI_about = renderUI({
-#   p("About stuff here.")
-# })

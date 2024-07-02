@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9005 (2024-07-02)
+
+* refactor: Update About page
+
 # MNcalc 0.2.0.9004 (2024-06-13)
 
 * refactor: Update file builder taxa translator

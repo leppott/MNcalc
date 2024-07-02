@@ -68,7 +68,7 @@ file.copy("NEWS.md", "NEWS", overwrite = TRUE)
 file.remove("NEWS.html")
 #file.remove("NEWS.md")
 #
-# myPkg <- "MNcalc"
+myPkg <- "MNcalc"
 # # Load Library
 # library(devtools)
 # #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -85,8 +85,8 @@ file.remove("NEWS.html")
 # setwd("..") # return to root directory first
 # devtools::install(myPkg, quick=FALSE, reload=TRUE, build_vignettes = FALSE)
 
-## Reload library
-library(myPkg, character.only = TRUE)
+# ## Reload library
+# library(myPkg, character.only = TRUE)
 # change wd back to package
 setwd(paste0("./",myPkg))
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
