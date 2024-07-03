@@ -96,8 +96,8 @@ function(id) {
       #                          , tabName = "tab_rep_multi"
       #                          , icon = icon("pen-to-square"))
       #            )## menuItem ~ Reports ~ END
-      , menuItem(text = "Relevant Resources"
-                 , tabName = "tab_resources"
+      , menuItem(text = "References"
+                 , tabName = "tab_references"
                  , icon = icon("book"))
     )## sidebarMenu ~ END
   )## dashboardSidebar ~ END

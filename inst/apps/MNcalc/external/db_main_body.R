@@ -40,8 +40,8 @@ function(id) {
       #           , tab_code_rep_single())
       # , tabItem(tabName = "tab_rep_multi"
       #           , tab_code_rep_multi())
-      , tabItem(tabName = "tab_resources"
-                , tab_code_resources())
+      , tabItem(tabName = "tab_references"
+                , tab_code_references())
     )## tabItems
 
 }## FUNCTION ~ END

@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "0.2.0.9005"
+pkg_version <- "0.2.0.9006"
 
 # Packages----
 # nolint start
@@ -89,7 +89,7 @@ tab_code_calc_ibi              <- source("external/tab_calc_ibi.R"
 #                                          , local = TRUE)$value
 # tab_code_rep_multi             <- source("external/tab_report_multi.R"
 #                                          , local = TRUE)$value
-tab_code_resources             <- source("external/tab_resources.R"
+tab_code_references             <- source("external/tab_references.R"
                                          , local = TRUE)$value
 
 # Console Message ----

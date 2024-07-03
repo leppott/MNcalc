@@ -21,6 +21,12 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9006 (2024-07-03)
+
+* refactor: Update links in References to pull from GitHub so open in new tab
+* refactor: Change names of Reference PDFs
+* refactor: Update zip file with all reference PDFs
+
 # MNcalc 0.2.0.9005 (2024-07-02)
 
 * refactor: Update About page
