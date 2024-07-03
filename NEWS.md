@@ -1,11 +1,16 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-07-03 09:50:28.277927
+2024-07-03 10:13:36.514548
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-07-03 09:50:28.299276
+    #> Last Update: 2024-07-03 10:13:36.536783
+
+# MNcalc 0.2.0.9007 (2024-07-03)
+
+- refactor: Update links in Reference to GitHub raw
+  - Will download instead of open
 
 # MNcalc 0.2.0.9006 (2024-07-03)
 
