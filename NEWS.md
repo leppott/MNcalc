@@ -1,11 +1,18 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-07-05 15:09:09.179184
+2024-07-05 15:28:19.25129
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-07-05 15:09:09.199636
+    #> Last Update: 2024-07-05 15:28:19.285052
+
+# MNcalc 0.2.0.9010 (2024-07-05)
+
+- refactor: Update TaxaTranslator result folders to match calculations
+  folders
+  - TaxaTrans was lower case and calc was first letter cap for
+    assemblage
 
 # MNcalc 0.2.0.9009 (2024-07-05)
 

@@ -603,13 +603,13 @@ shinyServer(function(input, output) {
       # Different result subfolder based on project (bugs/fish and BCG/IBI)
       # 2023-12-14
       if (sel_proj == "MN_BCG_Bugs") {
-        dir_proj_results <- paste("bugs", dir_proj_results, sep = "_")
+        dir_proj_results <- paste("Bugs", dir_proj_results, sep = "_")
       } else if (sel_proj == "MN_IBI_Bugs") {
-        dir_proj_results <- paste("bugs", dir_proj_results, sep = "_")
+        dir_proj_results <- paste("Bugs", dir_proj_results, sep = "_")
       } else if (sel_proj == "MN_BCG_Fish") {
-        dir_proj_results <- paste("fish", dir_proj_results, sep = "_")
+        dir_proj_results <- paste("Fish", dir_proj_results, sep = "_")
       } else if (sel_proj == "MN_IBI_Fish") {
-        dir_proj_results <- paste("fish", dir_proj_results, sep = "_")
+        dir_proj_results <- paste("Fish", dir_proj_results, sep = "_")
       }## IF ~ sel_proj
 
       dn_files <- paste(abr_results, dir_proj_results, sep = "_")
