@@ -21,6 +21,15 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9011 (2024-07-05)
+
+* refactor: Update naming scheme for result files
+    + BCG
+    + IBI
+    + taxa translate
+* refactor: taxa translate file names prefix with BCG/IBI but not Bugs/Fish
+    + Already in subfolder with assemblage name
+
 # MNcalc 0.2.0.9010 (2024-07-05)
 
 * refactor: Update TaxaTranslator result folders to match calculations folders

@@ -1,11 +1,21 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-07-05 15:28:19.25129
+2024-07-05 16:37:05.403445
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-07-05 15:28:19.285052
+    #> Last Update: 2024-07-05 16:37:05.427383
+
+# MNcalc 0.2.0.9011 (2024-07-05)
+
+- refactor: Update naming scheme for result files
+  - BCG
+  - IBI
+  - taxa translate
+- refactor: taxa translate file names prefix with BCG/IBI but not
+  Bugs/Fish
+  - Already in subfolder with assemblage name
 
 # MNcalc 0.2.0.9010 (2024-07-05)
 
