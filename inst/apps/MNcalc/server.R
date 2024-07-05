@@ -604,7 +604,7 @@ shinyServer(function(input, output) {
       # 2023-12-14
       if (sel_proj == "MN_BCG_Bugs") {
         dir_proj_results <- paste("bugs", dir_proj_results, sep = "_")
-      } else if (sel_proj == "MN_IBI_bugs") {
+      } else if (sel_proj == "MN_IBI_Bugs") {
         dir_proj_results <- paste("bugs", dir_proj_results, sep = "_")
       } else if (sel_proj == "MN_BCG_Fish") {
         dir_proj_results <- paste("fish", dir_proj_results, sep = "_")
@@ -663,8 +663,9 @@ shinyServer(function(input, output) {
       Sys.sleep(prog_sleep)
 
       ## Data,  Official Taxa----
-      url_taxoff <- file.path(url_bmt_base
+      url_taxoff <- file.path(url_bmtsf_base
                               , "taxa_official"
+                              , "MN"
                               , fn_taxoff)
       temp_taxoff <- tempfile(fileext = ".csv")
       httr::GET(url_taxoff, write_disk(temp_taxoff))
@@ -673,8 +674,9 @@ shinyServer(function(input, output) {
 
       ## Data, Official Taxa, Meta Data----
       if (!is.null(fn_taxoff_meta)) {
-        url_taxoff_meta <- file.path(url_bmt_base
+        url_taxoff_meta <- file.path(url_bmtsf_base
                                      , "taxa_official"
+                                     , "MN"
                                      , fn_taxoff_meta)
         temp_taxoff_meta <- tempfile(fileext = ".csv")
         httr::GET(url_taxoff_meta, write_disk(temp_taxoff_meta))
@@ -684,8 +686,9 @@ shinyServer(function(input, output) {
 
       ## Data, Official Attributes----
       if (!is.null(fn_taxoff_attr)) {
-        url_taxoff_attr <- file.path(url_bmt_base
+        url_taxoff_attr <- file.path(url_bmtsf_base
                                      , "taxa_official"
+                                     , "MN"
                                      , fn_taxoff_attr)
         temp_taxoff_attr <- tempfile(fileext = ".csv")
         httr::GET(url_taxoff_attr, write_disk(temp_taxoff_attr))
@@ -695,8 +698,9 @@ shinyServer(function(input, output) {
 
       ## Data, Official Attributes, Meta Data----
       if (!is.null(fn_taxoff_meta)) {
-        url_taxoff_attr_meta <- file.path(url_bmt_base
+        url_taxoff_attr_meta <- file.path(url_bmtsf_base
                                      , "taxa_official"
+                                     , "MN"
                                      , fn_taxoff_attr_meta)
         temp_taxoff_attr_meta <- tempfile(fileext = ".csv")
         httr::GET(url_taxoff_attr_meta, write_disk(temp_taxoff_attr_meta))
@@ -4538,8 +4542,9 @@ shinyServer(function(input, output) {
                                     "MTTI (Oregon/Washington)"
                                   , "filename"]
 
-      url_taxa_official <- file.path(url_bmt_base
+      url_taxa_official <- file.path(url_bmtsf_base
                                           , "taxa_official"
+                                     , "MN"
                                           , fn_taxoff)
 
       # download so ensure have it before read

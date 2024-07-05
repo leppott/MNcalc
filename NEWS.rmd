@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9009 (2024-07-05)
+
+* refactor: Update URL references in Server.R for support files
+* refactor: Update TaxaTranslator result folder (typo for bugs ibi)
+
 # MNcalc 0.2.0.9008 (2024-07-05)
 
 * refactor: Update Global.R for new location of support files

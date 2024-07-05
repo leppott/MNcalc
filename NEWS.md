@@ -1,11 +1,16 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-07-05 14:39:18.076725
+2024-07-05 15:09:09.179184
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-07-05 14:39:18.099411
+    #> Last Update: 2024-07-05 15:09:09.199636
+
+# MNcalc 0.2.0.9009 (2024-07-05)
+
+- refactor: Update URL references in Server.R for support files
+- refactor: Update TaxaTranslator result folder (typo for bugs ibi)
 
 # MNcalc 0.2.0.9008 (2024-07-05)
 
