@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9008 (2024-07-05)
+
+* refactor: Update Global.R for new location of support files
+
 # MNcalc 0.2.0.9007 (2024-07-03)
 
 * refactor: Update links in Reference to GitHub raw

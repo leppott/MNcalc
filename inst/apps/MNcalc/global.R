@@ -170,8 +170,8 @@ sel_bcg_models <- "MN_BCG"
 ## Metric Suites
 sel_metric_suites <- ("ThermalHydro")
 
-## URL BioMonTools
-url_bmt_base <- "https://github.com/leppott/BioMonTools_SupportFiles/raw/main/data"
+## URL BioMonTools_SupportFiles
+url_bmtsf_base <- "https://github.com/leppott/BioMonTools_SupportFiles/raw/main/data"
 
 # BMT, Flags ----
 url_bcg_checks <- file.path(url_bcg_base, "MetricFlags.xlsx")
@@ -181,8 +181,9 @@ httr::GET(url_bcg_checks, httr::write_disk(temp_bcg_checks))
 df_checks <- as.data.frame(readxl::read_excel(temp_bcg_checks, sheet = "Flags"))
 
 # BMT, Taxa Official Pick----
-url_taxa_official_pick <- file.path(url_bmt_base
+url_taxa_official_pick <- file.path(url_bmtsf_base
                                     , "taxa_official"
+                                    , "MN"
                                     , "_pick_files_MN.csv")
 temp_taxa_official_pick <- tempfile(fileext = ".csv")
 httr::GET(url_taxa_official_pick, httr::write_disk(temp_taxa_official_pick))
@@ -190,7 +191,7 @@ httr::GET(url_taxa_official_pick, httr::write_disk(temp_taxa_official_pick))
 df_pick_taxoff <- read.csv(temp_taxa_official_pick)
 
 # BMT, Index Class ----
-url_indexclass_crit <- file.path(url_bmt_base
+url_indexclass_crit <- file.path(url_bmtsf_base
                                  , "index_class"
                                  , "IndexClass.xlsx")
 temp_indexclass_crit <- tempfile(fileext = ".xlsx")
