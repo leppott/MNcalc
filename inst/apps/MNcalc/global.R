@@ -91,6 +91,8 @@ tab_code_calc_ibi              <- source("external/tab_calc_ibi.R"
 #                                          , local = TRUE)$value
 tab_code_references             <- source("external/tab_references.R"
                                          , local = TRUE)$value
+tab_code_troubleshoot             <- source("external/tab_troubleshoot.R"
+                                          , local = TRUE)$value
 
 # Console Message ----
 message(paste0("Interactive: ", interactive()))

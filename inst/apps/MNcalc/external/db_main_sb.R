@@ -99,6 +99,9 @@ function(id) {
       , menuItem(text = "References"
                  , tabName = "tab_references"
                  , icon = icon("book"))
+      , menuItem(text = "Troubleshooting"
+                 , tabName = "tab_troubleshoot"
+                 , icon = icon("question"))
     )## sidebarMenu ~ END
   )## dashboardSidebar ~ END
 }## FUNCTION ~ END

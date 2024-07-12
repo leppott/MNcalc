@@ -42,6 +42,8 @@ function(id) {
       #           , tab_code_rep_multi())
       , tabItem(tabName = "tab_references"
                 , tab_code_references())
+      , tabItem(tabName = "tab_troubleshoot"
+                , tab_code_troubleshoot())
     )## tabItems
 
 }## FUNCTION ~ END
