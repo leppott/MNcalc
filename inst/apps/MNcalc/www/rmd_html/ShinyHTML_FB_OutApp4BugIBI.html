@@ -1,0 +1,419 @@
+
+
+
+<div id="input-file-requirements---bug-ibi" class="section level1">
+<h1>Input file requirements - Bug IBI</h1>
+<p>The comma-separated file (CSV) needs to have all the required fields
+listed in the table below. Column names must match the spelling,
+symbology and capitalization scheme exactly as shown.</p>
+<p>IMPORTANT: Make sure you are using the proper Operational Taxonomic
+Unit (OTU) and taxa traits/attributes for your metric calculations.
+These can be found in the
+<a href="https://github.com/leppott/BioMonTools_SupportFiles/tree/main/data/taxa_official/MN" target="blank">Taxa
+Translator and Attribute tables</a>.</p>
+<table class="table" style="color: black; width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+Column Name 
+</th>
+<th style="text-align:left;">
+Data Type
+</th>
+<th style="text-align:left;">
+Domain (allowable entries)
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Index_Name
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+MN_IBI_Bugs
+</td>
+<td style="text-align:left;">
+Tells R which model to apply (MN_IBI_Bugs, MN_IBI_Fish, MN_BCG)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Index_Class
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+1, 2, 3, 4, 5, 6, 7, 8, 9
+</td>
+<td style="text-align:left;">
+Bug IBI class. 1=Northern Forest Rivers, 2 = Prairie Forest Rivers, 3 =
+Northern Forest Streams RR, 4 = Northern Forest Streams GP, 5 = Southern
+Stream RR, 6 = Southern Forest Streams GP, 7 = Prairie Streams GP, 8 =
+Northern Coldwater, 9 = Southern Coldwater
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GP.RR
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+GP,RR
+</td>
+<td style="text-align:left;">
+Riffle/Run (RR) if a stream reach includes riffles as representative
+habitat, is high gradient and has flow adequate to create an environment
+supportive of riffle dwelling organisms, then a stream would be
+considered. Glide/pool (GP) if these conditions are not met (for more
+details, see Table 6 in MPCA 2017 – macroinvertebrate protocols).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SampleID
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Unique sample identifier (typically comprised of the site name, sample
+date, and replicate number)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TaxaID
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Taxon name, using the IBI Operational Taxonomic Unit (OTU)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+N_Taxa
+</td>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+non-negative real number
+</td>
+<td style="text-align:left;">
+Number of individuals
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LargeRareCount
+</td>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Count from the Large Rare pick. Taxa that only occur in Large Rare picks
+have blank entries in the N_Taxa column
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DRAINSQMI
+</td>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Drainage area (total watershed area) in square miles. A drainage
+correction (continuous metric scoring adjustment) is applied to four of
+the metrics in the Southern Coldwater Stream MIBI, stream type 9.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TolVal
+</td>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+number ranging from 0-10, with decimals
+</td>
+<td style="text-align:left;">
+Tolerance values based on analyses of MPCA data. Used in several metric
+calculations (Hilsenhoff Biotic Index, intolerant taxa and tolerant taxa
+metrics). Very Intolerant taxa have values less than or equal to 2. Very
+Tolerant taxa have values equal to or greater than 8. Calculated using
+the weighted average of a general disturbance measure where taxa
+relative abundance was the weighting factor. The general disturbance
+measure was the first principal component of a principal components
+analysis of six disturbance variables including Minnesota’s Human
+Disturbance Score (HDS), the Minnesota Stream Habitat Assessment score,
+total phosphorus, total suspended solids, NH4, and nitrate/nitrite
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TolVal2
+</td>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+number ranging from 0-10, with decimals
+</td>
+<td style="text-align:left;">
+Coldwater sensitivity values based on analyses of MPCA data. Calculated
+using the weighted average of stream temperatures where taxa relative
+abundance was the weighting factor
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LongLived
+</td>
+<td style="text-align:left;">
+logical
+</td>
+<td style="text-align:left;">
+TRUE, FALSE
+</td>
+<td style="text-align:left;">
+TRUE = macroinvertebrates with a life cycle of more than 1 year (i.e.,
+semivoltine)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FFG
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+CG, CF, PR, SC, SH, MH, OM, PA, PH, XY
+</td>
+<td style="text-align:left;">
+Functional Feeding Group (method of food acquisition and functional role
+in aquatic food webs). Multiple entries are allowed and should be
+separated with a comma, either with or without a space (for example,
+either ‘CG,CF’ or ‘CG, CF’ are ok). Entries: collector-gatherer (CG),
+collector-filterer (CF), predator (PR), scraper (SC), shredder (SH),
+macrophyte herbivore (MH), omnivore (OM), parasite (PA),
+piercer-herbivore (PH), xylophage (XY)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Habit
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+BU, CB, CN, SP, SW
+</td>
+<td style="text-align:left;">
+Habit (how a macroinvertebrate moves in the aquatic environment and
+where they find food). Multiple entries are allowed and should be
+separated with a comma, either with or without a space (for example,
+either ‘BU,SP’ or ‘BU, SP’ are ok). Entries: Burrowers (BU), Climbers
+(CB), Clingers (CN), Sprawlers (SP), and Swimmers (SW)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Phylum
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Taxonomic hierarchy
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SubPhylum
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Taxonomic hierarchy
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Class
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Taxonomic hierarchy
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SubClass
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Taxonomic hierarchy
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Order
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Taxonomic hierarchy
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SubOrder
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Taxonomic hierarchy
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Family
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Taxonomic hierarchy
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SubFamily
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Taxonomic hierarchy
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tribe
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Taxonomic hierarchy
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Genus
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Taxonomic hierarchy
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SubGenus
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Taxonomic hierarchy
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Species
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Taxonomic hierarchy
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>Last updated: 2024-07-15</p>
+</div>

@@ -1,6 +1,6 @@
 ---
 title: "File Builder, Merge Files, Output"
-date: "2023-02-08"
+date: "2024-05-07"
 output: html_fragment
 editor_options: 
   markdown: 
@@ -42,6 +42,3 @@ cap_data <- "File Builder, Merge Files, zip file contents."
 knitr::kable(df_data, "html", caption = cap_data)
 ```
 
----
-
-*Last updated 2023-02-08*

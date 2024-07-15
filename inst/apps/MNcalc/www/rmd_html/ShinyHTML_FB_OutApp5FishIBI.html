@@ -1,0 +1,252 @@
+
+
+
+<div id="input-file-requirements---fish-ibi" class="section level1">
+<h1>Input file requirements - Fish IBI</h1>
+<p>The comma-separated file (CSV) needs to have all the required fields
+listed in the table below. Column names must match the spelling,
+symbology and capitalization scheme exactly as shown.</p>
+<p>IMPORTANT: Make sure you are using the proper Operational Taxonomic
+Unit (OTU) and taxa traits/attributes for your metric calculations.
+These can be found in the
+<a href="https://github.com/leppott/BioMonTools_SupportFiles/tree/main/data/taxa_official/MN" target="blank">Taxa
+Translator and Attribute tables</a>.</p>
+<table class="table" style="color: black; width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+Column Name 
+</th>
+<th style="text-align:left;">
+Data Type
+</th>
+<th style="text-align:left;">
+Domain (allowable entries)
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Index_Name
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+MN_IBI_Fish
+</td>
+<td style="text-align:left;">
+Tells R which model to apply (MN_IBI_Bugs, MN_IBI_Fish, MN_BCG)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Index_Class
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+1, 2, 3, 4, 5, 6, 7, 10, 11
+</td>
+<td style="text-align:left;">
+Fish IBI class. 1=Southern Rivers, 2 = Southern Streams, 3 = Southern
+Headwaters, 4 = Northern Rivers, 5 = Northern Streams, 6 = Northern
+Headwaters, 7 = Low Gradient Streams, 10 = Southern Coldwater, 11 =
+Northern Coldwater
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SampleID
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Unique sample identifier (typically comprised of the site name, sample
+date, and replicate number).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TaxaID
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+Scientific name
+</td>
+<td style="text-align:left;">
+Taxon name from the selected Operational Taxonomic Unit (OTU)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+N_Taxa
+</td>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+non-negative real number
+</td>
+<td style="text-align:left;">
+Number of individuals.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+N_Anomalies
+</td>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Number of individuals with Deformities, Eroded fins, Lesions, Tumors
+(DELT) anomalies
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Distance_m
+</td>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Distance fished in meters. This is used for the catch-per-unit-effort
+(CPUE) metric in class 6 and 7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DRAINSQMI
+</td>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Drainage area (total watershed area) in square miles
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gradient_m/km
+</td>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Gradient calculation based on elevations (from a DEM) at the up- and
+downstream ends of a 1000m arc bracketing our sampling reach,
+representing slope in m/km
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Type
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+Composition: DS,DSS,PERC, MIN-T. Life History: PI,SL. Schooling: SCH
+</td>
+<td style="text-align:left;">
+Combination of Composition, Life History and Schooling. Composition: DSS
+= DarterSculpinSucker, DS = DarterSculpin, EX = Exotic, MIN-T = Minnow -
+Tol, PERC = Perciformes. Life History: PI = Pioneer, SL = Short-lived.
+Schooling: SCH = schooling fish (Emerald Shiner and American Gizzard
+Shad)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Habitat
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+HW-T, WE-T, CW, CWN
+</td>
+<td style="text-align:left;">
+HW-T = Headwater Specialist, Exclude Tolerant, WE-T = Wetland, Exclude
+Tolerant, CW = Coldwater, CWN = Coldwater Native
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Reproduction
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+MA&gt;3-T,MA&lt;2,NE,SILI,SER
+</td>
+<td style="text-align:left;">
+MA&lt;2 = Mature Age &lt; 2, MA&gt;3-T = Mature Age &gt; 3, Exclude
+Tolerant, NE = Non Lithophilic Nester, SER = Serial Spawner, SILI =
+Simple Lithophil
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Toler
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+I,ICW,S,SCW,T,TCW,VT
+</td>
+<td style="text-align:left;">
+I = Intolerant, ICW = Intolerant Coldwater, S = Sensitive, SCW =
+Sensitive Coldwater, T = Tolerant, TCW = Tolerant Coldwater, VT = Very
+Tolerant
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Trophic
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+BI-T,DE,DEM,GE,HE,IN-T,INCYP,OM,PI
+</td>
+<td style="text-align:left;">
+BI-T = Benthic Insectivore, Exclude Tolerant, DE = Detritivore, DEM =
+Detritivore Minor, GE = Generalist Feeder, HE = Herbivore, IN-T =
+Insectivore, Exclude Tolerant, INCYP = Insectivorous Cyprinid, OM =
+Omnivore, PI = Piscivore
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>Last updated: 2024-07-15</p>
+</div>

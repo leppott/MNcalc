@@ -14,12 +14,12 @@ function(id) {
                 , tab_code_import())
       , tabItem(tabName = "tab_filebuilder"
                 , tab_code_filebuilder())
+      , tabItem(tabName = "tab_filebuilder_intro"
+                , tab_code_filebuilder_intro())
       , tabItem(tabName = "tab_filebuilder_taxatrans"
                 , tab_code_filebuilder_taxatrans())
-      # , tabItem(tabName = "tab_filebuilder_indexclass"
-      #           , tab_code_filebuilder_indexclass())
-      # , tabItem(tabName = "tab_filebuilder_indexclassparam"
-      #           , tab_code_filebuilder_indexclassparam())
+      , tabItem(tabName = "tab_filebuilder_outsideapp"
+                , tab_code_filebuilder_outsideapp())
       , tabItem(tabName = "tab_filebuilder_mergefiles"
                 , tab_code_filebuilder_mergefiles())
       , tabItem(tabName = "tab_calc_bcg"

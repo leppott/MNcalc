@@ -11,7 +11,7 @@ function() {
       , p("File 1 is the primary file. All rows in the primary file will be carried through into the ouput file.")
       , p("File 2 is the secondary file. Only rows that match with the common identifier in the primary file will be carried through into the output file.")
       , br()
-      
+
       , h4("A. Upload files.")
       # file input
       , fileInput("fn_input_mf1"
@@ -32,21 +32,21 @@ function() {
                                , "text/plain"
                                , ".csv")
                   )
-      
+
       , h4("B. Select common identifier column for the merge.")
       , uiOutput("UI_mergefiles_f1_col_merge")
       , uiOutput("UI_mergefiles_f2_col_merge")
-      
+
       , h4("C. Run Operation")
       , p("This button will merge the two files based on inputs")
       , shinyjs::disabled(shinyBS::bsButton("b_calc_mergefiles"
                                             , label = "Run Operation"))
-      
+
       , h4("D. Download Output")
       , p("All input and output files will be available in a single zip file.")
       , shinyjs::disabled(downloadButton("b_download_mergefiles"
                                          , "Download Results"))
-      
+
       #, p(textOutput("fn_input_display"))
     )## sidebarPanel
     , mainPanel(
@@ -69,28 +69,8 @@ function() {
                              , DT::dataTableOutput("df_import_mf2_DT")
                              , value = "tab_MF_2"
                              )
-                  # , tabPanel(title = "Merged File"
-                  #            , h4("Merged File")
-                  #            , tableOutput(outputId = "df_mf_merge_DT")
-                  #            , value = "tab_MF_merge"
-                  #            )
-                  
-                  # , tabPanel(title = "Calc_MTTI_Input"
-                  #            ,includeHTML(file.path("www"
-                  #                                   , "rmd_html"
-                  #                                   , "ShinyHTML_Calc_MTTI_2Input.html"))
-                  # )
-                  # , tabPanel(title = "Calc_MTTI_Output"
-                  #            ,includeHTML(file.path("www"
-                  #                                   , "rmd_html"
-                  #                                   , "ShinyHTML_Calc_MTTI_3Output.html"))
-                  # )
       )## tabsetPanel ~ END
-      
-    )## mainPanel ~ END
-  )##sidebarLayout ~ END  
-}##FUNCTION ~ END
 
-# output$UI_about = renderUI({
-#   p("About stuff here.")
-# })
+    )## mainPanel ~ END
+  )##sidebarLayout ~ END
+}##FUNCTION ~ END

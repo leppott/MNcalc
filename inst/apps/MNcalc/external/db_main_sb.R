@@ -20,25 +20,24 @@ function(id) {
                  , tabName = "tab_import"
                  , icon = icon("file-arrow-up")
                  , startExpanded = TRUE)
-      , menuItem(text = "File Builder"
+      , menuItem(text = "Prepare Data"
                  , icon = icon("toolbox")
-                 #, tabName = "tab_filebuilder"
-                 , menuSubItem("Translate Taxa and Assign Attributes"
+                 , menuSubItem("Introduction"
+                               , tabName = "tab_filebuilder_intro"
+                               , icon = icon("info")
+                 )
+                 , menuSubItem("Within the App: File Builder"
                                , tabName = "tab_filebuilder_taxatrans"
                                , icon = icon("language")
-                               )
-                 # , menuSubItem("Generate BCG Class Parameters"
-                 #               , tabName = "tab_filebuilder_indexclassparam"
-                 #               , icon = icon("signs-post")
-                 #               )
-                 # , menuSubItem("Assign BCG Index Name and Class"
-                 #               , tabName = "tab_filebuilder_indexclass"
-                 #               , icon = icon("address-book")
-                 #               )
+                 )
+                 , menuSubItem("Outside the App"
+                               , tabName = "tab_filebuilder_outsideapp"
+                               , icon = icon("language")
+                 )
                  , menuSubItem("Merge Files"
                                , tabName = "tab_filebuilder_mergefiles"
                                , icon = icon("code-merge")
-                               )
+                 )
                  )## menuItem ~ File Builder
       , menuItem(text = "Calculation"
                  , icon = icon("gears")

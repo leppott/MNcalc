@@ -1,0 +1,57 @@
+---
+title: "Prepare Data, Outside app, BugBCG"
+date: "2024-07-15"
+output: html_fragment
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE
+                      , results = 'asis'
+                      , warning = FALSE
+                      , message = FALSE)
+```
+
+# Input file requirements - Bug BCG
+
+The comma-separated file (CSV) needs to have all the required fields
+listed in the table below. Column names must match the spelling,
+symbology and capitalization scheme exactly as shown.
+
+IMPORTANT: Make sure you are using the proper Operational Taxonomic Unit
+(OTU) and taxa traits/attributes for your metric calculations. These can
+be found in the
+<a href="https://github.com/leppott/BioMonTools_SupportFiles/tree/main/data/taxa_official/MN" target="blank">Taxa
+Translator and Attribute tables</a>.
+
+```{r table_req}
+# Packages
+library(readxl)
+library(knitr)
+library(kableExtra)
+#library(DT)
+
+# Data
+fn <- "BCGcalc_ReqFields_20230203.xlsx"
+path <- file.path("files", fn)
+df <- read_excel(path, sheet = "MN_BugBCG_Req")
+
+# Table (DT)
+# cap_req <- "Table 1. Required fields."
+# DT::datatable(df_req
+#               , filter = "top"
+#               , caption = cap_req
+#               , options = list(scrollX = TRUE
+#                                , autoWidth = TRUE)
+#               )
+# DT::datatable(iris) # not working correctly in fragment
+df %>%
+  kable() %>%
+  kable_styling(full_width = F, position = "left")
+```
+
+------------------------------------------------------------------------
+
+Last updated: 2024-07-15

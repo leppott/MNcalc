@@ -1,0 +1,39 @@
+Calculation Type,Assemblage,Index_Name,Index_Class,Description,Full Criteria,Simplified Criteria,Notes
+IBI,fish,MN_IBI_Fish,1,Southern Rivers,"Southern, warmwater, drainage area > 300 sq mi",,
+IBI,fish,MN_IBI_Fish,2,Southern Streams,"Southern, warmwater, drainage area > 30 sq mi and < 300 sq mi",,
+IBI,fish,MN_IBI_Fish,3,Southern Headwaters,"Southern, warmwater, drainage area < 30 sq mi, gradient > 0.50 m/km",,
+IBI,fish,MN_IBI_Fish,4,Northern Rivers,"Northern, warmwater, Red Basin, drainage area > 350 sq mi OR Northern, warmwater, not Red Basin, drainage area > 500 sq mi",,
+IBI,fish,MN_IBI_Fish,5,Northern Streams,"Northern, warmwater, Red Basin, drainage area > 50 and < 350 sq mi",,
+IBI,fish,MN_IBI_Fish,6,Northern Headwaters,"Northern, warmwater, not Red Basin, drainage area < 50 sq mi, gradient > 0.50 m/km",,
+IBI,fish,MN_IBI_Fish,7,Low Gradient Streams,"Southern, warmwater, drainage area < 30 sq mi, gradient < 0.50 m/km OR Northern, warmwater, not Red Basin, drainage area < 50 sq mi, gradient < 0.50 m/km",,
+IBI,fish,MN_IBI_Fish,10,Southern Coldwater,"Southern, coldwater",,
+IBI,fish,MN_IBI_Fish,11,Northern Coldwater,"Northern, coldwater",,
+IBI,bug,MN_IBI_Bugs,1,Northern Forest Rivers,Rivers in the Laurentian Mixed Forest ecological province with drainage area >= 500 sq mi,Large rivers with drainage area >= 500 sq mi,Class 1 and 2 have the same rules
+IBI,bug,MN_IBI_Bugs,2,Prairie Forest Rivers,"Rivers in the Eastern Broadleaf Forest, Prairie Parklands, or Tall Aspen Parklands ecological provinces with drainage area >= 500 sq mi",Large rivers with drainage area >= 500 sq mi,Class 1 and 2 have the same rules
+IBI,bug,MN_IBI_Bugs,3,Northern Forest Streams RR,"Riffle Run streams in the Laurentian Mixed Forest ecological province, excluding HUC_07030005, with drainage area < 500 sq mi",Riffle Run streams with drainage area < 500 sq mi,Class 3 and 5 have the same rules
+IBI,bug,MN_IBI_Bugs,4,Northern Forest Streams GP,"Glide Pool streams in the Laurentian Mixed Forest ecological province, excluding HUC_07030005, with drainage area < 500 sq mi",Glide Pool streams with drainage area < 500 sq mi,"Class 4, 6 and 7 have the same rules"
+IBI,bug,MN_IBI_Bugs,5,Southern Streams RR,"Riffle Run streams in the Eastern Broadleaf Forest, Prairie Parklands, or Tall Aspen Parklands ecological provinces, and HUC_07030005, with drainage area < 500 sq mi",Riffle Run streams with drainage area < 500 sq mi,Class 3 and 5 have the same rules
+IBI,bug,MN_IBI_Bugs,6,Southern Forest Streams GP,"Glide Pool streams in the Eastern Broadleaf Forest, and HUC_07030005, with drainage area < 500 sq mi",Glide Pool streams with drainage area < 500 sq mi,"Class 4, 6 and 7 have the same rules"
+IBI,bug,MN_IBI_Bugs,7,Prairie Streams GP,"Glide Pool streams in the Prairie Parklands or Tall Aspen Parklands ecological provinces, with drainage area < 500 sq mi",Glide Pool streams with drainage area < 500 sq mi,"Class 4, 6 and 7 have the same rules"
+IBI,bug,MN_IBI_Bugs,8,Northern Coldwater,"Northern coldwater streams in the Laurentian Mixed Forest ecological province, excluding HUC_07030005",,
+IBI,bug,MN_IBI_Bugs,9,Southern Coldwater,"Southern coldwater streams in the Eastern Broadleaf Forest, Prairie Parklands, or Tall Aspen Parklands ecological provinces, and HUC_07030005",,
+BCG,bug,MN_BCG,bug1,Minnesota bug 1 (n forest rivers),Rivers in the Laurentian Mixed Forest ecological province with drainage area >= 500 sq mi,,
+BCG,bug,MN_BCG,bug2,Minnesota bug 2 (prairie rivers),"Rivers in the Eastern Broadleaf Forest, Prairie Parklands, or Tall Aspen Parklands ecological provinces with drainage area >= 500 sq mi",,
+BCG,bug,MN_BCG,bug3,Minnesota bug 3 (n riffle run - forest),"Riffle Run streams in the Laurentian Mixed Forest ecological province, excluding HUC_07030005, with drainage area < 500 sq mi",,
+BCG,bug,MN_BCG,bug4,Minnesota bug 4 (n forest glide-pool),"Glide Pool streams in the Laurentian Mixed Forest ecological province, excluding HUC_07030005, with drainage area < 500 sq mi",,
+BCG,bug,MN_BCG,bug5,Minnesota bug 5 (s riffle-run),"Riffle Run streams in the Eastern Broadleaf Forest, Prairie Parklands, or Tall Aspen Parklands ecological provinces, and HUC_07030005, with drainage area < 500 sq mi",,
+BCG,bug,MN_BCG,bug6,Minnesota bug 6 (s forest glide-pool),"Glide Pool streams in the Eastern Broadleaf Forest, and HUC_07030005, with drainage area < 500 sq mi",,
+BCG,bug,MN_BCG,bug7,Minnesota bug 7 (prairie glide-pool),"Glide Pool streams in the Prairie Parklands or Tall Aspen Parklands ecological provinces, with drainage area < 500 sq mi",,
+BCG,bug,MN_BCG,bug8,Minnesota bug 8 (n coldwater),"Northern coldwater streams in the Laurentian Mixed Forest ecological province, excluding HUC_07030005",,previously referred to as 'cool transitional'
+BCG,bug,MN_BCG,bug9,Minnesota bug 9 (s coldwater),"Southern coldwater streams in the Eastern Broadleaf Forest, Prairie Parklands, or Tall Aspen Parklands ecological provinces, and HUC_07030005",,
+BCG,fish,MN_BCG,fish1,Minnesota fish 1 (prairie rivers),"Southern, warmwater, drainage area > 300 sq mi",,
+BCG,fish,MN_BCG,fish2,Minnesota fish 2 (s wadeable streams),"Southern, warmwater, drainage area > 30 sq mi and < 300 sq mi",,
+BCG,fish,MN_BCG,fish3,Minnesota fish 3 (s headwaters),"Southern, warmwater, drainage area < 30 sq mi, gradient > 0.50 m/km",,
+BCG,fish,MN_BCG,fish4,Minnesota fish 4 (n forest rivers),"Northern, warmwater, Red Basin, drainage area > 350 sq mi OR Northern, warmwater, not Red Basin, drainage area > 500 sq mi",,
+BCG,fish,MN_BCG,fish5,Minnesota fish 5 (n wadeable streams),"Northern, warmwater, Red Basin, drainage area > 50 and < 350 sq mi",,
+BCG,fish,MN_BCG,fish6,Minnesota fish 6 (n headwaters),"Northern, warmwater, not Red Basin, drainage area < 50 sq mi, gradient > 0.50 m/km",,
+BCG,fish,MN_BCG,fish7,Minnesota fish 7 (wetland-lacustrine),"Southern, warmwater, drainage area < 30 sq mi, gradient < 0.50 m/km OR Northern, warmwater, not Red Basin, drainage area < 50 sq mi, gradient < 0.50 m/km",,
+BCG,fish,MN_BCG,fish10a,Minnesota fish 10a (s cold-native brook trout),"Southern, coldwater streams where brook trout are native",,
+BCG,fish,MN_BCG,fish10b,Minnesota fish 10b (s cold-not native brook trout),"Southern, coldwater streams where brook trout are not native",,
+BCG,fish,MN_BCG,fish11a,Minnesota fish 11a (n cold-native brook trout),"Northern, coldwater streams where brook trout are native",,previously referred to as 'cool-native brook trout'
+BCG,fish,MN_BCG,fish11b,Minnesota fish 11b (n cold-not native brook trout),"Northern, coldwater streams where brook trout are not native",,previously referred to as 'cool-not native brook trout'

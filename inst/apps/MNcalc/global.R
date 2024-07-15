@@ -60,6 +60,12 @@ tab_code_import                <- source("external/tab_import.R"
                                          , local = TRUE)$value
 tab_code_filebuilder           <- source("external/tab_filebuilder.R"
                                          , local = TRUE)$value
+tab_code_filebuilder_intro           <- source("external/tab_filebuilder_intro.R"
+                                         , local = TRUE)$value
+tab_code_filebuilder_mergefiles           <- source("external/tab_filebuilder_mergefiles.R"
+                                         , local = TRUE)$value
+tab_code_filebuilder_outsideapp           <- source("external/tab_filebuilder_outsideapp.R"
+                                         , local = TRUE)$value
 tab_code_filebuilder_taxatrans <- source("external/tab_filebuilder_taxatrans.R"
                                          , local = TRUE)$value
 # tab_code_filebuilder_indexclass <- source(
