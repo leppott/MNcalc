@@ -44,20 +44,20 @@ function() {
         )## sidebarPanel ~ END
     , mainPanel(
         tabsetPanel(type = "tabs"
-                    , tabPanel(title = "Calc_IBI_About"
+                    , tabPanel(title = "Introduction"
                                ,includeHTML(file.path("www"
                                                       , "rmd_html"
-                                            , "ShinyHTML_Calc_IBI_1About.html"))
+                                            , "ShinyHTML_Calc_IBI_1Intro.html"))
                                )
-                    , tabPanel(title = "Calc_IBI_Input"
+                    , tabPanel(title = "Bug IBI"
                                ,includeHTML(file.path("www"
                                                       , "rmd_html"
-                                            , "ShinyHTML_Calc_IBI_2Input.html"))
+                                            , "ShinyHTML_Calc_IBI_2Bug.html"))
                                )
-                    , tabPanel(title = "Calc_IBI_Output"
+                    , tabPanel(title = "Fish IBI"
                                ,includeHTML(file.path("www"
                                                       , "rmd_html"
-                                          , "ShinyHTML_Calc_IBI_3Output.html"))
+                                          , "ShinyHTML_Calc_IBI_3Fish.html"))
                                )
                     )## tabsetPanel ~ END
 

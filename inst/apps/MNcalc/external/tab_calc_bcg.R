@@ -44,20 +44,20 @@ function() {
         )## sidebarPanel ~ END
     , mainPanel(
         tabsetPanel(type = "tabs"
-                    , tabPanel(title = "Calc_BCG_About"
+                    , tabPanel(title = "Introduction"
                                ,includeHTML(file.path("www"
                                                       , "rmd_html"
-                                            , "ShinyHTML_Calc_BCG_1About.html"))
+                                            , "ShinyHTML_Calc_BCG_1Intro.html"))
                                )
-                    , tabPanel(title = "Calc_BCG_Input"
+                    , tabPanel(title = "Bug BCG"
                                ,includeHTML(file.path("www"
                                                       , "rmd_html"
-                                            , "ShinyHTML_Calc_BCG_2Input.html"))
+                                            , "ShinyHTML_Calc_BCG_2Bug.html"))
                                )
-                    , tabPanel(title = "Calc_BCG_Output"
+                    , tabPanel(title = "Fish BCG"
                                ,includeHTML(file.path("www"
                                                       , "rmd_html"
-                                          , "ShinyHTML_Calc_BCG_3Output.html"))
+                                          , "ShinyHTML_Calc_BCG_3Fish.html"))
                                )
                     )## tabsetPanel ~ END
 
