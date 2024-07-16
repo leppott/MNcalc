@@ -70,6 +70,7 @@ df <- read_excel(path, sheet = "MN_ReqField_Sum")
 #                                , autoWidth = TRUE)
 #               )
 # DT::datatable(iris) # not working correctly in fragment
+options(knitr.kable.NA = '')
 df %>%
   kable() %>%
   kable_styling(full_width = F, position = "left")
