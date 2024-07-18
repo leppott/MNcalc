@@ -1,11 +1,41 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-07-05 16:37:05.403445
+2024-07-18 16:02:20.743257
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-07-05 16:37:05.427383
+    #> Last Update: 2024-07-18 16:02:20.756264
+
+# MNcalc 0.2.0.9016 (2024-07-18)
+
+- refactor: Clean up
+  - Remove unused code from Server.R
+  - Remove unused tabs
+  - Remove unused RMD files
+- fix: Update ouput for BCG calculation in Server.R
+  - BCG_2metvall_all.csv to BCG_2metval_all.csv
+- refactor: Update calculation and file builder code for any issues
+- docs: Add pull request updates to NEWS
+
+# MNcalc 0.2.0.9015 (2024-07-16)
+
+- refactor: Minor update to styling of a table in the UI
+
+# MNcalc 0.2.0.9014 (2024-07-15)
+
+- refactor: Reformatted UI for the file builder section
+  - New language, tables, and figures provided by Jen
+
+# MNcalc 0.2.0.9013 (2024-07-15)
+
+- refactor: Updated UI for calculation tabs with new language, tables,
+  and figures
+
+# MNcalc 0.2.0.9012 (2024-07-12)
+
+- refactor: Updated about tab, reference tab, and added troubleshooting
+  tab
 
 # MNcalc 0.2.0.9011 (2024-07-05)
 

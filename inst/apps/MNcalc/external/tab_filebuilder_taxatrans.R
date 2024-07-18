@@ -12,17 +12,30 @@ function() {
             , p(textOutput("fn_input_display_taxatrans"))
 
             , h4("B. Select Calculation.")
-            , uiOutput("UI_taxatrans_pick_official")
+            # , uiOutput("UI_taxatrans_pick_official")
+            , selectInput("taxatrans_pick_official"
+                          , label = "Calculation"
+                          , choices = c("", df_pick_taxoff[, "project"])
+                          , multiple = FALSE)
+
 
             , h4("C. User File Column Names")
 
-            , h6("Required Fields")
+            , h6("Required Fields, ALL")
             , p("If the default values are present they will be auto-populated.")
             # SampleID (really for group_by)
             , uiOutput("UI_taxatrans_user_col_sampid")
             , uiOutput("UI_taxatrans_user_col_taxaid")
             # N_Taxa (really for group_by)
             , uiOutput("UI_taxatrans_user_col_n_taxa")
+            , uiOutput("UI_taxatrans_user_col_indexname")
+
+            , h6("Required Fields, BCG")
+            # BCG (Bugs and Fish) needs Index_Class
+            , uiOutput("UI_taxatrans_user_col_indexclass")
+            # BCG Bugs needs GP_RR
+            , uiOutput("UI_taxatrans_user_col_gprr")
+
 
             , h6("Optional Fields")
             , p("All columns other than those specified above (required) or below (optional) will be dropped.

@@ -45,19 +45,21 @@ function() {
     , mainPanel(
         tabsetPanel(type = "tabs"
                     , tabPanel(title = "Introduction"
-                               ,includeHTML(file.path("www"
+                               , includeHTML(file.path("www"
                                                       , "rmd_html"
                                             , "ShinyHTML_Calc_IBI_1Intro.html"))
+                               , value = "tab_IBI_Bugs"
                                )
                     , tabPanel(title = "Bug IBI"
-                               ,includeHTML(file.path("www"
+                               , includeHTML(file.path("www"
                                                       , "rmd_html"
                                             , "ShinyHTML_Calc_IBI_2Bug.html"))
                                )
                     , tabPanel(title = "Fish IBI"
-                               ,includeHTML(file.path("www"
+                               , includeHTML(file.path("www"
                                                       , "rmd_html"
                                           , "ShinyHTML_Calc_IBI_3Fish.html"))
+                               , value = "tab_IBI_Fish"
                                )
                     )## tabsetPanel ~ END
 

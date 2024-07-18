@@ -1,11 +1,79 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-07-02 16:04:25.965866
+2024-07-18 16:02:20.743257
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-07-02 16:04:25.991415
+    #> Last Update: 2024-07-18 16:02:20.756264
+
+# MNcalc 0.2.0.9016 (2024-07-18)
+
+- refactor: Clean up
+  - Remove unused code from Server.R
+  - Remove unused tabs
+  - Remove unused RMD files
+- fix: Update ouput for BCG calculation in Server.R
+  - BCG_2metvall_all.csv to BCG_2metval_all.csv
+- refactor: Update calculation and file builder code for any issues
+- docs: Add pull request updates to NEWS
+
+# MNcalc 0.2.0.9015 (2024-07-16)
+
+- refactor: Minor update to styling of a table in the UI
+
+# MNcalc 0.2.0.9014 (2024-07-15)
+
+- refactor: Reformatted UI for the file builder section
+  - New language, tables, and figures provided by Jen
+
+# MNcalc 0.2.0.9013 (2024-07-15)
+
+- refactor: Updated UI for calculation tabs with new language, tables,
+  and figures
+
+# MNcalc 0.2.0.9012 (2024-07-12)
+
+- refactor: Updated about tab, reference tab, and added troubleshooting
+  tab
+
+# MNcalc 0.2.0.9011 (2024-07-05)
+
+- refactor: Update naming scheme for result files
+  - BCG
+  - IBI
+  - taxa translate
+- refactor: taxa translate file names prefix with BCG/IBI but not
+  Bugs/Fish
+  - Already in subfolder with assemblage name
+
+# MNcalc 0.2.0.9010 (2024-07-05)
+
+- refactor: Update TaxaTranslator result folders to match calculations
+  folders
+  - TaxaTrans was lower case and calc was first letter cap for
+    assemblage
+
+# MNcalc 0.2.0.9009 (2024-07-05)
+
+- refactor: Update URL references in Server.R for support files
+- refactor: Update TaxaTranslator result folder (typo for bugs ibi)
+
+# MNcalc 0.2.0.9008 (2024-07-05)
+
+- refactor: Update Global.R for new location of support files
+
+# MNcalc 0.2.0.9007 (2024-07-03)
+
+- refactor: Update links in Reference to GitHub raw
+  - Will download instead of open
+
+# MNcalc 0.2.0.9006 (2024-07-03)
+
+- refactor: Update links in References to pull from GitHub so open in
+  new tab
+- refactor: Change names of Reference PDFs
+- refactor: Update zip file with all reference PDFs
 
 # MNcalc 0.2.0.9005 (2024-07-02)
 
