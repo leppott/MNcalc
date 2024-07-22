@@ -19,14 +19,20 @@ knitr::opts_chunk$set(echo = FALSE
 Input files must be comma-separated values (CSV). There are two options
 for preparing input files:
 
-**Option 1**: Use the File Builder 'Operational Taxonomic Unit (OTU)
-Attribute Assignment' function to ensure that you are using the proper
-taxa attributes for the BCG calculation. See the **Within the App: File
-Builder** subtab for details.
+**Option 1**: Use the **Within the App: File Builder** function. Why?
+
+-   Fewer required fields
+
+-   Ensures use of proper Operational Taxonomic Units (OTUs) and
+    attributes for the calculations
+
+-   More flexibility on names of column headings
 
 **Option 2**: Generate a file outside of the Shiny app that is ready to
 go (i.e., has all the required fields, with exact column heading names).
-See the **Outside the app** subtab for details.
+See the **Outside the App** subtab for details.
 
 After you prepare the input file, go to the **Import Files** tab, upload
-your input file, and calculate the BCG in the **Calculation** tab.
+your input file, and calculate the BCG in the **Calculation** tab.
+
+![](images/Workflow_20240626.jpg){width="50%"}
