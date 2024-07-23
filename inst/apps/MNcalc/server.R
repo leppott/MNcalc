@@ -2600,7 +2600,22 @@ shinyServer(function(input, output) {
 
       ### MetVal MODS----
       # Value Modifications for MN
+      #### BUGS
       if (input$si_community_ibi == "bugs") {
+        ##### Keep original values
+        suffix_orig <- "_ORIG"
+        cols_mod_ibi <- c("x_HBI2"
+                          , "pi_Chi2Dipt"
+                          , "x_HBI"
+                          , "pi_tv_toler8"
+                          , "pi_TrichNoHydro"
+                          , "nt_Odon"
+                          , "nt_Pleco"
+                          , "nt_tv_intol2"
+                          , "pt_Insect")
+        cols_mod_ibi_orig <- paste0(cols_mod_ibi, suffix_orig)
+        df_metval[, cols_mod_ibi_orig] <- df_metval[, cols_mod_ibi]
+        ##### Modications
         # Log10(x+1)
         df_metval <- dplyr::mutate(df_metval
             # y = x - ((m * log10(z)) + b)
@@ -2642,7 +2657,25 @@ shinyServer(function(input, output) {
         )## mutate
       }## IF ~ bugs
 
+      #### FISH
       if (input$si_community_ibi == "fish") {
+        ##### Keep original values
+        suffix_orig <- "_ORIG"
+        cols_mod_ibi <- c("nt_simplelithophil"
+                          , "pt_tv_sens"
+                          , "pi_tv_sens_ExclSchool"
+                          , "pi_tv_senscoldwater_ExclSchool"
+                          , "pt_detritivore"
+                          , "nt_tv_tolercoldwater"
+                          , "pt_natcoldwater"
+                          , "pt_tv_senscoldwater"
+                          , "pi_natcoldwater_ExclSchool"
+                          , "pi_tv_tolercoldwater_ExclSchool"
+                          , "pi_nonlithophil_ExclSchool"
+                          , "pi_Perciformes_ExclSchool")
+        cols_mod_ibi_orig <- paste0(cols_mod_ibi, suffix_orig)
+        df_metval[, cols_mod_ibi_orig] <- df_metval[, cols_mod_ibi]
+        ##### Modications
         df_metval <- dplyr::mutate(df_metval
             # y = x - ((m * log10(z)) + b)
             # z is gradient or drainage area
@@ -2706,8 +2739,10 @@ shinyServer(function(input, output) {
                     , "ni_total", "nt_total")
       cols_metrics_flags_keep <- unique(c(cols_req
                                           , cols_flags
-                                          , cols_model_metrics))
-      df_metval_slim <- df_metval[, names(df_metval) %in% cols_metrics_flags_keep]
+                                          , cols_model_metrics
+                                          , cols_mod_ibi_orig))
+      df_metval_slim <- df_metval[, names(df_metval) %in%
+                                    cols_metrics_flags_keep]
       # Save
       # fn_metval_slim <- paste0(fn_input_base, fn_abr_save, "2metval_IBI.csv")
       fn_metval_slim <- "IBI_2metval_IBI.csv"
@@ -2737,7 +2772,7 @@ shinyServer(function(input, output) {
 
       # SCORE Metrics
       df_metric_scores <- metric.scores(df_metval
-                                             , cols_model_metrics
+                                             , cols_metrics_flags_keep
                                              , "INDEX_NAME"
                                              , "INDEX_CLASS"
                                              , df_thresh_metric
@@ -2755,20 +2790,20 @@ shinyServer(function(input, output) {
       # No Adjustments
 
       ### Fish
-      # Low End Scoring
-      # Some metrics to score of zero
-      # INDEX_CLASS 1, 2, 4, 5
-      # pi_* to zero when ni_total < 25
-      # nt_* and pt_* to zero when nt_total < 6
-      # INDEX_CLASS 3, 6, 7
-      # pi_* to zero when ni_total < 25
-      # nt_* and pt_* to zero when nt_total < 6
-      # INDEX_CLASS 8 and 9
-      # no adjustment
-      ic_les_1 <- c("1", "2", "4", "5")
-      ic_les_2 <- c("3", "6", "7")
-      ic_les_all <- c(ic_les_1, ic_les_2)
       if (input$si_community_ibi == "fish") {
+        # Low End Scoring
+        # Some metrics to score of zero
+        # INDEX_CLASS 1, 2, 4, 5
+        # pi_* to zero when ni_total < 25
+        # nt_* and pt_* to zero when nt_total < 6
+        # INDEX_CLASS 3, 6, 7
+        # pi_* to zero when ni_total < 25
+        # nt_* and pt_* to zero when nt_total < 6
+        # INDEX_CLASS 8 and 9
+        # no adjustment
+        ic_les_1 <- c("1", "2", "4", "5")
+        ic_les_2 <- c("3", "6", "7")
+        ic_les_all <- c(ic_les_1, ic_les_2)
 
         # Rework Final Scoring, part 1/2
         df_metric_scores <- df_metric_scores %>%
@@ -2836,8 +2871,6 @@ shinyServer(function(input, output) {
           mutate(Index = Index + Index_mod_delt)
 
 
-
-
         # QC
         if(show_msg) {
           select(df_metric_scores, c(sum_Index_ORIG
@@ -2851,13 +2884,6 @@ shinyServer(function(input, output) {
         }## show_msg
 
       }## IF ~ FIBI
-
-
-
-
-
-
-
 
 
       ## Calc, 8, QC Flags----
