@@ -1,13 +1,18 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-07-23 11:35:01.341054
+2024-07-23 11:40:52.187573
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-07-23 11:35:01.3626
+    #> Last Update: 2024-07-23 11:40:52.246503
 
-# MNcalc 0.2.0.9018 (2024-07-23)
+# MNcalc 0.2.0.9020 (2024-07-23)
+
+- docs: Update NEWS
+- refactor: Update version number
+
+# MNcalc 0.2.0.9019 (2024-07-23)
 
 - refactor: Add “\_ORIG” metrics for IBI calculations in server.R
   - bugs and fish for all classes
@@ -15,6 +20,10 @@ MNcalc-NEWS
     - IBI_2metval_all.csv
     - IBI_2metval_IBI.csv
     - \_IBI_RESULTS.csv
+
+# MNcalc 0.2.0.9018 (2024-07-23)
+
+- refactor: Updates to About and References UI tabs
 
 # MNcalc 0.2.0.9017 (2024-07-18)
 
