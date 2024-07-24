@@ -1,0 +1,14 @@
+Column Name ,Name,Data Type,Domain (allowable entries),Description
+SampleID,flexible,text,NA (flexible),"Unique sample identifier (typically comprised of the site name, sample date, and replicate number)"
+TaxaID,flexible,text,NA (flexible),"Taxon name, using the BCG Operational Taxonomic Unit (OTU)"
+N_Taxa,flexible,numeric,non-negative real number,Number of individuals
+Index_Name,flexible,text,"MN_IBI_Bugs, MN_IBI_Fish, MN_BCG",Tells R which calculation to run
+Index_Class,flexible,text,list of options [CSV],"Tells R which rules and metrics to apply, based on class (e.g., northern forest Ri"
+GP.RR,exact,text,"GP,RR","Riffle/Run (RR) if a stream reach includes riffles as representative habitat, is high gradient and has adequate flow to create riffle dwelling organisms. If not, Glide/pool (GP) (see Table 6 in MPCA 2017 - bug protocols)."
+LargeRareCount,exact,numeric,NA (flexible),Count from the Large Rare pick. Taxa that only occur in Large Rare picks have blank entries in the N_Taxa column
+N_Anomalies,exact,numeric,NA (flexible),"Number of individuals with Deformities, Eroded fins, Lesions, Tumors (DELT) anomalies"
+DRAINSQMI,exact,numeric,NA (flexible),Drainage area (total watershed area) in square miles
+GRADIENT,exact,numeric,NA (flexible),Gradient (m/km) calculation based on elevations (from a DEM) at the up- and downstream ends of a 1000m arc bracketing the sampling reach
+Distance_m,exact,numeric,NA (flexible),Distance fished in meters (used for the catch-per-unit-effort (CPUE) metric)
+,,,,
+,,,,
