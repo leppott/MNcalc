@@ -1,11 +1,24 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-07-24 10:22:49.382857
+2024-07-24 15:53:36.05789
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-07-24 10:22:49.402251
+    #> Last Update: 2024-07-24 15:53:36.090507
+
+# MNcalc 0.2.0.9025 (2024-07-24)
+
+- docs: Update NEWS for recent commits
+- docs: Update version number in DESCRIPTION and global.R
+
+# MNcalc 0.2.0.9024 (2024-07-24)
+
+- refactor: Added Instructions tab
+
+# MNcalc 0.2.0.9023 (2024-07-24)
+
+- refactor: Updates to various UI components per Jen’s requests
 
 # MNcalc 0.2.0.9022 (2024-07-24)
 

@@ -21,6 +21,19 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9025 (2024-07-24)
+
+* docs: Update NEWS for recent commits
+* docs: Update version number in DESCRIPTION and global.R
+
+# MNcalc 0.2.0.9024 (2024-07-24)
+
+* refactor: Added Instructions tab
+
+# MNcalc 0.2.0.9023 (2024-07-24)
+
+* refactor: Updates to various UI components per Jen's requests
+
 # MNcalc 0.2.0.9022 (2024-07-24)
 
 * refactor: Modify Shiny file builder, taxa translate to combine duplicate taxa
