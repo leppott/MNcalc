@@ -2210,29 +2210,29 @@ shinyServer(function(input, output) {
       file_to <- file.path(path_results_ref, fn_save)
       file.copy(file_from, file_to)
 
-      ## Metric Flags
-      fn_save <- "MetricFlags.xlsx"
-      file_from <- temp_bcg_checks
-      file_to <- file.path(path_results_ref, fn_save)
-      file.copy(file_from, file_to)
-
-      ## Metric Names
-      fn_save <- "MetricNames.xlsx"
-      file_from <- temp_metricnames
-      file_to <- file.path(path_results_ref, fn_save)
-      file.copy(file_from, file_to)
-
-      ## Metric Scoring
-      fn_save <- "MetricScoring.xlsx"
-      file_from <- temp_metricscoring
-      file_to <- file.path(path_results_ref, fn_save)
-      file.copy(file_from, file_to)
-
-      ## BCG Rules
-      fn_save <- "Rules.xlsx"
-      file_from <- temp_bcg_models
-      file_to <- file.path(path_results_ref, fn_save)
-      file.copy(file_from, file_to)
+      # ## Metric Flags
+      # fn_save <- "MetricFlags.xlsx"
+      # file_from <- temp_bcg_checks
+      # file_to <- file.path(path_results_ref, fn_save)
+      # file.copy(file_from, file_to)
+      #
+      # ## Metric Names
+      # fn_save <- "MetricNames.xlsx"
+      # file_from <- temp_metricnames
+      # file_to <- file.path(path_results_ref, fn_save)
+      # file.copy(file_from, file_to)
+      #
+      # ## Metric Scoring
+      # fn_save <- "MetricScoring.xlsx"
+      # file_from <- temp_metricscoring
+      # file_to <- file.path(path_results_ref, fn_save)
+      # file.copy(file_from, file_to)
+      #
+      # ## BCG Rules
+      # fn_save <- "Rules.xlsx"
+      # file_from <- temp_bcg_models
+      # file_to <- file.path(path_results_ref, fn_save)
+      # file.copy(file_from, file_to)
 
 
       ## Calc, 11, Clean Up----

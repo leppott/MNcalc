@@ -1,11 +1,19 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-07-24 16:46:31.520023
+2024-07-24 16:52:29.287229
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-07-24 16:46:31.554359
+    #> Last Update: 2024-07-24 16:52:29.30321
+
+# MNcalc 0.2.0.9027 (2024-07-24)
+
+- refactor: Removed the following files from Calculation output
+  - MetricFlags.xlsx
+  - MetricNames.xlsx
+  - MetricScoring.xlsx
+  - Rules.xlsx
 
 # MNcalc 0.2.0.9026 (2024-07-24)
 
