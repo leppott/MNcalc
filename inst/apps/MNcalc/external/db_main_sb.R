@@ -22,18 +22,18 @@ function(id) {
                  , startExpanded = TRUE)
       , menuItem(text = "Prepare Data"
                  , icon = icon("toolbox")
-                 , menuSubItem("Introduction"
-                               , tabName = "tab_filebuilder_intro"
-                               , icon = icon("info")
-                 )
+                 # , menuSubItem("Introduction"
+                 #               , tabName = "tab_filebuilder_intro"
+                 #               , icon = icon("info")
+                 # )
                  , menuSubItem("Within the App: File Builder"
                                , tabName = "tab_filebuilder_taxatrans"
                                , icon = icon("language")
                  )
-                 , menuSubItem("Outside the App"
-                               , tabName = "tab_filebuilder_outsideapp"
-                               , icon = icon("language")
-                 )
+                 # , menuSubItem("Outside the App"
+                 #               , tabName = "tab_filebuilder_outsideapp"
+                 #               , icon = icon("language")
+                 # )
                  , menuSubItem("Merge Files"
                                , tabName = "tab_filebuilder_mergefiles"
                                , icon = icon("code-merge")
