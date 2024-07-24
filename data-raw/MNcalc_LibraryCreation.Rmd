@@ -69,6 +69,9 @@ file.remove("NEWS.html")
 #file.remove("NEWS.md")
 #
 myPkg <- "MNcalc"
+#
+# **app only don't need this section**
+#
 # # Load Library
 # library(devtools)
 # #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -82,13 +85,13 @@ myPkg <- "MNcalc"
 # #setwd(paste0("./",myPkg))  # will fail as already in this directory
 # devtools::document()
 # ## Install New Package (locally)
-# setwd("..") # return to root directory first
-# devtools::install(myPkg, quick=FALSE, reload=TRUE, build_vignettes = FALSE)
-
+# #setwd("..") # return to root directory first
+# devtools::install(".", quick = FALSE, reload = TRUE, build_vignettes = FALSE)
+# 
 # ## Reload library
 # library(myPkg, character.only = TRUE)
-# change wd back to package
-#setwd(paste0("./",myPkg))
+# # change wd back to package
+# # setwd(paste0("./",myPkg))
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 

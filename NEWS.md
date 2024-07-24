@@ -1,11 +1,22 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-07-23 11:40:52.187573
+2024-07-24 10:22:49.382857
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-07-23 11:40:52.246503
+    #> Last Update: 2024-07-24 10:22:49.402251
+
+# MNcalc 0.2.0.9022 (2024-07-24)
+
+- refactor: Modify Shiny file builder, taxa translate to combine
+  duplicate taxa
+
+# MNcalc 0.2.0.9021 (2024-07-24)
+
+- refactor: Comment out subtabs in db_main_sb.R
+  - Prepare Data Introduction
+  - Outside the App
 
 # MNcalc 0.2.0.9020 (2024-07-23)
 
