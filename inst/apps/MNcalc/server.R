@@ -663,16 +663,16 @@ shinyServer(function(input, output) {
         validate(msg)
       }## IF ~ sel_user_indexclass
 
-      if (is.null(sel_user_gprr) & sel_proj == "MN_BCG_Bugs") {
-        # end process with pop up
-        msg <- "'GP/RR' column name is required for BCG_Bugs and is missing!"
-        shinyalert::shinyalert(title = "Taxa Translate"
-                               , text = msg
-                               , type = "error"
-                               , closeOnEsc = TRUE
-                               , closeOnClickOutside = TRUE)
-        validate(msg)
-      }## IF ~ sel_user_gprr
+      # if (is.null(sel_user_gprr) & sel_proj == "MN_BCG_Bugs") {
+      #   # end process with pop up
+      #   msg <- "'GP/RR' column name is required for BCG_Bugs and is missing!"
+      #   shinyalert::shinyalert(title = "Taxa Translate"
+      #                          , text = msg
+      #                          , type = "error"
+      #                          , closeOnEsc = TRUE
+      #                          , closeOnClickOutside = TRUE)
+      #   validate(msg)
+      # }## IF ~ sel_user_gprr
 
       ## Calc, 03, Import Official Data (and Metadata)  ----
       prog_detail <- "Import Data, Official and Metadata"
@@ -734,6 +734,49 @@ shinyServer(function(input, output) {
       # Increment the progress bar, and update the detail text.
       incProgress(1/prog_n, detail = prog_detail)
       Sys.sleep(prog_sleep)
+
+      # QC for all necessary fields (outside those from the dropdowns)
+      myIndexName <- sel_user_indexname
+      req_BCG_bugs <- c("GP.RR")
+      req_IBI_bugs <- c("LargeRareCount", "DRAINSQMI")
+      req_BCG_fish <- c("DRAINSQMI")
+      req_IBI_fish <- c("N_Anomalies", "DRAINSQMI", "GRADIENT", "Distance_m")
+
+      if (myIndexName == "MN_BCG_Bugs" && any(!(req_BCG_bugs %in% sel_user_groupby))) {
+          msg <- "One or more of the required fields for the BCG_Bugs are not included. See table to the right."
+          shinyalert::shinyalert(title = "Taxa Translate"
+                                 , text = msg
+                                 , type = "error"
+                                 , closeOnEsc = TRUE
+                                 , closeOnClickOutside = TRUE)
+          validate(msg)
+      } else if (myIndexName == "MN_IBI_Bugs" && any(!(req_IBI_bugs %in% sel_user_groupby))) {
+        msg <- "One or more of the required fields for the IBI_Bugs are not included. See table to the right."
+        shinyalert::shinyalert(title = "Taxa Translate"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      } else if (myIndexName == "MN_BCG_Fish" && any(!(req_BCG_fish %in% sel_user_groupby))) {
+        msg <- "One or more of the required fields for the BCG_Fish are not included. See table to the right."
+        shinyalert::shinyalert(title = "Taxa Translate"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      } else if (myIndexName == "MN_IBI_Fish" && any(!(req_IBI_fish %in% sel_user_groupby))) {
+        msg <- "One or more of the required fields for the IBI_Fish are not included. See table to the right."
+        shinyalert::shinyalert(title = "Taxa Translate"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      } else {
+        # No action needed if none of the conditions are met
+      }
 
       # function parameters
       df_user                 <- df_input

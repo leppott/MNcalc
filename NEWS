@@ -1,11 +1,15 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-07-24 15:53:36.05789
+2024-07-24 16:46:31.520023
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-07-24 15:53:36.090507
+    #> Last Update: 2024-07-24 16:46:31.554359
+
+# MNcalc 0.2.0.9026 (2024-07-24)
+
+- refactor: Added QC check for File Builder required fields
 
 # MNcalc 0.2.0.9025 (2024-07-24)
 

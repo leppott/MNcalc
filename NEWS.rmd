@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9026 (2024-07-24)
+
+* refactor: Added QC check for File Builder required fields
+
 # MNcalc 0.2.0.9025 (2024-07-24)
 
 * docs: Update NEWS for recent commits
