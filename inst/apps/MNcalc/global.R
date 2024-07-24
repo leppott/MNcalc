@@ -56,6 +56,8 @@ db_main_body                   <- source("external/db_main_body.R"
                                         , local = TRUE)$value
 tab_code_about                 <- source("external/tab_about.R"
                                          , local = TRUE)$value
+tab_code_instruct              <- source("external/tab_instructions.R"
+                                         , local = TRUE)$value
 tab_code_import                <- source("external/tab_import.R"
                                          , local = TRUE)$value
 tab_code_filebuilder           <- source("external/tab_filebuilder.R"

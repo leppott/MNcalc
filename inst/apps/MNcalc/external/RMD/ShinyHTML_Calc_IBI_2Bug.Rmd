@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = FALSE
                       , message = FALSE)
 ```
 
-# Caclulation - Bug IBI
+# Calculation - Bug IBI
 
 CLASSES: MN Bug IBIs were calibrated for nine classes\*.
 

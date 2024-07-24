@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = FALSE
                       , message = FALSE)
 ```
 
-# Caclulation - Bug BCG
+# Calculation - Bug BCG
 
 CLASSES: MN Bug BCG models were calibrated for nine classes.
 

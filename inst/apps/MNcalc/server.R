@@ -389,7 +389,8 @@ shinyServer(function(input, output) {
   })## UI_colnames
 
   output$UI_taxatrans_user_col_indexclass <- renderUI({
-    str_col <- "BCG (Bugs and Fish): Column, Index Class (e.g., Index_Class)"
+    # str_col <- "BCG (Bugs and Fish): Column, Index Class (e.g., Index_Class)"
+    str_col <- "Column, Index Class (e.g., Index_Class)"
     selectInput("taxatrans_user_col_indexclass"
                 , label = str_col
                 , choices = c("", names(df_import()))

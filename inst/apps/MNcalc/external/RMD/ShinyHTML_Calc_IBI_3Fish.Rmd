@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = FALSE
                       , message = FALSE)
 ```
 
-# Caclulation - Fish IBI
+# Calculation - Fish IBI
 
 CLASSES: MN Fish IBIs were calibrated for nine classes
 [<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/FishIBI_2017_Classes.pdf" target="blank">PDF</a>].

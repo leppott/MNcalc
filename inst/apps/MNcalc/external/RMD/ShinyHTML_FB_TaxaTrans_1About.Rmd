@@ -14,23 +14,15 @@ knitr::opts_chunk$set(echo = FALSE
                       , message = FALSE)
 ```
 
-# Prepare an input file within the app (File Builder)
+# Prepare an input file with *File Builder*
 
-Advantages of using the File Builder are:
-
--   Fewer required fields.
-
--   Ensures use of Proper Operational Taxonomic Units (OTUs) and
-    attributes/traits.
-
--   Flexibility with names of column headings (Click on the drop-down
-    menus. The list of fields in your input file will appear. Select the
-    correct column headings).
+EXAMPLE INPUT FILES
+[<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/Test1Files_FileBuilder.zip" target="blank">ZIP</a>]
 
 The File Builder joins the taxon name in the input file with the
-‘original taxaID’ column in the
-<a href="https://github.com/leppott/BioMonTools_SupportFiles/tree/main/data/taxa_official/MN" target="blank">MPCA
-Taxa Translator table</a> and performs two functions:
+‘original taxaID’ column in the [Taxa Translator
+table](https://github.com/leppott/BioMonTools_SupportFiles/tree/main/data/taxa_official/MN)
+and performs two functions:
 
 -   Translates the original taxon name to the proper OTU for the
     calculation (for example, collapses worms to Oligochaeta).
@@ -38,52 +30,85 @@ Taxa Translator table</a> and performs two functions:
 -   Adds in new columns with taxa attributes and hierarchy (e.g., Order,
     Family) that are needed for the metric calculations.
 
-Index_Class
-[<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/IndexClass_MN_20240626.csv" target="blank">CSV</a>]
-is another required field. It tells R which BCG rules and IBI metrics to
-apply.
+The input file must be a comma-separated file (CSV).
 
-Index_Name (MN_IBI_Bugs, MN_IBI_Fish or MN_BCG) is also required but is
-autopopulated based upon which Calculation you select.
+<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/IndexClass_MN_20240626.csv" target="blank">Index
+Name and Index Class</a> are required for all calculations (they tell R
+which BCG rules and IBI metrics to apply).
 
-The input file must be a comma-separated file (CSV). Required fields
-vary slightly across the four Calculations.
+Some columns are required for all calculations, and others are specific
+to a particular calculation. Allowable entries are shown in the table at
+the bottom of the page.
+
+Required fields for all calculations. Column names are flexible (use
+drop-down menus to match).
 
 ```{r table_req}
 # Packages
 library(readxl)
 library(knitr)
 library(kableExtra)
-#library(DT)
 
 # Data
 fn <- "BCGcalc_ReqFields_20230203.xlsx"
 path <- file.path("files", fn)
-df <- read_excel(path, sheet = "MN_ReqField_Sum")
+df <- read_excel(path, sheet = "MN_Req_AllCalc")
 
-# Table (DT)
-# cap_req <- "Table 1. Required fields."
-# DT::datatable(df_req
-#               , filter = "top"
-#               , caption = cap_req
-#               , options = list(scrollX = TRUE
-#                                , autoWidth = TRUE)
-#               )
-# DT::datatable(iris) # not working correctly in fragment
 options(knitr.kable.NA = '')
 df %>%
   kable() %>%
   kable_styling(full_width = F, position = "left")
 ```
 
-For more detailed information about the BCG and IBI calculations, see
-the reports on the References page.
+Additional required fields for specific calculations . Column names must
+match exactly with what is shown here.
 
-For guidance on how to interpret the results, see the Metadata page.
+```{r table_req2}
+# Packages
+library(readxl)
+library(knitr)
+library(kableExtra)
 
-IMPORTANT: Data must be collected using MPCA field and laboratory
-protocols (see MPCA 2017 reports on the References page).
+# Data
+fn <- "BCGcalc_ReqFields_20230203.xlsx"
+path <- file.path("files", fn)
+df <- read_excel(path, sheet = "MN_Req_SomeCalc")
+
+options(knitr.kable.NA = '')
+df %>%
+  kable() %>%
+  kable_styling(full_width = F, position = "left")
+```
+
+Optional fields (e.g., SiteID, latitude, longitude, collection date) can
+be selected as well and will be carried through into the output file.
+
+IMPORTANT! Do not repeat columns (e.g., do not include SampleID and
+Taxon Name twice), and do not include Life Stage or other fields that
+might cause a taxon to occur in more than one row for a given sample
+(which could lead to double-counting of that taxon in the richness
+metrics).
+
+Below are the metadata associated with each column listed in the
+previous tables.
+
+```{r table_req3}
+# Packages
+library(readxl)
+library(knitr)
+library(kableExtra)
+
+# Data
+fn <- "BCGcalc_ReqFields_20230203.xlsx"
+path <- file.path("files", fn)
+df <- read_excel(path, sheet = "MN_Req_Metadata")
+
+options(knitr.kable.NA = '')
+df %>%
+  kable(escape = FALSE, format = "html") %>%
+  kable_styling(full_width = F, position = "left")
+```
 
 ------------------------------------------------------------------------
 
-*Last updated: 2024-07-15*
+*Last updated: 2024-07-24*

@@ -42,30 +42,9 @@ Leppo from Tetra Tech ([Erik.Leppo\@tetratech.com](#0)).
 access if you have R installed on your computer and have downloaded all
 the necessary packages.
 
-**Workflow**
+IMPORTANT: Data must be collected using MPCA field and laboratory
+protocols (see MPCA 2017 reports on the References page).
 
-**Quick start tutorial [PDF]**
-
-Input files must be comma-separated values (CSV).
-
-![](images/Workflow_20240626.jpg){width="75%"}
-
-**Time saver tip:**
-
-Some internet browsers, like Google Chrome and Mozilla Firefox, allow
-you to change settings so that you can select which folder to download
-files to (versus files going to the default Download folder).
-
--   Google Chrome file saving tip
-    [<a href="https://tetratech-wtr-wne.shinyapps.io/ContDataQC_EPAtemplate/_w_18ec5e9f/GoogleChrome_TimesaverTips.pdf" target="_blank">PDF</a>]
-
--   Mozilla Firefox: go to Settings \> General \> Files and Applications
-    \> Check box for “always ask where to save files.”
-
-**Want to learn more about R Shiny?**
-
-Visit
-<a href="https://nalms.shinyapps.io/Shiny_for_Water_Resources/" target="_blank">Water
-Resources for Shiny</a>
+---
 
 *Last updated 2024-07-12*

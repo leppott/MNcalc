@@ -5,7 +5,7 @@ function() {
     sidebarPanel(h2("File Builder: Taxa Translate and Attribute Assignment")
             , useShinyjs()
 
-            , p("The process below will combine user data with an official taxa list.")
+            , p("Only columns specified below will be carried through into the output file.")
             #, br()
             , h4("A. Upload a File")
             , p("If no file name showing below repeat 'Import File' in the left sidebar.")
@@ -30,16 +30,20 @@ function() {
             , uiOutput("UI_taxatrans_user_col_n_taxa")
             , uiOutput("UI_taxatrans_user_col_indexname")
 
-            , h6("Required Fields, BCG")
+            # , h6("Required Fields, BCG")
             # BCG (Bugs and Fish) needs Index_Class
             , uiOutput("UI_taxatrans_user_col_indexclass")
             # BCG Bugs needs GP_RR
-            , uiOutput("UI_taxatrans_user_col_gprr")
+            # , uiOutput("UI_taxatrans_user_col_gprr")
 
 
-            , h6("Optional Fields")
-            , p("All columns other than those specified above (required) or below (optional) will be dropped.
-                IMPORTANT! Do not repeat the required columns, and do not include Life Stage or other fields that might cause a taxon to occur in more than one row for a given sample (which could lead to double-counting of that taxon in the richness metrics) .")
+            , h5("Select Additional Required Fields (which vary by Calculation – see table on right).")
+            , p("Columns need to be named exactly as shown on the right.
+            Optional fields (e.g., SiteID, collection date) can be selected as well.
+                IMPORTANT! Do not include the same field twice and do not include
+                Life Stage or other fields that might cause a taxon to occur in
+                more than one row for a given sample (which could lead to
+                double-counting of that taxon in the richness metrics).")
             , uiOutput("UI_taxatrans_user_col_groupby")
 
             , h4("D. Run Operation")

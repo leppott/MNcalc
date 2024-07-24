@@ -1,0 +1,39 @@
+---
+title: "Instructions"
+date: "2024-07-24"
+output: html_fragment
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE
+                      , results = 'asis'
+                      , warning = FALSE
+                      , message = FALSE)
+```
+
+Below are links to relevant resources. Download individual reports in
+the table below.
+
+```{r table_req}
+# Packages
+library(readxl)
+library(knitr)
+library(kableExtra)
+#library(DT)
+
+# Data
+fn <- "References.xlsx"
+path <- file.path("files", fn)
+df <- read_excel(path, sheet = "References")
+
+df %>%
+  kable(escape = FALSE, format = "html") %>%
+  kable_styling(full_width = F, position = "left")
+```
+
+------------------------------------------------------------------------
+
+*Last updated 2024-07-12*

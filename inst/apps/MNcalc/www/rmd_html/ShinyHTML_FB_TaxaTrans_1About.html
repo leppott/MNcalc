@@ -1,73 +1,49 @@
 
 
 
-<div id="prepare-an-input-file-within-the-app-file-builder" class="section level1">
-<h1>Prepare an input file within the app (File Builder)</h1>
-<p>Advantages of using the File Builder are:</p>
-<ul>
-<li><p>Fewer required fields.</p></li>
-<li><p>Ensures use of Proper Operational Taxonomic Units (OTUs) and
-attributes/traits.</p></li>
-<li><p>Flexibility with names of column headings (Click on the drop-down
-menus. The list of fields in your input file will appear. Select the
-correct column headings).</p></li>
-</ul>
+<div id="prepare-an-input-file-with-file-builder" class="section level1">
+<h1>Prepare an input file with <em>File Builder</em></h1>
+<p>EXAMPLE INPUT FILES
+[<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/Test1Files_FileBuilder.zip" target="blank">ZIP</a>]</p>
 <p>The File Builder joins the taxon name in the input file with the
-‘original taxaID’ column in the
-<a href="https://github.com/leppott/BioMonTools_SupportFiles/tree/main/data/taxa_official/MN" target="blank">MPCA
-Taxa Translator table</a> and performs two functions:</p>
+‘original taxaID’ column in the <a href="https://github.com/leppott/BioMonTools_SupportFiles/tree/main/data/taxa_official/MN">Taxa
+Translator table</a> and performs two functions:</p>
 <ul>
 <li><p>Translates the original taxon name to the proper OTU for the
 calculation (for example, collapses worms to Oligochaeta).</p></li>
 <li><p>Adds in new columns with taxa attributes and hierarchy (e.g.,
 Order, Family) that are needed for the metric calculations.</p></li>
 </ul>
-<p>Index_Class
-[<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/IndexClass_MN_20240626.csv" target="blank">CSV</a>]
-is another required field. It tells R which BCG rules and IBI metrics to
-apply.</p>
-<p>Index_Name (MN_IBI_Bugs, MN_IBI_Fish or MN_BCG) is also required but
-is autopopulated based upon which Calculation you select.</p>
-<p>The input file must be a comma-separated file (CSV). Required fields
-vary slightly across the four Calculations.</p>
+<p>The input file must be a comma-separated file (CSV).</p>
+<p><a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/IndexClass_MN_20240626.csv" target="blank">Index
+Name and Index Class</a> are required for all calculations (they tell R
+which BCG rules and IBI metrics to apply).</p>
+<p>Some columns are required for all calculations, and others are
+specific to a particular calculation. Allowable entries are shown in the
+table at the bottom of the page.</p>
+<p>Required fields for all calculations. Column names are flexible (use
+drop-down menus to match).</p>
 <table class="table" style="color: black; width: auto !important; ">
 <thead>
 <tr>
 <th style="text-align:left;">
-Column (flexible names)
+Column name (flexible)
 </th>
 <th style="text-align:left;">
-IBI_Fish
+MN_BCG_Bugs
 </th>
 <th style="text-align:left;">
-BCG_Fish
+MN_IBI_Bugs
 </th>
 <th style="text-align:left;">
-IBI_Bugs
+MN_BCG_Fish
 </th>
 <th style="text-align:left;">
-BCG_Bugs
+MN_IBI_Fish
 </th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-MPCA Class (e.g., Index_Class)
-</td>
-<td style="text-align:left;">
-x
-</td>
-<td style="text-align:left;">
-x
-</td>
-<td style="text-align:left;">
-x
-</td>
-<td style="text-align:left;">
-x
-</td>
-</tr>
 <tr>
 <td style="text-align:left;">
 Unique sample ID (e.g., SampleID)
@@ -121,40 +97,13 @@ x
 </tr>
 <tr>
 <td style="text-align:left;">
-Number of Large Rare individuals (e.g., LargeRareCount)
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
+Index_Name (MN_IBI_Bugs, MN_IBI_Fish, MN_BCG)
 </td>
 <td style="text-align:left;">
 x
 </td>
 <td style="text-align:left;">
 x
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Number of individuals with DELT anomalies (e.g., N_Anomalies)
-</td>
-<td style="text-align:left;">
-x
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-MPCA Glide Pool (GP) or Riffle Run (RR) class (e.g., GP.RR)
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 x
@@ -165,7 +114,7 @@ x
 </tr>
 <tr>
 <td style="text-align:left;">
-Watershed area (square miles) (e.g., DRAINSQMI)
+MPCA Class (e.g., Index_Class)
 </td>
 <td style="text-align:left;">
 x
@@ -177,44 +126,352 @@ x
 x
 </td>
 <td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Gradient (m/km) (e.g., Gradient_m/km)
-</td>
-<td style="text-align:left;">
 x
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Distance fished (meters) (e.g., Distance_m)
-</td>
-<td style="text-align:left;">
-x
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
 </td>
 </tr>
 </tbody>
 </table>
-<p>For more detailed information about the BCG and IBI calculations, see
-the reports on the References page.</p>
-<p>For guidance on how to interpret the results, see the Metadata
-page.</p>
-<p>IMPORTANT: Data must be collected using MPCA field and laboratory
-protocols (see MPCA 2017 reports on the References page).</p>
+<p>Additional required fields for specific calculations . Column names
+must match exactly with what is shown here.</p>
+<table class="table" style="color: black; width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+Column name (must match exactly)
+</th>
+<th style="text-align:left;">
+MN_BCG_Bugs
+</th>
+<th style="text-align:left;">
+MN_IBI_Bugs
+</th>
+<th style="text-align:left;">
+MN_BCG_Fish
+</th>
+<th style="text-align:left;">
+MN_IBI_Fish
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+GP.RR
+</td>
+<td style="text-align:left;">
+x
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LargeRareCount
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+x
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+N_Anomalies
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+x
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DRAINSQMI
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+x
+</td>
+<td style="text-align:left;">
+x
+</td>
+<td style="text-align:left;">
+x
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GRADIENT
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+x
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Distance_m
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+x
+</td>
+</tr>
+</tbody>
+</table>
+<p>Optional fields (e.g., SiteID, latitude, longitude, collection date)
+can be selected as well and will be carried through into the output
+file.</p>
+<p>IMPORTANT! Do not repeat columns (e.g., do not include SampleID and
+Taxon Name twice), and do not include Life Stage or other fields that
+might cause a taxon to occur in more than one row for a given sample
+(which could lead to double-counting of that taxon in the richness
+metrics).</p>
+<p>Below are the metadata associated with each column listed in the
+previous tables.</p>
+<table class="table" style="color: black; width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+Column Name 
+</th>
+<th style="text-align:left;">
+Name
+</th>
+<th style="text-align:left;">
+Data Type
+</th>
+<th style="text-align:left;">
+Domain (allowable entries)
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+SampleID
+</td>
+<td style="text-align:left;">
+flexible
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA (flexible)
+</td>
+<td style="text-align:left;">
+Unique sample identifier (typically comprised of the site name, sample
+date, and replicate number)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TaxaID
+</td>
+<td style="text-align:left;">
+flexible
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA (flexible)
+</td>
+<td style="text-align:left;">
+Taxon name, using the BCG Operational Taxonomic Unit (OTU)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+N_Taxa
+</td>
+<td style="text-align:left;">
+flexible
+</td>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+non-negative real number
+</td>
+<td style="text-align:left;">
+Number of individuals
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Index_Name
+</td>
+<td style="text-align:left;">
+flexible
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+MN_IBI_Bugs, MN_IBI_Fish, MN_BCG
+</td>
+<td style="text-align:left;">
+Tells R which calculation to run
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Index_Class
+</td>
+<td style="text-align:left;">
+flexible
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+list of options
+[<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/IndexClass_MN_20240626.csv" target="blank">CSV</a>]
+</td>
+<td style="text-align:left;">
+Tells R which rules and metrics to apply, based on class (e.g., northern
+forest Ri
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GP.RR
+</td>
+<td style="text-align:left;">
+exact
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+GP,RR
+</td>
+<td style="text-align:left;">
+Riffle/Run (RR) if a stream reach includes riffles as representative
+habitat, is high gradient and has adequate flow to create riffle
+dwelling organisms. If not, Glide/pool (GP) (see Table 6 in MPCA 2017 -
+bug protocols).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LargeRareCount
+</td>
+<td style="text-align:left;">
+exact
+</td>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+NA (flexible)
+</td>
+<td style="text-align:left;">
+Count from the Large Rare pick. Taxa that only occur in Large Rare picks
+have blank entries in the N_Taxa column
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+N_Anomalies
+</td>
+<td style="text-align:left;">
+exact
+</td>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+NA (flexible)
+</td>
+<td style="text-align:left;">
+Number of individuals with Deformities, Eroded fins, Lesions, Tumors
+(DELT) anomalies
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DRAINSQMI
+</td>
+<td style="text-align:left;">
+exact
+</td>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+NA (flexible)
+</td>
+<td style="text-align:left;">
+Drainage area (total watershed area) in square miles
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GRADIENT
+</td>
+<td style="text-align:left;">
+exact
+</td>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+NA (flexible)
+</td>
+<td style="text-align:left;">
+Gradient (m/km) calculation based on elevations (from a DEM) at the up-
+and downstream ends of a 1000m arc bracketing the sampling reach
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Distance_m
+</td>
+<td style="text-align:left;">
+exact
+</td>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+NA (flexible)
+</td>
+<td style="text-align:left;">
+Distance fished in meters (used for the catch-per-unit-effort (CPUE)
+metric)
+</td>
+</tr>
+</tbody>
+</table>
 <hr />
-<p><em>Last updated: 2024-07-15</em></p>
+<p><em>Last updated: 2024-07-24</em></p>
 </div>
