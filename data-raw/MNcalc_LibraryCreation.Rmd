@@ -48,7 +48,7 @@ Use the code below to create the package.  Assumes you are in the development pa
 ```{r, eval=FALSE}
 # Remove all files in "Results" folder
 # Triggered here so can run different files
-path_results <- file.path("inst", "shiny-examples", "BCGcalc", "results")
+path_results <- file.path("inst", "apps", "MNcalc", "results")
 fn_results <- list.files(path_results
                          , full.names = TRUE
                          , include.dirs = TRUE

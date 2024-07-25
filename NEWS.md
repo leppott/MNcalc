@@ -1,11 +1,15 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-07-24 20:43:10.007673
+2024-07-25 12:50:14.465746
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-07-24 20:43:10.021464
+    #> Last Update: 2024-07-25 12:50:14.482657
+
+# MNcalc 0.2.0.9029 (2024-07-25)
+
+- fix: Enabled taxatrans_user_col_gprr in tab_filebuilder_taxatrans.R
 
 # MNcalc 0.2.0.9028 (2024-07-24)
 

@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9029 (2024-07-25)
+
+* fix: Enabled taxatrans_user_col_gprr in tab_filebuilder_taxatrans.R
+
 # MNcalc 0.2.0.9028 (2024-07-24)
 
 * refactor: Rework BCG Fish calculation for 10a and 10b
