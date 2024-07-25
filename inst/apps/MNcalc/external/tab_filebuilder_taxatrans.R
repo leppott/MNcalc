@@ -34,7 +34,7 @@ function() {
             # BCG (Bugs and Fish) needs Index_Class
             , uiOutput("UI_taxatrans_user_col_indexclass")
             # BCG Bugs needs GP_RR
-            , uiOutput("UI_taxatrans_user_col_gprr")
+            # , uiOutput("UI_taxatrans_user_col_gprr") # get from cols2keep
 
 
             , h5("Select Additional Required Fields (which vary by Calculation – see table on right).")

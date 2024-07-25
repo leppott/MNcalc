@@ -398,14 +398,14 @@ shinyServer(function(input, output) {
                 , multiple = FALSE)
   })## UI_colnames
 
-  output$UI_taxatrans_user_col_gprr <- renderUI({
-    str_col <- "MN_BCG_Bugs only: Column, GP/RR (e.g., GP_RR)"
-    selectInput("taxatrans_user_col_gprr"
-                , label = str_col
-                , choices = c("", names(df_import()))
-                , selected = "GP_RR"
-                , multiple = FALSE)
-  })## UI_colnames
+  # output$UI_taxatrans_user_col_gprr <- renderUI({
+  #   str_col <- "MN_BCG_Bugs only: Column, GP/RR (e.g., GP_RR)"
+  #   selectInput("taxatrans_user_col_gprr"
+  #               , label = str_col
+  #               , choices = c("", names(df_import()))
+  #               , selected = "GP_RR"
+  #               , multiple = FALSE)
+  # })## UI_colnames
 
 
   # ## TaxaTrans, combine ----
@@ -503,7 +503,8 @@ shinyServer(function(input, output) {
       sel_summ <- input$cb_TaxaTrans_Summ
       sel_user_indexname <- input$taxatrans_user_col_indexname
       sel_user_indexclass <- input$taxatrans_user_col_indexclass
-      sel_user_gprr <- input$taxatrans_user_col_gprr
+      sel_user_gprr <- "GP.RR" # input$taxatrans_user_col_gprr
+      # require name
 
       fn_taxoff <- df_pick_taxoff[df_pick_taxoff$project == sel_proj
                                   , "filename"]
@@ -530,7 +531,7 @@ shinyServer(function(input, output) {
 
       ## MN, col, groupby ----
       # Auto add bug or fish columns for selecting correct BCG_ATTR
-      # Ensure doesn't double count
+      # Ensure doesn't double count (unique)
       if (sel_proj == "MN BCG (bugs)") {
         sel_user_groupby <- unique(c(sel_user_groupby
                                      , sel_user_indexclass
@@ -663,16 +664,17 @@ shinyServer(function(input, output) {
         validate(msg)
       }## IF ~ sel_user_indexclass
 
-      # if (is.null(sel_user_gprr) & sel_proj == "MN_BCG_Bugs") {
-      #   # end process with pop up
-      #   msg <- "'GP/RR' column name is required for BCG_Bugs and is missing!"
-      #   shinyalert::shinyalert(title = "Taxa Translate"
-      #                          , text = msg
-      #                          , type = "error"
-      #                          , closeOnEsc = TRUE
-      #                          , closeOnClickOutside = TRUE)
-      #   validate(msg)
-      # }## IF ~ sel_user_gprr
+      #if (is.null(sel_user_gprr) & sel_proj == "MN_BCG_Bugs") {
+      if (!(sel_user_gprr %in% sel_user_groupby) & sel_proj == "MN_BCG_Bugs") {
+        # end process with pop up
+        msg <- "'GP.RR' column name is required for BCG_Bugs and is missing!"
+        shinyalert::shinyalert(title = "Taxa Translate"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## IF ~ sel_user_gprr
 
       ## Calc, 03, Import Official Data (and Metadata)  ----
       prog_detail <- "Import Data, Official and Metadata"

@@ -55,7 +55,7 @@ fn_results <- list.files(path_results
                          , recursive = TRUE)
 unlink(fn_results, recursive = TRUE) # to include dir use unlink instead of file.remove
 # Copy file to ensure directory not empty
-path_shiny <- file.path("inst", "app", "MNcalc")
+path_shiny <- file.path("inst", "apps", "MNcalc")
 fn_copy    <- "remove.txt"
 path_from  <- file.path(path_shiny, "data", fn_copy)
 path_to    <- file.path(path_shiny, "results", fn_copy)

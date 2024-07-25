@@ -1,11 +1,19 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-07-25 12:50:14.465746
+2024-07-25 17:52:02.806765
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-07-25 12:50:14.482657
+    #> Last Update: 2024-07-25 17:52:02.823684
+
+# MNcalc 0.2.0.9030 (2024-07-25)
+
+- refactor: Remove gp_rr selection box
+  - Comment out from tab_filebuilder_taxatrans
+  - Comment out UI from server.R
+  - Uncomment ShinyAlert for gprr
+- refactor: Replace logic for identifying GPRR from cols2keep
 
 # MNcalc 0.2.0.9029 (2024-07-25)
 
