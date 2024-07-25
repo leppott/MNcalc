@@ -1868,7 +1868,18 @@ shinyServer(function(input, output) {
         validate(msg)
       }## IF ~ comm_sel !%in% comm_dat
 
-
+      # DrainSqMi for fish
+      if (comm_sel == "fish" & !"DRAINSQMI" %in% names(df_input)) {
+        msg <- paste0("Required fields (columns) missing!"
+                      , "\n\n"
+                      , "DRAINSQMI is needed for Fish BCG.")
+        shinyalert::shinyalert(title = "Index Calculation Error"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## IF ~ DRAINSQMI
 
       ## Calc, 2, Exclude Taxa ----
       prog_detail <- "Calculate, Exclude Taxa"
@@ -1948,6 +1959,21 @@ shinyServer(function(input, output) {
       # can also add other columns to keep if feel so inclined
       cols_flags_keep <- cols_flags[cols_flags %in% names(df_input)]
 
+      ## Mod, Add, Index_Class 10a/b----
+      # after flags even though flags not selecting based on Index_Class
+      # Assume names are upper case and present in BCG
+      #
+      # missing area to zero
+      df_input <- df_input %>%
+        dplyr::mutate(DRAINSQMI = dplyr::case_when(is.na(DRAINSQMI) ~ 0
+                                                   , .default = DRAINSQMI)) %>%
+        dplyr::mutate(INDEX_CLASS = dplyr::case_when(
+          INDEX_CLASS == "fish10a" & DRAINSQMI < 10 ~ "fish10a_small"
+          , INDEX_CLASS == "fish10a" & DRAINSQMI >= 10 ~ "fish10a_large"
+          , INDEX_CLASS == "fish10b" & DRAINSQMI < 10 ~ "fish10b_small"
+          , INDEX_CLASS == "fish10b" & DRAINSQMI >= 10 ~ "fish10b_large"
+          , .default = INDEX_CLASS)
+        )
 
       ## Calc, 3b, Rules ----
       prog_detail <- "Calculate, BCG Rules"
@@ -2152,6 +2178,14 @@ shinyServer(function(input, output) {
 
       }## IF ~ check for matching index name and class
 
+      ## Mod, Remove, Index_Class 10a/b----
+      df_results[, "INDEX_NAME"] <- gsub("_large$"
+                                         , ""
+                                         , df_results[, "INDEX_NAME"])
+      df_results[, "INDEX_NAME"] <- gsub("_small$"
+                                         , ""
+                                         , df_results[, "INDEX_NAME"])
+
 
       # Save, Flags Summary
       # fn_levflags <- paste0(fn_input_base, fn_abr_save, "6levflags.csv")
@@ -2194,6 +2228,7 @@ shinyServer(function(input, output) {
                         , output_file = strFile.out
                         , output_dir = dir.export
                         , quiet = TRUE)
+
 
       ## Calc, 10, Save, Reference----
       prog_detail <- "Calculate, Save, Reference"

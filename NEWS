@@ -1,11 +1,17 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-07-24 16:52:29.287229
+2024-07-24 20:43:10.007673
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-07-24 16:52:29.30321
+    #> Last Update: 2024-07-24 20:43:10.021464
+
+# MNcalc 0.2.0.9028 (2024-07-24)
+
+- refactor: Rework BCG Fish calculation for 10a and 10b
+  - Reclass 10 based on DRAINSQMI
+  - Undo reclass when save results
 
 # MNcalc 0.2.0.9027 (2024-07-24)
 

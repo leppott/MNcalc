@@ -21,6 +21,12 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9028 (2024-07-24)
+
+* refactor: Rework BCG Fish calculation for 10a and 10b
+    + Reclass 10 based on DRAINSQMI
+    + Undo reclass when save results
+
 # MNcalc 0.2.0.9027 (2024-07-24)
 
 * refactor: Removed the following files from Calculation output
