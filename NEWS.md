@@ -1,11 +1,16 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-07-25 17:52:02.806765
+2024-07-25 20:42:27.382727
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-07-25 17:52:02.823684
+    #> Last Update: 2024-07-25 20:42:27.402747
+
+# MNcalc 0.2.0.9031 (2024-07-25)
+
+- fix: BCG fish check for DRAINSQMI for small/large not in if statement
+  - Was applying to fish and bugs causing bugs to crash
 
 # MNcalc 0.2.0.9030 (2024-07-25)
 

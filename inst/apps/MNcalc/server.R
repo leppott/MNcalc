@@ -1966,16 +1966,18 @@ shinyServer(function(input, output) {
       # Assume names are upper case and present in BCG
       #
       # missing area to zero
-      df_input <- df_input %>%
-        dplyr::mutate(DRAINSQMI = dplyr::case_when(is.na(DRAINSQMI) ~ 0
-                                                   , .default = DRAINSQMI)) %>%
-        dplyr::mutate(INDEX_CLASS = dplyr::case_when(
-          INDEX_CLASS == "fish10a" & DRAINSQMI < 10 ~ "fish10a_small"
-          , INDEX_CLASS == "fish10a" & DRAINSQMI >= 10 ~ "fish10a_large"
-          , INDEX_CLASS == "fish10b" & DRAINSQMI < 10 ~ "fish10b_small"
-          , INDEX_CLASS == "fish10b" & DRAINSQMI >= 10 ~ "fish10b_large"
-          , .default = INDEX_CLASS)
-        )
+      if (comm_sel == "fish") {
+        df_input <- df_input %>%
+          dplyr::mutate(DRAINSQMI = dplyr::case_when(is.na(DRAINSQMI) ~ 0
+                                                     , .default = DRAINSQMI)) %>%
+          dplyr::mutate(INDEX_CLASS = dplyr::case_when(
+            INDEX_CLASS == "fish10a" & DRAINSQMI < 10 ~ "fish10a_small"
+            , INDEX_CLASS == "fish10a" & DRAINSQMI >= 10 ~ "fish10a_large"
+            , INDEX_CLASS == "fish10b" & DRAINSQMI < 10 ~ "fish10b_small"
+            , INDEX_CLASS == "fish10b" & DRAINSQMI >= 10 ~ "fish10b_large"
+            , .default = INDEX_CLASS)
+          )
+      }## IF ~ fish
 
       ## Calc, 3b, Rules ----
       prog_detail <- "Calculate, BCG Rules"

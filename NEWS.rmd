@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9031 (2024-07-25)
+
+* fix: BCG fish check for DRAINSQMI for small/large not in if statement
+    + Was applying to fish and bugs causing bugs to crash
+
 # MNcalc 0.2.0.9030 (2024-07-25)
 
 * refactor: Remove gp_rr selection box
