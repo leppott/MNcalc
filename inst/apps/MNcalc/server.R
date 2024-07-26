@@ -3074,11 +3074,33 @@ shinyServer(function(input, output) {
 
       # Save, Results
       df_results <- df_metric_scores
+      # Munge
+      ## Rename SAMP_LENGTH_M to DISTANCE_M
+      names(df_results)[names(df_results) %in% "SAMP_LENGTH_M"] <- "DISTANCE_M"
+      ## IBI only columns
+      cols_ibi_req <- c("SAMPLEID", "INDEX_NAME", "INDEX_CLASS"
+                        , "GRADIENT", "DRAINSQMI", "DISTANCE_M"
+                        , "ni_total", "nt_total")
+      cols_ibi_met_val <- unique(df_rules[, "METRIC_NAME", TRUE])
+      cols_ibi_met_sco <- paste0("SC_", cols_ibi_met_val)
+      cols_ibi_index <- c("sum_Index", "Index", "Index_Nar"
+                          , "Index_n_metrics")
+      cols_ibi_index_fish <- c("sum_Index_ORIG", "Index_ORIG"
+                               , "les_mult_ni", "les_mult_nt"
+                               , "Index_mod_delt")
+      cols_ibi_keep <- unique(c(cols_ibi_req
+                                , cols_ibi_met_val
+                                , cols_ibi_met_sco
+                                , cols_ibi_index
+                                , cols_ibi_index_fish))
+      df_results_slim <- df_results[, names(df_results) %in% cols_ibi_keep]
+      # ok to have fish specific when bugs since using "%in%"
+      #
       # fn_results <- paste0(fn_input_base, fn_abr_save, "RESULTS.csv")
       fn_results <- "_IBI_RESULTS.csv"
       dn_results <- path_results_sub
       pn_results <- file.path(dn_results, fn_results)
-      write.csv(df_results, pn_results, row.names = FALSE)
+      write.csv(df_results_slim, pn_results, row.names = FALSE)
 
       # Save, Flag Metrics
       # fn_metflags <- paste0(fn_input_base, fn_abr_save, "6metflags.csv")

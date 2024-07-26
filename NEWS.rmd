@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9032 (2024-07-25)
+
+* refactor: IBI slim down columns to only those for IBI for _RESULTS file
+
 # MNcalc 0.2.0.9031 (2024-07-25)
 
 * fix: BCG fish check for DRAINSQMI for small/large not in if statement

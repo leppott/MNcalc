@@ -1,11 +1,16 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-07-25 20:42:27.382727
+2024-07-25 22:16:33.012358
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-07-25 20:42:27.402747
+    #> Last Update: 2024-07-25 22:16:33.025254
+
+# MNcalc 0.2.0.9032 (2024-07-25)
+
+- refactor: IBI slim down columns to only those for IBI for \_RESULTS
+  file
 
 # MNcalc 0.2.0.9031 (2024-07-25)
 
