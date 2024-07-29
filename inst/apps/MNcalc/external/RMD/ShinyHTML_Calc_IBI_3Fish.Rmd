@@ -49,7 +49,9 @@ METRICS: view information for each class
 [<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/FishIBI_2017_MetricInformation.pdf" target="blank">PDF</a>]
 (source: MPCA 2017).
 
-RESULTS: see the Metadata page for guidance on how to interpret the
+RESULTS: see the Metadata files on the Instructions page for guidance on how to interpret the
 results.
 
-*Last updated 2024-07-15*
+---
+
+*Last updated 2024-07-29*

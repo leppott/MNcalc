@@ -1,7 +1,7 @@
 Package: MNcalc
 Type: Package
 Title: Minnesota BCG and IBI Calculator for Red Lake Tribe
-Version: 0.2.0.9032
+Version: 0.2.0.9033
 Authors@R: person("Erik W.", "Leppo", email="Erik.Leppo@tetratech.com", role=c("aut","cre"))
 Maintainer: Erik W. Leppo <Erik.Leppo@tetratech.com>
 Description: Shiny app for Red Lake Tribe calculates the Minnesota BCG and IBI 

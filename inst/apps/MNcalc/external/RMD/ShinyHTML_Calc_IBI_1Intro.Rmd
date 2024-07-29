@@ -29,7 +29,7 @@ Lists of Index Classes and links to tables with metric information can
 be found on the bug and fish IBI subtabs. For more detailed information,
 see the MPCA 2014 and 2017 reports on the References page.
 
-For guidance on how to interpret the results, see the Metadata page.
+For guidance on how to interpret the results, see the Metadata files on the Instructions page.
 
 IMPORTANT: Data must be collected using MPCA field and laboratory
 protocols (see MPCA 2017 reports on the References page).
@@ -41,4 +41,4 @@ Uses.
 
 ------------------------------------------------------------------------
 
-*Last updated 2024-07-15*
+*Last updated 2024-07-29*

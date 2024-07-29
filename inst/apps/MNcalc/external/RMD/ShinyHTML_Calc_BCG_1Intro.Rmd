@@ -28,7 +28,8 @@ Lists of Index Classes and links to Rules tables can be found on the bug
 and fish BCG subtabs. For more detailed information, see Gerritsen et
 al. (2017) and Gerritsen et al. (2012) on the References page.
 
-For guidance on how to interpret the results, see the Metadata page.
+For guidance on how to interpret the results, see the Metadata files on
+the Instructions page.
 
 IMPORTANT: Data must be collected using MPCA field and laboratory
 protocols (see MPCA 2017 reports on the References page).
@@ -38,6 +39,11 @@ protocols (see MPCA 2017 reports on the References page).
 Figure 1. Conceptual diagram of the Biological Condition Gradient (BCG)
 model.
 
+Some rules tables in the reports on the References page. You may notice
+some differences between the MPCA reports and metadata files. For
+example, some of the coldwater metrics in the fish BCG are coded
+differently. Use the Metadata.
+
 ------------------------------------------------------------------------
 
-*Last updated 2024-07-15*
+*Last updated 2024-07-29*

@@ -16,18 +16,23 @@ knitr::opts_chunk$set(echo = FALSE
 
 # Instructions, test files, and metadata
 
-### Quick Tutorial [PDF]
+### Quick Tutorial [<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/QuickTutorial_MN_20240729.pdf" target="blank">PDF</a>]
 
-### Example Input Files [<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/Test1Files_FileBuilder.zip" target="blank">ZIP</a>]
+### Example Input Files [<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/Test1Files_FileBuilder_20240726.zip" target="blank">ZIP</a>]
 
 ### Metadata
+
+-   Taxa Translator and Attribute tables
+    [<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/Metadata_TaxaTransAttrTables_20240725.zip" target="blank">ZIP</a>]
 
 -   File Builder output files
     [<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/Metadata_FileBuilder_20240719.zip" target="blank">ZIP</a>]
 
--   BCG output files [ZIP]
+-   BCG output files
+    [<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/Metadata_Calculations_BCG_20240726.zip" target="blank">ZIP</a>]
 
--   IBI output files [ZIP]
+-   IBI output files
+    [<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/Metadata_Calculations_IBI_20240726.zip" target="blank">ZIP</a>]
 
 ### Workflow
 
@@ -223,4 +228,4 @@ common identifier field in the two files (e.g., SampleID), use the
 
 ------------------------------------------------------------------------
 
-*Last updated 2024-07-12*
+*Last updated 2024-07-29*

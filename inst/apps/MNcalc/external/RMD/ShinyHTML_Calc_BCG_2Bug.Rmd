@@ -48,7 +48,9 @@ RULES: view the metrics and thresholds for each class
 [<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/BCG_BugRules_Gerritsen2012.pdf" target="blank">PDF</a>]
 (source: Gerritsen et al. 2012).
 
-RESULTS: see the Metadata page for guidance on how to interpret the
-results.
+RESULTS: see the Metadata files on the Instructions page for guidance on
+how to interpret the results.
 
-*Last updated 2024-07-15*
+---
+
+*Last updated 2024-07-29*
