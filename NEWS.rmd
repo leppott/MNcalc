@@ -21,7 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
-# MNcalc 0.2.0.9025 (2024-07-24)
+# MNcalc 0.2.0.9034 (2024-07-29)
+
+* Fix: Removed MetricNames.xlsx and MetricScoring.xlsx copies in output.
+
+# MNcalc 0.2.0.9033 (2024-07-29)
 
 * refactor: Updated language in multiple UI elements per stylistic edits.
 
