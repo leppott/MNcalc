@@ -21,9 +21,13 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9035 (2024-08-29)
+
+* refactor: Update 2 tables in FB_TaxaTrans_1About from knitr to flextable
+
 # MNcalc 0.2.0.9034 (2024-07-29)
 
-* Fix: Removed MetricNames.xlsx and MetricScoring.xlsx copies in output.
+* fix: Removed MetricNames.xlsx and MetricScoring.xlsx copies in output.
 
 # MNcalc 0.2.0.9033 (2024-07-29)
 

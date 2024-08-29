@@ -46,18 +46,30 @@ drop-down menus to match).
 ```{r table_req}
 # Packages
 library(readxl)
-library(knitr)
-library(kableExtra)
+# library(knitr)
+# library(kableExtra)
+library(flextable)
 
 # Data
 fn <- "BCGcalc_ReqFields_20230203.xlsx"
 path <- file.path("files", fn)
 df <- read_excel(path, sheet = "MN_Req_AllCalc")
 
-options(knitr.kable.NA = '')
-df %>%
-  kable() %>%
-  kable_styling(full_width = F, position = "left")
+# options(knitr.kable.NA = '')
+# df %>%
+#   kable() %>%
+#   kable_styling(full_width = F, position = "left")
+
+border_big = fp_border_default(color="black", width = 2)
+border_small = fp_border_default(color="darkgray", width = 1)
+flextable(df) |>
+  autofit() |>
+  border_remove() |>
+  border_inner_h(part = "all", border = border_small) |>
+  border_inner_v(part = "all", border = border_small) |>
+  border_outer(part = "all", border = border_big) |>
+  align(align = c("left", rep_len("center", ncol(df)-1))) |>
+  bold(part = "header")
 ```
 
 Additional required fields for specific calculations . Column names must
@@ -66,18 +78,31 @@ match exactly with what is shown here.
 ```{r table_req2}
 # Packages
 library(readxl)
-library(knitr)
-library(kableExtra)
+# library(knitr)
+# library(kableExtra)
+library(flextable)
 
 # Data
 fn <- "BCGcalc_ReqFields_20230203.xlsx"
 path <- file.path("files", fn)
 df <- read_excel(path, sheet = "MN_Req_SomeCalc")
 
-options(knitr.kable.NA = '')
-df %>%
-  kable() %>%
-  kable_styling(full_width = F, position = "left")
+# options(knitr.kable.NA = '')
+# df %>%
+#   kable() %>%
+#   kable_styling(full_width = F, position = "left")
+
+border_big = fp_border_default(color="black", width = 2)
+border_small = fp_border_default(color="darkgray", width = 1)
+flextable(df) |>
+  autofit() |>
+  border_remove() |>
+  border_inner_h(part = "all", border = border_small) |>
+  border_inner_v(part = "all", border = border_small) |>
+  border_outer(part = "all", border = border_big) |>
+  align(align = c("left", rep_len("center", ncol(df)-1))) |>
+  bold(part = "header")
+
 ```
 
 Optional fields (e.g., SiteID, latitude, longitude, collection date) can
