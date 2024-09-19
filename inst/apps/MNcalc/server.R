@@ -2982,6 +2982,86 @@ shinyServer(function(input, output) {
           # Update sum_index
           mutate(Index = Index + Index_mod_delt)
 
+        ## Recalc Index_Nar ----
+        # 20240919, Recalc Narrative after adjustments
+        # reuse code from BioMonTools::metric.scores.R
+
+        DF_Thresh_Index <- df_thresh_index
+        DF_Metrics      <- df_metric_scores
+        col_IndexName   <- "INDEX_NAME"
+        col_IndexClass  <- "INDEX_CLASS"
+        col_ni_total    <- "ni_total"
+
+        # Need to cycle based on Index (aa) and Region (bb)
+        for (aa in unique(as.matrix(DF_Metrics[,col_IndexName]))) {
+          for (bb in unique(as.matrix(DF_Metrics[,col_IndexClass]))) {
+
+            # Thresholds (filter with dplyr)
+            fun.Thresh.myIndex <- as.data.frame(dplyr::filter(DF_Thresh_Index
+                                                              , INDEX_NAME == aa
+                                                              & INDEX_CLASS == bb))
+            # QC
+            if (nrow(fun.Thresh.myIndex) != 1) {
+              #return(0)
+              next
+            }
+            # thresholds
+            #fun.NumMetrics       <- as.numeric(fun.Thresh.myIndex[, "NumMetrics"])
+            fun.ScoreRegime      <- fun.Thresh.myIndex[, "ScoreRegime"]
+            fun.Scale            <- fun.Thresh.myIndex[, "ScoreScaling"]
+            fun.Index.Nar.Thresh <- fun.Thresh.myIndex[, c(paste0("Thresh0"
+                                                                  , seq_len(7)))]
+            fun.Index.Nar.Nar    <- fun.Thresh.myIndex[, c(paste0("Nar0", seq_len(6)))]
+
+            fun.Index.Nar.Numb <- sum(!is.na(fun.Index.Nar.Nar), na.rm = TRUE)
+
+            fun.ZeroInd_Use <- fun.Thresh.myIndex[, "Use_ZeroInd"]
+            fun.ZeroInd_Sc  <- fun.Thresh.myIndex[, "ZeroInd_Score"]
+            fun.ZeroInd_Nar <- fun.Thresh.myIndex[, "ZeroInd_Narrative"]
+
+            # default value
+            # 20240919, cut out default numeric value
+
+            ### INDEX, Score Regime
+            # 20240919, cut out summation of index value
+            fun.Result <- DF_Metrics[, "Index", TRUE] # tibble to vector
+
+            # Narrative
+            myBreaks <- as.numeric(paste(fun.Index.Nar.Thresh[1, 1:(fun.Index.Nar.Numb + 1)]))
+            myLabels <- paste(fun.Index.Nar.Nar[1, 1:fun.Index.Nar.Numb])
+            fun.Result.Nar <- as.vector(cut(fun.Result
+                                            , breaks = myBreaks
+                                            , labels = myLabels
+                                            , include.lowest = TRUE
+                                            , right = FALSE
+                                            , ordered_result = TRUE))
+
+            # Update for zero individuals
+            if (fun.ZeroInd_Use == TRUE) {
+              boo_zero_ni_total <- DF_Metrics[, col_ni_total] == 0
+              fun.Result[boo_zero_ni_total]     <- fun.ZeroInd_Sc
+              fun.Result.Nar[boo_zero_ni_total] <- fun.ZeroInd_Nar
+            }##IF~fun.zeroind_use~END
+
+
+            # Update input DF with matching values
+            myTF <- DF_Metrics[, col_IndexName] == aa & DF_Metrics[, col_IndexClass] == bb
+            DF_Metrics[myTF, "Index"]     <- fun.Result[myTF]
+            DF_Metrics[myTF, "Index_Nar"] <- fun.Result.Nar[myTF]
+
+            # Add factor levels for Index_Nar
+            ## only works if doing a single index or multiple indices with the same narrative categories
+            # DF_Metrics[myTF, "Index_Nar"] <- factor(DF_Metrics[myTF, "Index_Nar"]
+            #                                         , levels = fun.Index.Nar.Nar
+            #                                         , labels = fun.Index.Nar.Nar
+            #                                         , ordered = TRUE)
+
+          }##FOR.bb.END
+        }##FOR.aa.END
+        #
+        # 20240919, update data frame to include changes
+        df_metric_scores <- DF_Metrics
+
 
         # QC
         if(show_msg) {
@@ -3102,12 +3182,24 @@ shinyServer(function(input, output) {
                                 , cols_ibi_index_fish))
       df_results_slim <- df_results[, names(df_results) %in% cols_ibi_keep]
       # ok to have fish specific when bugs since using "%in%"
-      #
+
       # fn_results <- paste0(fn_input_base, fn_abr_save, "RESULTS.csv")
-      fn_results <- "_IBI_RESULTS.csv"
+      fn_results <- "IBI_4results_all.csv" # 20240919, rename
       dn_results <- path_results_sub
       pn_results <- file.path(dn_results, fn_results)
       write.csv(df_results_slim, pn_results, row.names = FALSE)
+
+      # Slimmer file, 20240919
+      cols_slim2 <- c("SAMPLEID",
+                      "INDEX_NAME",
+                      "INDEX_CLASS",
+                      "Index",
+                      "Index_Nar")
+      df_results_slim2 <- df_results_slim[, cols_slim2]
+      fn_results <- "_IBI_RESULTS.csv"
+      dn_results <- path_results_sub
+      pn_results <- file.path(dn_results, fn_results)
+      write.csv(df_results_slim2, pn_results, row.names = FALSE)
 
       # Save, Flag Metrics
       # fn_metflags <- paste0(fn_input_base, fn_abr_save, "6metflags.csv")

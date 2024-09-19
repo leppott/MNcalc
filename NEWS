@@ -1,11 +1,18 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-09-19 14:32:24.972166
+2024-09-19 16:55:29.017718
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-09-19 14:32:24.985249
+    #> Last Update: 2024-09-19 16:55:29.032028
+
+# MNcalc 0.2.0.9038 (2024-09-19)
+
+- refactor: Modify IBI results (bugs and fish)
+  - Rename \_IBI_RESULTS.csv to IBI_4results_all.csv
+  - Create \_IBI_RESULTS.csv file with less columns (easier to read)
+- fix: Update FIBI Index Narrative to include post calculation changes
 
 # MNcalc 0.2.0.9037 (2024-09-19)
 
