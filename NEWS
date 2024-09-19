@@ -1,15 +1,35 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-07-29 13:44:22.140144
+2024-09-19 14:32:24.972166
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-07-29 13:44:22.155086
+    #> Last Update: 2024-09-19 14:32:24.985249
+
+# MNcalc 0.2.0.9037 (2024-09-19)
+
+- refactor: Added to BCG calc in Shiny QC check for non-consecutive
+  Levels
+- fix: Update Fish IBI code for DISTANCE_M
+  - Did not convert properly to SAMP_LENGTH_M in background
+  - Column was being dropped and zero values used instead
+  - Affected numpermeter-tol metric
+    - Region 6, Northern Headwater
+    - Region 7, Low Gradient
+
+# MNcalc 0.2.0.9036 (2024-08-29)
+
+- docs: Add flextable to DESCRIPTION
+
+# MNcalc 0.2.0.9035 (2024-08-29)
+
+- refactor: Update 2 tables in FB_TaxaTrans_1About from knitr to
+  flextable
 
 # MNcalc 0.2.0.9034 (2024-07-29)
 
-- Fix: Removed MetricNames.xlsx and MetricScoring.xlsx copies in output.
+- fix: Removed MetricNames.xlsx and MetricScoring.xlsx copies in output.
 
 # MNcalc 0.2.0.9033 (2024-07-29)
 

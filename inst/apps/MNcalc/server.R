@@ -2190,6 +2190,13 @@ shinyServer(function(input, output) {
                                          , ""
                                          , df_results[, "INDEX_NAME"])
 
+      # QC for if BCG Levels not consecutive
+      # that is, more than 1 level apart
+      bcg_diff_2 <- abs(df_results$Primary_BCG_Level -
+                          df_results$Secondary_BCG_Level)
+      bcg_diff_2[is.na(bcg_diff_2)] <- 0
+      bcg_diff_2_pf <- ifelse(bcg_diff_2 >= 2, "FAIL", "PASS")
+      df_results[, "QC_BCG_NonConsecutive"] <- bcg_diff_2_pf
 
       # Save, Flags Summary
       # fn_levflags <- paste0(fn_input_base, fn_abr_save, "6levflags.csv")
@@ -2495,7 +2502,7 @@ shinyServer(function(input, output) {
       }## IF ~ sum(col_req_boo) != length(col_req)
 
       # rename DISTANCE_M to LENGTH_M to match BioMonTools code
-      names(df_input)[toupper(names(df_input)) == "DISTANCE_M"] <- "LENGTH_M"
+      names(df_input)[toupper(names(df_input)) == "DISTANCE_M"] <- "SAMP_LENGTH_M"
 
       ## Calc, 4, Exclude Taxa ----
       prog_detail <- "Calculate, Exclude Taxa"

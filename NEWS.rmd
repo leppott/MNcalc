@@ -21,6 +21,16 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9037 (2024-09-19)
+
+* refactor: Added to BCG calc in Shiny QC check for non-consecutive Levels
+* fix: Update Fish IBI code for DISTANCE_M
+    + Did not convert properly to SAMP_LENGTH_M in background
+    + Column was being dropped and zero values used instead
+    + Affected numpermeter-tol metric 
+        - Region 6, Northern Headwater
+        - Region 7, Low Gradient
+
 # MNcalc 0.2.0.9036 (2024-08-29)
 
 * docs: Add flextable to DESCRIPTION
