@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9042 (2024-09-27)
+
+* refactor: Update text in Shiny Alert for TaxaID
+
 # MNcalc 0.2.0.9041 (2024-09-27)
 
 * refactor: Add ShinyAlert for bad characters in TaxaID

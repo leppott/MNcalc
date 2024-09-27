@@ -687,6 +687,8 @@ shinyServer(function(input, output) {
         msg <- paste0("Bad (non-ASCII) characters in taxa names!"
                       , "\n\n"
                       , "Imported file record numbers:"
+                      , "\n"
+                      , "R doesn't count the title row so add one to get the row number in Excel."
                       , "\n\n"
                       , paste(tnames_recnum, collapse = "\n")
         )

@@ -1,11 +1,15 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-09-27 12:43:28.429042
+2024-09-27 12:50:00.703234
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-09-27 12:43:28.443499
+    #> Last Update: 2024-09-27 12:50:00.733298
+
+# MNcalc 0.2.0.9042 (2024-09-27)
+
+- refactor: Update text in Shiny Alert for TaxaID
 
 # MNcalc 0.2.0.9041 (2024-09-27)
 
