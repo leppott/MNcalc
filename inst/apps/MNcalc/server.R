@@ -529,7 +529,7 @@ shinyServer(function(input, output) {
       dir_proj_results <- df_pick_taxoff[df_pick_taxoff$project == sel_proj
                                          , "dir_results"]
 
-      ## MN, col, groupby ----
+      ### MN, col, groupby ----
       # Auto add bug or fish columns for selecting correct BCG_ATTR
       # Ensure doesn't double count (unique)
       if (sel_proj == "MN BCG (bugs)") {
@@ -675,6 +675,28 @@ shinyServer(function(input, output) {
                                , closeOnClickOutside = TRUE)
         validate(msg)
       }## IF ~ sel_user_gprr
+
+      ### Check TaxaID for bad characters----
+      tnames_user <- sort(unique(df_input[, sel_user_taxaid]))
+      tnames_iconv <- iconv(tnames_user)
+      tnames_bad <- tnames_user[is.na(tnames_iconv) |
+                                  tnames_user != tnames_iconv]
+      tnames_recnum <- which(df_input[, sel_user_taxaid] %in% tnames_bad)
+      if (length(tnames_bad) != 0) {
+        # end process with pop up
+        msg <- paste0("Bad (non-ASCII) characters in taxa names!"
+                      , "\n\n"
+                      , "Imported file record numbers:"
+                      , "\n\n"
+                      , paste(tnames_recnum, collapse = "\n")
+        )
+        shinyalert::shinyalert(title = "Taxa Translate"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## IF ~ sel_user_taxaid ~ non-ASCII
 
       ## Calc, 03, Import Official Data (and Metadata)  ----
       prog_detail <- "Import Data, Official and Metadata"
@@ -994,8 +1016,14 @@ shinyServer(function(input, output) {
       }## taxatrans_results$merge > 0
 
 
-
       # need index class brought through
+
+      ## Rename IC and IN ----
+      # user names could be non-standard
+      names(taxatrans_results$merge)[names(taxatrans_results$merge) %in%
+                                       sel_user_indexname] <- "Index_Name"
+      names(taxatrans_results$merge)[names(taxatrans_results$merge) %in%
+                                       sel_user_indexclass] <- "Index_Class"
 
 
       ## Calc, 04, Save Results ----
@@ -2745,7 +2773,11 @@ shinyServer(function(input, output) {
                                       ~ pi_tv_toler8 - ((4.239 * log10(DRAINSQMI)) + 7.249)
                                       , .default = pi_tv_toler8)
             # Log10(x+1)
-            , pi_TrichNoHydro = dplyr::case_when(INDEX_CLASS == "1" | INDEX_CLASS == "2"
+            , pi_TrichNoHydro = dplyr::case_when(INDEX_CLASS == "1" |
+                                                   INDEX_CLASS == "2" |
+                                                   INDEX_CLASS == "4" |
+                                                   INDEX_CLASS == "6" |
+                                                   INDEX_CLASS == "7"
                                        ~ log10(pi_TrichNoHydro + 1)
                                        , .default = pi_TrichNoHydro)
             , nt_Odon = dplyr::case_when(INDEX_CLASS == "3" | INDEX_CLASS == "5"
@@ -2758,9 +2790,9 @@ shinyServer(function(input, output) {
                                       ~ log10(nt_tv_intol2 + 1)
                                       , .default = nt_tv_intol2)
             # Log10(x+1) where x is 0-1 not 0-100
-            , pi_TrichNoHydro = dplyr::case_when(INDEX_CLASS == "4" | INDEX_CLASS == "6" | INDEX_CLASS == "7"
-                                         ~ log10((pi_TrichNoHydro / 100) + 1)
-                                         , .default = pi_TrichNoHydro)
+            # , pi_TrichNoHydro = dplyr::case_when(INDEX_CLASS == "4" | INDEX_CLASS == "6" | INDEX_CLASS == "7"
+            #                              ~ log10((pi_TrichNoHydro / 100) + 1)
+            #                              , .default = pi_TrichNoHydro)
             # ArcSin(Sqrt)
             , pt_Insect = dplyr::case_when(INDEX_CLASS == "3" | INDEX_CLASS == "5"
                                    ~ asin(sqrt(pt_Insect / 100))

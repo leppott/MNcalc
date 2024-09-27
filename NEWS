@@ -1,11 +1,24 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-09-19 16:55:29.017718
+2024-09-27 12:43:28.429042
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-09-19 16:55:29.032028
+    #> Last Update: 2024-09-27 12:43:28.443499
+
+# MNcalc 0.2.0.9041 (2024-09-27)
+
+- refactor: Add ShinyAlert for bad characters in TaxaID
+
+# MNcalc 0.2.0.9040 (2024-09-23)
+
+- fix: Use same transformation for all regions for pi_TrichNoHydro
+  metric
+
+# MNcalc 0.2.0.9039 (2024-09-20)
+
+- refactor: Rename Index Name and Index Class in File Builder process
 
 # MNcalc 0.2.0.9038 (2024-09-19)
 
