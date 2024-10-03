@@ -29,10 +29,10 @@ knitr::opts_chunk$set(echo = FALSE
     [<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/Metadata_FileBuilder_20240719.zip" target="blank">ZIP</a>]
 
 -   BCG output files
-    [<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/Metadata_Calculations_BCG_20240726.zip" target="blank">ZIP</a>]
+    [<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/Metadata_Calculations_BCG_20241002.zip" target="blank">ZIP</a>]
 
 -   IBI output files
-    [<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/Metadata_Calculations_IBI_20240726.zip" target="blank">ZIP</a>]
+    [<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/Metadata_Calculations_IBI_20241002.zip" target="blank">ZIP</a>]
 
 ### Workflow
 
@@ -228,4 +228,4 @@ common identifier field in the two files (e.g., SampleID), use the
 
 ------------------------------------------------------------------------
 
-*Last updated 2024-07-29*
+*Last updated 2024-10-03*

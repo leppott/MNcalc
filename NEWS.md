@@ -1,11 +1,25 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-09-27 12:50:00.703234
+2024-10-03 14:04:34.351218
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-09-27 12:50:00.733298
+    #> Last Update: 2024-10-03 14:04:34.369876
+
+# MNcalc 0.2.0.9045 (2024-10-03)
+
+- refactor: Update Shiny app display text in multiple places
+
+# MNcalc 0.2.0.9044 (2024-09-30)
+
+- fix: Update with new BioMonTools version
+
+# MNcalc 0.2.0.9043 (2024-09-30)
+
+- refactor: New version of BioMonTools
+  - Edits to MN_IBI_Bugs and MN_IBI_Fish index numeric and narrative
+    thresholds
 
 # MNcalc 0.2.0.9042 (2024-09-27)
 

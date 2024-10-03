@@ -16,42 +16,15 @@ knitr::opts_chunk$set(echo = FALSE
 
 # Calculation - Fish IBI
 
-CLASSES: MN Fish IBIs were calibrated for nine classes
-[<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/FishIBI_2017_Classes.pdf" target="blank">PDF</a>].
+Example of IBI metric information for fish assemblages in northern streams 
+(Table D5 from Fish Protocols & IBI; MPCA 2017).
 
-```{r table_req}
-# Packages
-library(readxl)
-library(knitr)
-library(kableExtra)
-#library(DT)
+To see IBI metric information for all fish classes, see MPCA 2017 
+[<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/FishIBI_2017_MetricInformation.pdf" target="blank">PDF</a>] 
+and the output file ‘IBI_3metrules.’
 
-# Data
-fn <- "BCGcalc_ReqFields_20230203.xlsx"
-path <- file.path("files", fn)
-df <- read_excel(path, sheet = "MN_FishIBI_Classes")
-
-# Table (DT)
-# cap_req <- "Table 1. Required fields."
-# DT::datatable(df_req
-#               , filter = "top"
-#               , caption = cap_req
-#               , options = list(scrollX = TRUE
-#                                , autoWidth = TRUE)
-#               )
-# DT::datatable(iris) # not working correctly in fragment
-df %>%
-  kable() %>%
-  kable_styling(full_width = F, position = "left")
-```
-
-METRICS: view information for each class
-[<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/FishIBI_2017_MetricInformation.pdf" target="blank">PDF</a>]
-(source: MPCA 2017).
-
-RESULTS: see the Metadata files on the Instructions page for guidance on how to interpret the
-results.
+![](images/CalculateIBImodels_fish_example_20241002.jpg){width="75%"}
 
 ---
 
-*Last updated 2024-07-29*
+*Last updated 2024-10-03*

@@ -17,33 +17,48 @@ knitr::opts_chunk$set(echo = FALSE
 # Introduction
 
 The MN Biological Condition Gradient (BCG) is divided into six levels of
-biological condition along a generalized stressor-response curve,
-ranging from observable biological conditions found at no or low levels
-of stressors (level 1) to those found at high levels of stressors (level
-6) (Figure 1)
-(<a href="https://www.epa.gov/sites/default/files/2016-02/documents/bcg-practioners-guide-report.pdf" target="blank">USEPA
-2016</a>).
-
-Lists of Index Classes and links to Rules tables can be found on the bug
-and fish BCG subtabs. For more detailed information, see Gerritsen et
-al. (2017) and Gerritsen et al. (2012) on the References page.
-
-For guidance on how to interpret the results, see the Metadata files on
-the Instructions page.
-
-IMPORTANT: Data must be collected using MPCA field and laboratory
-protocols (see MPCA 2017 reports on the References page).
+biological condition along a generalized stressor-response curve, ranging from
+observable biological conditions found at no or low levels of stressors (level 
+1) to those found at high levels of stressors (level 6) (Figure 1) 
+(<a href="https://www.epa.gov/sites/default/files/2016-02/documents/bcg-practioners-guide-report.pdf" target="blank">USEPA 2016</a>).
 
 ![](images/About_Fig2_BCG.jpg){width="75%"}
 
 Figure 1. Conceptual diagram of the Biological Condition Gradient (BCG)
 model.
 
-Some rules tables in the reports on the References page. You may notice
-some differences between the MPCA reports and metadata files. For
-example, some of the coldwater metrics in the fish BCG are coded
-differently. Use the Metadata.
+The Shiny app will perform the following steps:
+
+1.	Mark non-distinct taxa (excluded from richness metrics)
+
+2.	Calculate metric values for each sample
+
+3.	Calculate BCG metric membership values for each sample [<a href="https://github.com/leppott/MNcalc/raw/main/inst/apps/MNcalc/www/links/_BCG_MetricScoring_Explanation_20240725.pdf" target="blank">PDF</a>]
+
+4.	Assign each sample membership in a BCG level
+
+Examples of bug and fish BCG rules can be found in the bug and fish subtabs. Together the rules for each BCG level work as a cascade from BCG level 1 to level 6, such that a sample is first tested against the level 1 rules; if the combined rule fails, then the level fails, and the assessment moves down to level 2, and so on. A sample can have full membership in a single BCG level, a tie between two levels or varying memberships among two or more levels (in which case, the level with the highest membership value is taken as the nominal level).
+
+BCG results include the following fields:
+```{r}
+# Packages
+library(readxl)
+library(knitr)
+library(kableExtra)
+#library(DT)
+
+# Data
+fn <- "CalculateBCGmodels_Introduction_ResultsFiles_20241002.xlsx"
+path <- file.path("files", fn)
+df <- read_excel(path, sheet = "Sheet1")
+
+df %>%
+  kable(escape = FALSE, format = "html") %>%
+  kable_styling(full_width = F, position = "left")
+```
+
+IMPORTANT: Data must be collected using MPCA field and laboratory protocols (see MPCA 2017 reports on the References page).
 
 ------------------------------------------------------------------------
 
-*Last updated 2024-07-29*
+*Last updated 2024-10-03*

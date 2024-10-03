@@ -21,6 +21,19 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9045 (2024-10-03)
+
+* refactor: Update Shiny app display text in multiple places
+
+# MNcalc 0.2.0.9044 (2024-09-30)
+
+* fix: Update with new BioMonTools version
+
+# MNcalc 0.2.0.9043 (2024-09-30)
+
+* refactor: New version of BioMonTools
+    + Edits to MN_IBI_Bugs and MN_IBI_Fish index numeric and narrative thresholds
+
 # MNcalc 0.2.0.9042 (2024-09-27)
 
 * refactor: Update text in Shiny Alert for TaxaID

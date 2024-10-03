@@ -38,8 +38,18 @@ CSV.</p></li>
 <li><p>Saving files as ‘CSV UTF-8’ instead of ‘CSV.’ Input files must be
 CSV.</p></li>
 <li><p>Including non-ASCII characters in your input file (for example,
-Mesenchytraeusá). R will reject these.</p></li>
+Mesenchytraeusá with the accent on the last character). R will reject
+these.</p>
+<ul>
+<li>The non-ASCII characters are particularly problematic when copying
+and pasting from ITIS into Excel. If you copy and paste from ITIS into
+Notepad or Notepad++ (free programs) before pasting into Excel, this
+will get rid of the extra oddball characters. The non-ASCII characters
+are not always visible (as some are spaces but not a regular space) when
+you open the file in Excel but they do show up if you open the file in
+HTML or import them into R.</li>
+</ul></li>
 </ul>
 <hr />
-<p><em>Last updated 2024-07-03</em></p>
+<p><em>Last updated 2024-10-03</em></p>
 </div>

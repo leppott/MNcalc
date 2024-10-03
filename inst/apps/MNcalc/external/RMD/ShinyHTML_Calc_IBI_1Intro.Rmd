@@ -16,29 +16,40 @@ knitr::opts_chunk$set(echo = FALSE
 
 # Calculation – IBI
 
-The Index of Biotic Integrity (IBI) is one of the primary tools used by
-the MPCA to determine if streams are meeting their aquatic life use
-goals. MPCA has developed numeric biocriteria for the IBI, with
-thresholds for Exceptional, General, and Modified Uses (Table 1; (MPCA
-2016, Bouchard et al. 2016). The IBIs are comprised of biological
-metrics that were found to be responsive to a general stressor gradient.
-Metrics for each sample are scored and averaged. The IBI scoring scale
-ranges from 0 (worst) to 100 (best).
+The Index of Biotic Integrity (IBI) is one of the primary tools used by the MPCA
+to determine if streams are meeting their aquatic life use goals. The IBIs are
+comprised of biological metrics that were found to be responsive to a general
+stressor gradient. Examples of bug and fish IBI input metrics and scoring 
+formulas can be found in the bug and fish subtabs. The IBI scoring scale ranges
+from 0 (worst) to 100 (best). 
 
-Lists of Index Classes and links to tables with metric information can
-be found on the bug and fish IBI subtabs. For more detailed information,
-see the MPCA 2014 and 2017 reports on the References page.
+The Shiny app will perform the following steps:
 
-For guidance on how to interpret the results, see the Metadata files on the Instructions page.
+1.	Mark non-distinct taxa (excluded from richness metrics)
 
-IMPORTANT: Data must be collected using MPCA field and laboratory
-protocols (see MPCA 2017 reports on the References page).
+2.	Calculate metric values for each sample
 
-Table 1. Biological criteria for Exceptional, General, and Modified
-Uses.
+3.	Calculate metric scores for each sample
 
-![](images/IBI_BioCriteria.jpg){width="75%"}
+4.	Calculate overall IBI score for each sample
+
+MPCA has developed numeric biocriteria for the IBI, with class-specific 
+thresholds for Exceptional, General, and Modified Uses for fish (Table 1) and
+macroinvertebrates (Table 2) that were informed by the BCG model (Bouchard et 
+al. 2016).
+
+Table 1. Biological criteria for Exceptional, General, and Modified Uses for the
+fish IBI, with upper and lower Confidence limits (CL) around the General Use
+threshold.
+![](images/Calculation_Thresholds_Fish_20241002.jpg){width="75%"}
+
+Table 2. Biological criteria for the macroinvertebrate IBI.
+![](images/Calculation_Thresholds_Bugs_20241002.jpg){width="75%"}
+
+IMPORTANT: Data must be collected using MPCA field and laboratory protocols (see MPCA 2017 reports on the References page).
+
+For more detailed information, see the MPCA 2014 and 2017 reports on the References page.
 
 ------------------------------------------------------------------------
 
-*Last updated 2024-07-29*
+*Last updated 2024-10-03*
