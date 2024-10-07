@@ -2372,7 +2372,7 @@ shinyServer(function(input, output) {
   ## b_Calc_IBI ----
   observeEvent(input$b_calc_ibi, {
     shiny::withProgress({
-
+browser()
       # time, start
       tic <- Sys.time()
 

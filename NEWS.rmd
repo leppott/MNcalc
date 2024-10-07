@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9046 (2024-10-07)
+
+* refactor: Update BioMonTools package version
+    + Includes change to scoring regime text for pi_TrichNoHydro
+
 # MNcalc 0.2.0.9045 (2024-10-03)
 
 * refactor: Update Shiny app display text in multiple places

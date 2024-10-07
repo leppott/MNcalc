@@ -1,11 +1,16 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-10-03 14:04:34.351218
+2024-10-07 07:11:34.942495
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-10-03 14:04:34.369876
+    #> Last Update: 2024-10-07 07:11:34.960066
+
+# MNcalc 0.2.0.9046 (2024-10-07)
+
+- refactor: Update BioMonTools package version
+  - Includes change to scoring regime text for pi_TrichNoHydro
 
 # MNcalc 0.2.0.9045 (2024-10-03)
 
