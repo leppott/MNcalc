@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9048 (2024-10-09)
+
+* refactor: Add taxa without GP.RR to file builder task complete
+    + Conditional for analysis type, only for BCG_Bugs
+    
 # MNcalc 0.2.0.9047 (2024-10-08)
 
 * refactor: Update to BCGcalc package

@@ -1154,11 +1154,29 @@ shinyServer(function(input, output) {
       duration <- difftime(toc, tic)
 
       # pop up
-      msg <- paste0("Total Records (Input) = ", nrow(df_input)
+      msg <- paste0("Total Records (Input) = "
+                    , nrow(df_input)
                     , "\n\n"
-                    , "Number of mismatch taxa = ", nrow(taxatrans_results$nonmatch)
+                    , "Number of mismatch taxa = "
+                    , nrow(taxatrans_results$nonmatch)
+                    )
+      if (sel_proj == "MN_BCG_Bugs") {
+        # extra message contents for BCG_Bugs
+        bad_gprr <- sum(!grepl("GP|RR", taxatrans_results$merge$GP.RR))
+        msg <- paste0(msg
+                      , "\n\n"
+                      , "Number of records without GP/RR;\n"
+                      , "i.e., no BCG Attribute will be assigned = "
+                      , bad_gprr
+                      )
+      }## IF ~ analysis type
+      msg <- paste0(msg
                     , "\n\n"
-                    , "Elapse Time (", units(duration), ") = ", round(duration, 2))
+                    , "Elapse Time ("
+                    , units(duration)
+                    , ") = "
+                    , round(duration, 2)
+                    )
       shinyalert::shinyalert(title = "Task Complete"
                              , text = msg
                              , type = "success"

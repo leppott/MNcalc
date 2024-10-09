@@ -1,11 +1,16 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-10-08 21:40:46.304373
+2024-10-09 10:40:02.332049
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-10-08 21:40:46.317746
+    #> Last Update: 2024-10-09 10:40:02.353972
+
+# MNcalc 0.2.0.9048 (2024-10-09)
+
+- refactor: Add taxa without GP.RR to file builder task complete
+  - Conditional for analysis type, only for BCG_Bugs
 
 # MNcalc 0.2.0.9047 (2024-10-08)
 
