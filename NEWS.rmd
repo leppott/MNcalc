@@ -21,6 +21,12 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9047 (2024-10-08)
+
+* refactor: Update to BCGcalc package
+    + Rules.xlsx
+    + BCG.Level.Membership
+
 # MNcalc 0.2.0.9046 (2024-10-07)
 
 * refactor: Update BioMonTools package version

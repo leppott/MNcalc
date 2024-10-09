@@ -171,11 +171,15 @@ url_bcg_models <- file.path(url_bcg_base, "Rules.xlsx")
 temp_bcg_models <- tempfile(fileext = ".xlsx")
 httr::GET(url_bcg_models, httr::write_disk(temp_bcg_models))
 
-df_bcg_models <- as.data.frame(readxl::read_excel(temp_bcg_models
-                                                  , guess_max = 10^3
-                                                  , sheet = "Rules"))
+# df_bcg_models <- as.data.frame(readxl::read_excel(temp_bcg_models
+#                                                   , guess_max = 10^3
+#                                                   , sheet = "Rules"))
 #sel_bcg_models <- sort(unique(df_bcg_models$Index_Name))
 sel_bcg_models <- "MN_BCG"
+
+df_bcg_models <- readxl::read_excel(system.file("extdata/Rules.xlsx"
+                                                , package = "BCGcalc")
+                                    , sheet = "Rules")
 
 ## Metric Suites
 sel_metric_suites <- ("ThermalHydro")

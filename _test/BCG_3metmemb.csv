@@ -1,0 +1,28 @@
+INDEX_NAME,INDEX_CLASS,METRIC_NAME,SAMPLEID,METRIC_VALUE,LEVEL,NUMERIC_RULES,SYMBOL,LOWER,UPPER,INCREASE,DESCRIPTION,RULE_TYPE,EXC_RULE,NOTE_RULE,INCLUDE_PARAMETER,INCLUDE_SYMBOL,INCLUDE_THRESHOLD,SITE_TYPE,INDEX_REGION,MEMBERSHIP,NAME_WIDE
+MN_BCG,bug4,nt_BCG_att12,05RD088_20050152,3,2,> 0.5 (0-1),>,0,1,TRUE,number taxa - BCG Attribute I + II,Rule0,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L2_Rule0_nt_BCG_att12
+MN_BCG,bug4,nt_EPT_BCG_att123,05RD088_20050152,3,2,> 8 (6-10),>,6,10,TRUE,number taxa - EPT BCG Attribute I + II + III,Rule0,NA,NA,NA,NA,NA,bug4,n forest glide-pool,0,bug4_L2_Rule0_nt_EPT_BCG_att123
+MN_BCG,bug4,nt_total,05RD088_20050152,43,2,> 25 (20-30),>,20,30,TRUE,number taxa - total,Rule0,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L2_Rule0_nt_total
+MN_BCG,bug4,pi_BCG_att123,05RD088_20050152,21.63934426,2,> 20 (15-25),>,15,25,TRUE,percent (0-100) individuals - BCG Attribute I + II + III,Rule0,NA,NA,NA,NA,NA,bug4,n forest glide-pool,0.663934426,bug4_L2_Rule0_pi_BCG_att123
+MN_BCG,bug4,pi_BCG_att5,05RD088_20050152,12.13114754,2,< 20 (15-25),<,15,25,FALSE,percent (0-100) individuals - BCG Attribute V,Rule0,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L2_Rule0_pi_BCG_att5
+MN_BCG,bug4,pi_dom01_BCG_att4,05RD088_20050152,16.06557377,2,< 15 (10-20),<,10,20,FALSE,percent (0-100) individuals - most dominant BCG Attribute IV taxon,Rule0,NA,NA,NA,NA,NA,bug4,n forest glide-pool,0.393442623,bug4_L2_Rule0_pi_dom01_BCG_att4
+MN_BCG,bug4,pt_BCG_att123,05RD088_20050152,20.93023256,2,> 30 (25-35),>,25,35,TRUE,percent (0-100) taxa - BCG Attribute I + II + III,Rule0,NA,NA,NA,NA,NA,bug4,n forest glide-pool,0,bug4_L2_Rule0_pt_BCG_att123
+MN_BCG,bug4,nt_EPT_BCG_att123,05RD088_20050152,3,3,> 3.5 (2-5),>,2,5,TRUE,number taxa - EPT BCG Attribute I + II + III,Rule0,NA,NA,NA,NA,NA,bug4,n forest glide-pool,0.333333333,bug4_L3_Rule0_nt_EPT_BCG_att123
+MN_BCG,bug4,nt_total,05RD088_20050152,43,3,> 20 (16-24),>,16,24,TRUE,number taxa - total,Rule0,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L3_Rule0_nt_total
+MN_BCG,bug4,pi_BCG_att123,05RD088_20050152,21.63934426,3,> 5 (3-7),>,3,7,TRUE,percent (0-100) individuals - BCG Attribute I + II + III,Rule0,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L3_Rule0_pi_BCG_att123
+MN_BCG,bug4,pi_BCG_att5,05RD088_20050152,12.13114754,3,< 30 (25-35),<,25,35,FALSE,percent (0-100) individuals - BCG Attribute V,Rule0,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L3_Rule0_pi_BCG_att5
+MN_BCG,bug4,pi_dom01_BCG_att5,05RD088_20050152,8.852459016,3,< 20 (15-25),<,15,25,FALSE,percent (0-100) individuals - most dominant BCG Attribute V taxon,Rule0,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L3_Rule0_pi_dom01_BCG_att5
+MN_BCG,bug4,pt_BCG_att123,05RD088_20050152,20.93023256,3,> 15 (10-20),>,10,20,TRUE,percent (0-100) taxa - BCG Attribute I + II + III,Rule0,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L3_Rule0_pt_BCG_att123
+MN_BCG,bug4,nt_BCG_att12,05RD088_20050152,3,3,> 0.5 (0-1),>,0,1,TRUE,number taxa - BCG Attribute I + II,Rule1,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L3_Rule1_nt_BCG_att12
+MN_BCG,bug4,nt_total,05RD088_20050152,43,3,> 20 (16-24),>,16,24,TRUE,number taxa - total,Rule1,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L3_Rule1_nt_total
+MN_BCG,bug4,pi_BCG_att123,05RD088_20050152,21.63934426,3,> 5 (3-7),>,3,7,TRUE,percent (0-100) individuals - BCG Attribute I + II + III,Rule1,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L3_Rule1_pi_BCG_att123
+MN_BCG,bug4,pi_BCG_att5,05RD088_20050152,12.13114754,3,< 30 (25-35),<,25,35,FALSE,percent (0-100) individuals - BCG Attribute V,Rule1,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L3_Rule1_pi_BCG_att5
+MN_BCG,bug4,pi_dom01_BCG_att5,05RD088_20050152,8.852459016,3,< 20 (15-25),<,15,25,FALSE,percent (0-100) individuals - most dominant BCG Attribute V taxon,Rule1,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L3_Rule1_pi_dom01_BCG_att5
+MN_BCG,bug4,pt_BCG_att123,05RD088_20050152,20.93023256,3,> 15 (10-20),>,10,20,TRUE,percent (0-100) taxa - BCG Attribute I + II + III,Rule1,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L3_Rule1_pt_BCG_att123
+MN_BCG,bug4,nt_total,05RD088_20050152,43,4,> 20 (16-24),>,16,24,TRUE,number taxa - total,Rule0,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L4_Rule0_nt_total
+MN_BCG,bug4,pi_BCG_att123,05RD088_20050152,21.63934426,4,> 0.5 (0-1),>,0,1,TRUE,percent (0-100) individuals - BCG Attribute I + II + III,Rule0,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L4_Rule0_pi_BCG_att123
+MN_BCG,bug4,pi_BCG_att5,05RD088_20050152,12.13114754,4,< 30 (25-35),<,25,35,FALSE,percent (0-100) individuals - BCG Attribute V,Rule0,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L4_Rule0_pi_BCG_att5
+MN_BCG,bug4,pi_dom01_BCG_att5,05RD088_20050152,8.852459016,4,< 25 (20-30),<,20,30,FALSE,percent (0-100) individuals - most dominant BCG Attribute V taxon,Rule0,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L4_Rule0_pi_dom01_BCG_att5
+MN_BCG,bug4,pt_BCG_att123,05RD088_20050152,20.93023256,4,> 5 (3-7),>,3,7,TRUE,percent (0-100) taxa - BCG Attribute I + II + III,Rule0,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L4_Rule0_pt_BCG_att123
+MN_BCG,bug4,nt_total,05RD088_20050152,43,5,> 13.5 (11-16),>,11,16,TRUE,number taxa - total,Rule0,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L5_Rule0_nt_total
+MN_BCG,bug4,pi_dom01_BCG_att5,05RD088_20050152,8.852459016,5,< 60 (55-65),<,55,65,FALSE,percent (0-100) individuals - most dominant BCG Attribute V taxon,Rule0,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L5_Rule0_pi_dom01_BCG_att5
+MN_BCG,bug4,pt_BCG_att5,05RD088_20050152,6.976744186,5,< 40 (35-45),<,35,45,FALSE,percent (0-100) taxa - BCG Attribute V,Rule0,NA,NA,NA,NA,NA,bug4,n forest glide-pool,1,bug4_L5_Rule0_pt_BCG_att5

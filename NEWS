@@ -1,11 +1,17 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-10-07 07:11:34.942495
+2024-10-08 21:40:46.304373
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-10-07 07:11:34.960066
+    #> Last Update: 2024-10-08 21:40:46.317746
+
+# MNcalc 0.2.0.9047 (2024-10-08)
+
+- refactor: Update to BCGcalc package
+  - Rules.xlsx
+  - BCG.Level.Membership
 
 # MNcalc 0.2.0.9046 (2024-10-07)
 
