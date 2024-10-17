@@ -2978,8 +2978,10 @@ shinyServer(function(input, output) {
                                              , INDEX_CLASS == "5" ~ 11
                                              , INDEX_CLASS == "6" ~ 10
                                              , INDEX_CLASS == "7" ~ 9
-                                             , INDEX_CLASS == "8" ~ 7
-                                             , INDEX_CLASS == "9" ~ 8
+                                             , INDEX_CLASS == "8" ~ 7 # class 10
+                                             , INDEX_CLASS == "9" ~ 8 # class 11
+                                             , INDEX_CLASS == "10" ~ 7
+                                             , INDEX_CLASS == "11" ~ 8
                                              , .default = NA)) %>%
           # modify index columns
           mutate(sum_Index_ORIG = sum_Index

@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9049 (2024-10-17)
+
+* fix: Update index scoring number of metrics, Fish IBI, classes 10 and 11
+    
 # MNcalc 0.2.0.9048 (2024-10-09)
 
 * refactor: Add taxa without GP.RR to file builder task complete

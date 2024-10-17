@@ -1,11 +1,16 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-10-09 10:40:02.332049
+2024-10-17 17:22:23.147489
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-10-09 10:40:02.353972
+    #> Last Update: 2024-10-17 17:22:23.184377
+
+# MNcalc 0.2.0.9049 (2024-10-17)
+
+- fix: Update index scoring number of metrics, Fish IBI, classes 10 and
+  11
 
 # MNcalc 0.2.0.9048 (2024-10-09)
 
