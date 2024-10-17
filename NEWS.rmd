@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9050 (2024-10-17)
+
+* fix: Update BCG output BCG_2metval_BCG.csv
+    + Single column Tibble causing issues, added TRUE to convert to vector
+
 # MNcalc 0.2.0.9049 (2024-10-17)
 
 * fix: Update index scoring number of metrics, Fish IBI, classes 10 and 11

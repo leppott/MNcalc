@@ -1,11 +1,16 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-10-17 17:22:23.147489
+2024-10-17 18:06:02.223704
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-10-17 17:22:23.184377
+    #> Last Update: 2024-10-17 18:06:02.240801
+
+# MNcalc 0.2.0.9050 (2024-10-17)
+
+- fix: Update BCG output BCG_2metval_BCG.csv
+  - Single column Tibble causing issues, added TRUE to convert to vector
 
 # MNcalc 0.2.0.9049 (2024-10-17)
 

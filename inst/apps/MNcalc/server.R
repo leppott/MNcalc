@@ -2090,7 +2090,7 @@ shinyServer(function(input, output) {
       ## Model and QC Flag metrics only
       # cols_flags defined above
       cols_model_metrics <- unique(df_bcg_models[
-        df_bcg_models$Index_Name == import_IndexName, "Metric_Name"])
+        df_bcg_models$Index_Name == import_IndexName, "Metric_Name", TRUE])
       cols_req <- c("SAMPLEID", "INDEX_NAME", "INDEX_CLASS"
                     , "ni_total", "nt_total")
       cols_metrics_flags_keep <- unique(c(cols_req
