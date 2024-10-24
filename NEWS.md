@@ -1,11 +1,17 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-10-17 18:06:02.223704
+2024-10-24 13:05:49.303817
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-10-17 18:06:02.240801
+    #> Last Update: 2024-10-24 13:05:49.32379
+
+# MNcalc 0.2.0.9051 (2024-10-24)
+
+- refactor: Modify fish IBI final score
+  - Round to 2 decimal places (was 0)
+  - Adjust final score to zero if DELT modifier makes the score negative
 
 # MNcalc 0.2.0.9050 (2024-10-17)
 

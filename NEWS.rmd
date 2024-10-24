@@ -21,6 +21,12 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9051 (2024-10-24)
+
+* refactor: Modify fish IBI final score
+    + Round to 2 decimal places (was 0)
+    + Adjust final score to zero if DELT modifier makes the score negative
+
 # MNcalc 0.2.0.9050 (2024-10-17)
 
 * fix: Update BCG output BCG_2metval_BCG.csv

@@ -3027,13 +3027,13 @@ shinyServer(function(input, output) {
         # Rework Final Scoring, part 2/2
         df_metric_scores <- df_metric_scores %>%
           # Recalc Index
-          mutate(Index = round(sum_Index * 10 / Index_n_metrics)) %>%
+          mutate(Index = round(sum_Index * 10 / Index_n_metrics, 2)) %>%
           # Score % DELT
           mutate(Index_mod_delt = case_when(pi_delt_ExclSchool >= 2 ~ -5
                                             , pi_delt_ExclSchool >= 4 ~ -10
                                             , .default = 0)) %>%
           # Update sum_index
-          mutate(Index = Index + Index_mod_delt)
+          mutate(Index = max(0, Index + Index_mod_delt, na.rm = TRUE))
 
         ## Recalc Index_Nar ----
         # 20240919, Recalc Narrative after adjustments
