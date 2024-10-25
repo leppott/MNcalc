@@ -1,11 +1,18 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-10-25 09:57:51.251641
+2024-10-25 12:06:44.4927
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-10-25 09:57:51.274484
+    #> Last Update: 2024-10-25 12:06:44.51049
+
+# MNcalc 0.2.0.9054 (2024-10-25)
+
+- fix: Update FIBI transformation code
+  - Update classes 8 and 9 to 10 and 11
+    - Fixed the overall index earlier but not the individual metric
+      transformations
 
 # MNcalc 0.2.0.9053 (2024-10-25)
 

@@ -21,6 +21,12 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9054 (2024-10-25)
+
+* fix: Update FIBI transformation code
+    + Update classes 8 and 9 to 10 and 11
+        - Fixed the overall index earlier but not the individual metric transformations
+
 # MNcalc 0.2.0.9053 (2024-10-25)
 
 * refactor: Update BioMonTools package

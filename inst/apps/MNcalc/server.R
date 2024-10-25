@@ -2840,6 +2840,7 @@ shinyServer(function(input, output) {
         df_metval[, cols_mod_ibi_orig] <- df_metval[, cols_mod_ibi]
         ##### Modications
         df_metval <- dplyr::mutate(df_metval
+            # change 8 and 9 to 10 and 11
             # y = x - ((m * log10(z)) + b)
             # z is gradient or drainage area
             , nt_simplelithophil = dplyr::case_when(INDEX_CLASS == "1"
@@ -2854,32 +2855,32 @@ shinyServer(function(input, output) {
             , pi_tv_sens_ExclSchool = dplyr::case_when(INDEX_CLASS == "4"
                                                 ~ pi_tv_sens_ExclSchool - ((22.503 * log10(GRADIENT)) + 51.121)
                                                 , .default = pi_tv_sens_ExclSchool)
-            , pi_tv_senscoldwater_ExclSchool = dplyr::case_when(INDEX_CLASS == "8"
+            , pi_tv_senscoldwater_ExclSchool = dplyr::case_when(INDEX_CLASS == "10"
                                                          ~ pi_tv_senscoldwater_ExclSchool - ((-27.382 * log10(DRAINSQMI)) + 114.322)
                                                          , .default = pi_tv_senscoldwater_ExclSchool)
-            , pt_detritivore = dplyr::case_when(INDEX_CLASS == "8"
+            , pt_detritivore = dplyr::case_when(INDEX_CLASS == "10"
                                          ~ pt_detritivore - ((16.211 * log10(DRAINSQMI)) + -5.276)
                                          , .default = pt_detritivore)
-            , nt_tv_tolercoldwater = dplyr::case_when(INDEX_CLASS == "8"
+            , nt_tv_tolercoldwater = dplyr::case_when(INDEX_CLASS == "10"
                                                ~ nt_tv_tolercoldwater - ((1.089 * log10(DRAINSQMI)) + -0.827)
                                                , .default = nt_tv_tolercoldwater)
-            , pt_natcoldwater = dplyr::case_when(INDEX_CLASS == "8"
+            , pt_natcoldwater = dplyr::case_when(INDEX_CLASS == "10"
                                           ~ pt_natcoldwater - ((-24.242 * log10(DRAINSQMI)) + 54.017)
                                           , .default = pt_natcoldwater)
-            , pt_tv_senscoldwater = dplyr::case_when(INDEX_CLASS == "9"
+            , pt_tv_senscoldwater = dplyr::case_when(INDEX_CLASS == "11"
                                               ~ pt_tv_senscoldwater - ((23.788 * log10(GRADIENT)) + 24.437)
                                               , .default = pt_tv_senscoldwater)
             # Log10(x+1)
-            , pi_natcoldwater_ExclSchool = dplyr::case_when(INDEX_CLASS == "8"
+            , pi_natcoldwater_ExclSchool = dplyr::case_when(INDEX_CLASS == "10"
                                                      ~ log10(pi_natcoldwater_ExclSchool + 1)
                                                      , .default = pi_natcoldwater_ExclSchool)
-            , pi_tv_tolercoldwater_ExclSchool = dplyr::case_when(INDEX_CLASS == "9"
+            , pi_tv_tolercoldwater_ExclSchool = dplyr::case_when(INDEX_CLASS == "11"
                                                           ~ log10(pi_tv_tolercoldwater_ExclSchool + 1)
                                                           , .default = pi_tv_tolercoldwater_ExclSchool)
-            , pi_nonlithophil_ExclSchool = dplyr::case_when(INDEX_CLASS == "9"
+            , pi_nonlithophil_ExclSchool = dplyr::case_when(INDEX_CLASS == "11"
                                                      ~ log10(pi_nonlithophil_ExclSchool + 1)
                                                      , .default = pi_nonlithophil_ExclSchool)
-            , pi_Perciformes_ExclSchool = dplyr::case_when(INDEX_CLASS == "9"
+            , pi_Perciformes_ExclSchool = dplyr::case_when(INDEX_CLASS == "11"
                                                     ~ log10(pi_Perciformes_ExclSchool + 1)
                                                     , .default = pi_Perciformes_ExclSchool)
           )## MUTATE
@@ -2962,7 +2963,7 @@ shinyServer(function(input, output) {
         # INDEX_CLASS 3, 6, 7
         # pi_* to zero when ni_total < 25
         # nt_* and pt_* to zero when nt_total < 6
-        # INDEX_CLASS 8 and 9
+        # INDEX_CLASS 10 and 11 (old 8 and 9)
         # no adjustment
         ic_les_1 <- c("1", "2", "4", "5")
         ic_les_2 <- c("3", "6", "7")
