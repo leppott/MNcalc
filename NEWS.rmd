@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9053 (2024-10-25)
+
+* refactor: Update BioMonTools package
+    + FIBI class 1 metric change
+    
 # MNcalc 0.2.0.9052 (2024-10-25)
 
 * refactor: Update BioMonTools package
