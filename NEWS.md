@@ -1,11 +1,16 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-10-24 13:05:49.303817
+2024-10-25 09:27:30.302624
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-10-24 13:05:49.32379
+    #> Last Update: 2024-10-25 09:27:30.326172
+
+# MNcalc 0.2.0.9052 (2024-10-25)
+
+- refactor: Update BioMonTools package
+  - new metrics for BIBI
 
 # MNcalc 0.2.0.9051 (2024-10-24)
 
