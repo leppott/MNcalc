@@ -1,11 +1,19 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-10-25 12:06:44.4927
+2024-10-28 14:48:34.108848
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-10-25 12:06:44.51049
+    #> Last Update: 2024-10-28 14:48:34.123558
+
+# MNcalc 0.2.0.9055 (2024-10-28)
+
+- refactor: Update “delt” to “delt_ExclSchool” to avoid confusion
+  - Calculations are “delt_ExclSchool” but this wasn’t in the column
+    names
+- fix: Update DELT modification order of operations, high to low
+  - Was \>=2 then \>=4 and \>=4 not getting trigged
 
 # MNcalc 0.2.0.9054 (2024-10-25)
 

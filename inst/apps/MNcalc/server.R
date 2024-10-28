@@ -3029,12 +3029,12 @@ shinyServer(function(input, output) {
         df_metric_scores <- df_metric_scores %>%
           # Recalc Index
           mutate(Index = round(sum_Index * 10 / Index_n_metrics, 2)) %>%
-          # Score % DELT
-          mutate(Index_mod_delt = case_when(pi_delt_ExclSchool >= 2 ~ -5
-                                            , pi_delt_ExclSchool >= 4 ~ -10
+          # Score % DELT (Exclude School)
+          mutate(Index_mod_delt_ExclSchool = case_when(pi_delt_ExclSchool >= 4 ~ -10
+                                            , pi_delt_ExclSchool >= 2 ~ -5
                                             , .default = 0)) %>%
           # Update sum_index
-          mutate(Index = max(0, Index + Index_mod_delt, na.rm = TRUE))
+          mutate(Index = max(0, Index + Index_mod_delt_ExclSchool, na.rm = TRUE))
 
         ## Recalc Index_Nar ----
         # 20240919, Recalc Narrative after adjustments
@@ -3123,7 +3123,7 @@ shinyServer(function(input, output) {
                                      , Index_ORIG
                                      , sum_Index
                                      , Index
-                                     , Index_mod_delt
+                                     , Index_mod_delt_ExclSchool
                                      , pi_delt_ExclSchool
                                      , Index_n_metrics
                                      ))
@@ -3228,7 +3228,7 @@ shinyServer(function(input, output) {
                           , "Index_n_metrics")
       cols_ibi_index_fish <- c("sum_Index_ORIG", "Index_ORIG"
                                , "les_mult_ni", "les_mult_nt"
-                               , "Index_mod_delt")
+                               , "Index_mod_delt_ExclSchool")
       cols_ibi_keep <- unique(c(cols_ibi_req
                                 , cols_ibi_met_val
                                 , cols_ibi_met_sco
