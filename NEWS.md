@@ -1,11 +1,21 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-10-28 14:48:34.108848
+2024-10-30 10:20:31.816093
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-10-28 14:48:34.123558
+    #> Last Update: 2024-10-30 10:20:31.855471
+
+# MNcalc 0.2.0.9057 (2024-10-30)
+
+- fix: Update FIBI low end scoring to use ExclSchool for ni_total and
+  nt_total
+- refactor: Added above metrics to output
+
+# MNcalc 0.2.0.9056 (2024-10-29)
+
+- refactor: Update BioMonTools and refresh Shiny app online
 
 # MNcalc 0.2.0.9055 (2024-10-28)
 

@@ -2900,7 +2900,8 @@ shinyServer(function(input, output) {
       # cols_flags defined above
       cols_model_metrics <- unique(df_rules[, "METRIC_NAME", TRUE])
       cols_req <- c("SAMPLEID", "INDEX_NAME", "INDEX_CLASS"
-                    , "ni_total", "nt_total")
+                    , "ni_total", "nt_total"
+                    , "ni_total_ExclSchool", "nt_total_ExclSchool")
       cols_metrics_flags_keep <- unique(c(cols_req
                                           , cols_flags
                                           , cols_model_metrics
@@ -2991,16 +2992,16 @@ shinyServer(function(input, output) {
                  , Index = 0
                  ) %>%
           # LES, Multiplier
-          mutate(les_mult_ni = case_when(ni_total < 25
+          mutate(les_mult_ni = case_when(ni_total_ExclSchool < 25
                                     & INDEX_CLASS %in% ic_les_1 ~ 0
                                     , .default = 1)) %>%
-          mutate(les_mult_ni = case_when(ni_total < 25
+          mutate(les_mult_ni = case_when(ni_total_ExclSchool < 25
                                          & INDEX_CLASS %in% ic_les_2 ~ 0
                                          , .default = les_mult_ni)) %>%
-          mutate(les_mult_nt = case_when(nt_total < 6
+          mutate(les_mult_nt = case_when(nt_total_ExclSchool < 6
                                          & INDEX_CLASS %in% ic_les_1 ~ 0
                                          , .default = 1)) %>%
-          mutate(les_mult_nt = case_when(nt_total < 4
+          mutate(les_mult_nt = case_when(nt_total_ExclSchool < 4
                                          & INDEX_CLASS %in% ic_les_2 ~ 0
                                          , .default = les_mult_nt)) %>%
           # LES, Adjust Scores, pi
@@ -3221,7 +3222,8 @@ shinyServer(function(input, output) {
       ## IBI only columns
       cols_ibi_req <- c("SAMPLEID", "INDEX_NAME", "INDEX_CLASS"
                         , "GRADIENT", "DRAINSQMI", "DISTANCE_M"
-                        , "ni_total", "nt_total")
+                        , "ni_total", "nt_total"
+                        , "ni_total_ExclSchool", "nt_total_ExclSchool")
       cols_ibi_met_val <- unique(df_rules[, "METRIC_NAME", TRUE])
       cols_ibi_met_sco <- paste0("SC_", cols_ibi_met_val)
       cols_ibi_index <- c("sum_Index", "Index", "Index_Nar"
