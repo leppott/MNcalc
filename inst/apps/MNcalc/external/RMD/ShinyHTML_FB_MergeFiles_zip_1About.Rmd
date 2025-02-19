@@ -1,0 +1,30 @@
+---
+title: "Merge Files, ZIP, About"
+date: "2025-02-18"
+output: html_fragment
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE
+                      , results = 'asis'
+                      , warning = FALSE
+                      , message = FALSE)
+```
+
+# Purpose
+Merge (append) two sets of zipped CSV files.  It is assumed that all files are 
+CSV, files are named the same, and have the same column names.
+
+* File Set A (Primary)
+
+* File Set B (Secondary)
+
+All rows and columns in File Set A (Primary) and File Set B (Secondary) will be
+carried through into the output files.
+
+Each matching pair of file names will have the corresponding file from File Set
+B appended to the same file name from File Set A.
+

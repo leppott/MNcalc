@@ -6,45 +6,36 @@
 function() {
   sidebarLayout(
     sidebarPanel(
-      h2("Merge Sample and Site Files")
-      , p("This process will merge two CSV files.")
-      , p("File 1 is the primary file. All rows in the primary file will be carried through into the ouput file.")
-      , p("File 2 is the secondary file. Only rows that match with the common identifier in the primary file will be carried through into the output file.")
+      h2("Merge Zip Files")
+      , p("This process will merge two sets of ZIPped CSV files.")
+      , p("File 1 (A) is the primary set of files.")
+      , p("File 2 (B) is the secondary set of files.")
       , br()
 
       , h4("A. Upload files.")
       # file input
-      , fileInput("fn_input_mf1"
-                  , label = "Import Primary File"
+      , fileInput("fn_input_mf1_zip"
+                  , label = "Import Files, Primary Dataset (A)"
                   , multiple = FALSE
-                  , accept = c("text/csv"
-                               , "text/comma-separated-values"
-                               , "text/tab-separated-values"
-                               , "text/plain"
-                               , ".csv")
+                  , accept = ".zip"
       )
-      , fileInput("fn_input_mf2"
-                  , label = "Import Secondary File"
+      , fileInput("fn_input_mf2_zip"
+                  , label = "Import Files, Secondary Dataset (B)"
                   , multiple = FALSE
-                  , accept = c("text/csv"
-                               , "text/comma-separated-values"
-                               , "text/tab-separated-values"
-                               , "text/plain"
-                               , ".csv")
+                  , accept = ".zip"
       )
 
-      , h4("B. Select common identifier column for the merge.")
-      , uiOutput("UI_mergefiles_f1_col_merge")
-      , uiOutput("UI_mergefiles_f2_col_merge")
 
       , h4("C. Run Operation")
-      , p("This button will merge the two files based on inputs")
-      , shinyjs::disabled(shinyBS::bsButton("b_calc_mergefiles"
-                                            , label = "Run Operation"))
+      , p("This button will merge the two sets of files.")
+      # , shinyjs::disabled(shinyBS::bsButton("b_calc_mergefiles_zip"
+      #                                       , label = "Run Operation"))
+      , shinyBS::bsButton("b_calc_mergefiles_zip"
+                         , label = "Run Operation")
 
       , h4("D. Download Output")
       , p("All input and output files will be available in a single zip file.")
-      , shinyjs::disabled(downloadButton("b_download_mergefiles"
+      , shinyjs::disabled(downloadButton("b_download_mergefiles_zip"
                                          , "Download Results"))
 
       #, p(textOutput("fn_input_display"))
@@ -52,7 +43,7 @@ function() {
     , mainPanel(
       includeHTML(file.path("www"
                             , "rmd_html"
-                            , "ShinyHTML_FB_MergeFiles_1About.html"))
+                            , "ShinyHTML_FB_MergeFiles_zip_1About.html"))
     )## mainPanel ~ END
   )##sidebarLayout ~ END
 }##FUNCTION ~ END

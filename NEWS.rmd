@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9058 (2025-02-18)
+
+* refactor: Add merge zip files to Shiny
+
 # MNcalc 0.2.0.9057 (2024-10-30)
 
 * fix: Update FIBI low end scoring to use ExclSchool for ni_total and nt_total

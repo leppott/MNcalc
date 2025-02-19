@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "0.2.0.9057"
+pkg_version <- "0.2.0.9058"
 
 # Packages----
 # nolint start
@@ -64,8 +64,10 @@ tab_code_filebuilder           <- source("external/tab_filebuilder.R"
                                          , local = TRUE)$value
 tab_code_filebuilder_intro           <- source("external/tab_filebuilder_intro.R"
                                          , local = TRUE)$value
-tab_code_filebuilder_mergefiles           <- source("external/tab_filebuilder_mergefiles.R"
+tab_code_filebuilder_mergefiles_csv <- source("external/tab_filebuilder_mergefiles_csv.R"
                                          , local = TRUE)$value
+tab_code_filebuilder_mergefiles_zip <- source("external/tab_filebuilder_mergefiles_zip.R"
+                                              , local = TRUE)$value
 tab_code_filebuilder_outsideapp           <- source("external/tab_filebuilder_outsideapp.R"
                                          , local = TRUE)$value
 tab_code_filebuilder_taxatrans <- source("external/tab_filebuilder_taxatrans.R"
@@ -76,9 +78,9 @@ tab_code_filebuilder_taxatrans <- source("external/tab_filebuilder_taxatrans.R"
 # tab_code_filebuilder_indexclassparam <- source(
 #                                     "external/tab_filebuilder_indexclassparam.R"
 #                                          , local = TRUE)$value
-tab_code_filebuilder_mergefiles <- source(
-                                         "external/tab_filebuilder_mergefiles.R"
-                                         , local = TRUE)$value
+# tab_code_filebuilder_mergefiles <- source(
+#                                          "external/tab_filebuilder_mergefiles.R"
+#                                          , local = TRUE)$value
 tab_code_calc_bcg              <- source("external/tab_calc_bcg.R"
                                          , local = TRUE)$value
 tab_code_calc_ibi              <- source("external/tab_calc_ibi.R"
@@ -148,6 +150,7 @@ abr_ibi         <- "IBI"
 abr_map         <- "map"
 abr_report      <- "report"
 abr_results     <- "results"
+abr_mf_zip      <- "MergeFiles_ZIP"
 
 dn_files_input  <- "_user_input"
 dn_files_ref    <- "reference"
@@ -160,6 +163,7 @@ dn_files_bdi    <- paste(abr_results, abr_bdi, sep = "_")
 dn_files_bsti   <- paste(abr_results, abr_bsti, sep = "_")
 dn_files_ibi    <- paste(abr_results, abr_ibi, sep = "_")
 dn_files_report <- paste(abr_results, abr_report, sep = "_")
+dn_files_mf_zip <- paste(abr_results, abr_mf_zip, sep = "_")
 
 # Selection Choices----
 sel_community <- c("bugs", "fish") #, "algae")

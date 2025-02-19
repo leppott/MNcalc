@@ -1,11 +1,15 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2024-10-30 10:20:31.816093
+2025-02-19 10:34:58.353204
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2024-10-30 10:20:31.855471
+    #> Last Update: 2025-02-19 10:34:58.379417
+
+# MNcalc 0.2.0.9058 (2025-02-18)
+
+- refactor: Add merge zip files to Shiny
 
 # MNcalc 0.2.0.9057 (2024-10-30)
 

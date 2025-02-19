@@ -38,9 +38,13 @@ function(id) {
                  #               , tabName = "tab_filebuilder_outsideapp"
                  #               , icon = icon("language")
                  # )
-                 , menuSubItem("Merge Files"
-                               , tabName = "tab_filebuilder_mergefiles"
+                 , menuSubItem("Merge Files, CSV"
+                               , tabName = "tab_filebuilder_mergefiles_csv"
                                , icon = icon("code-merge")
+                               )
+                 , menuSubItem("Merge Files, ZIP"
+                               , tabName = "tab_filebuilder_mergefiles_zip"
+                               , icon = icon("file-zipper")
                  )
                  )## menuItem ~ File Builder
       , menuItem(text = "Calculation"

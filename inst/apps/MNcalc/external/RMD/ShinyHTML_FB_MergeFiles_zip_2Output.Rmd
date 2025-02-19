@@ -1,0 +1,19 @@
+---
+title: "File Builder, Merge Files, ZIP, Output"
+date: "2025-02-17"
+output: html_fragment
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE
+                      , results = 'asis'
+                      , warning = FALSE
+                      , message = FALSE)
+```
+
+A single zip file will be available for download.  It will include all result
+files.  
+

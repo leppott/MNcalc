@@ -1215,10 +1215,9 @@ shinyServer(function(input, output) {
 
 
 
-  # FB, MERGE FILES ----
+  # FB, MERGE FILES, CSV ----
 
-  ## Merge, Import ----
-  ### Merge, Import, FileWatch ----
+  ## Merge, Import, FileWatch ----
   file_watch_mf1 <- reactive({
     # trigger for df_import()
     input$fn_input_mf1
@@ -1539,7 +1538,7 @@ shinyServer(function(input, output) {
   })## UI_colnames
 
   ## b_Calc_MergeFiles ----
-  observeEvent(input$b_calc_mergefiles, {
+  observeEvent(input$b_calc_mergefiles_csv, {
     shiny::withProgress({
 
       # time, start
@@ -1547,7 +1546,7 @@ shinyServer(function(input, output) {
 
       ### Calc, 00, Set Up Shiny Code ----
 
-      prog_detail <- "Calculation, Merge Files..."
+      prog_detail <- "Calculation, Merge Files, CSV..."
       message(paste0("\n", prog_detail))
 
       # Number of increments
@@ -1580,7 +1579,7 @@ shinyServer(function(input, output) {
       }
 
       # button, disable, download
-      shinyjs::disable("b_download_mergefiles")
+      shinyjs::disable("b_download_mergefiles_csv")
 
       ## Calc, 02, Gather and Test Inputs  ----
       prog_detail <- "QC Inputs"
@@ -1736,11 +1735,304 @@ shinyServer(function(input, output) {
   )##observeEvent ~ b_calc_met_therm ~ END
 
 
-  ## b_download_mergefiles ----
-  output$b_download_mergefiles <- downloadHandler(
+  ## b_download_mergefiles_csv ----
+  output$b_download_mergefiles_csv <- downloadHandler(
 
     filename = function() {
       inFile <- input$fn_input_mf2
+      fn_input_base <- tools::file_path_sans_ext(inFile$name)
+      fn_abr <- abr_mergefiles
+      fn_abr_save <- paste0("_", fn_abr, "_")
+      paste0(fn_input_base
+             , fn_abr_save
+             , format(Sys.time(), "%Y%m%d_%H%M%S")
+             , ".zip")
+    } ,
+    content = function(fname) {
+
+      file.copy(file.path(path_results, "results.zip"), fname)
+
+    }##content~END
+    #, contentType = "application/zip"
+  )##download ~ MergeFiles
+
+  # FB, MERGE FILES, ZIP ----
+  # merge two sets of zip files
+
+  ## Merge, ZIP, Import, FileWatch ----
+  file_watch_mf1_zip <- reactive({
+    # trigger for df_import()
+    input$fn_input_mf1_zip
+  })## file_watch
+
+  file_watch_mf2_zip <- reactive({
+    # trigger for df_import()
+    input$fn_input_mf2_zip
+  })## file_watch
+
+  ## b_Calc_MergeFiles_ZIP ----
+  observeEvent(input$b_calc_mergefiles_zip, {
+    shiny::withProgress({
+
+      # time, start
+      tic <- Sys.time()
+
+      ### Calc, 00, Set Up Shiny Code ----
+
+      prog_detail <- "Calculation, Merge Files, ZIP..."
+      message(paste0("\n", prog_detail))
+
+      # Number of increments
+      prog_n <- 5
+      prog_sleep <- 0.25
+
+      ## Calc, 01, Initialize ----
+      prog_detail <- "Initialize Data"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+
+      # Remove existing files in "results"
+      clean_results()
+
+      # Copy user files to results sub-folder
+      copy_import_file(import_file = input$fn_input_mf1_zip)
+      copy_import_file(import_file = input$fn_input_mf2_zip)
+
+      # result folder and files
+      fn_abr <- abr_mf_zip
+      fn_abr_save <- paste0("_", fn_abr, "_")
+      path_results_sub <- file.path(path_results
+                                    , paste(abr_results, fn_abr, sep = "_"))
+      # Add "Results" folder if missing
+      boo_Results <- dir.exists(file.path(path_results_sub))
+      if (boo_Results == FALSE) {
+        dir.create(file.path(path_results_sub))
+      }
+
+     # button, disable, download
+      shinyjs::disable("b_download_mergefiles_zip")
+
+      ## Calc, 02, Gather and Test Inputs  ----
+      prog_detail <- "QC Inputs"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(prog_sleep)
+
+      # inputs
+
+      fn_mf1 <- input$fn_input_mf1_zip$name
+      fn_mf2 <- input$fn_input_mf2_zip$name
+
+      dn_zip1 <- "zip1"
+      dn_zip2 <- "zip2"
+
+      path_mf_zip <- file.path(path_results, dn_files_input)
+
+      fn_mf1_zip <- file.path(path_mf_zip, fn_mf1)
+      fn_mf2_zip <- file.path(path_mf_zip, fn_mf2)
+
+      path_mf1_zip <- file.path(path_mf_zip, dn_zip1)
+      path_mf2_zip <- file.path(path_mf_zip, dn_zip2)
+
+      # Stop if don't have both MF1 and MF2
+      if (is.null(fn_mf1)) {
+        msg <- "Merge Files ZIP 1 filename is missing!"
+        shinyalert::shinyalert(title = "Merge Files ZIP Calculation Error"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## IF ~ is.null (mf1)
+
+      if (is.null(fn_mf2)) {
+        msg <- "Merge Files ZIP 2 filename is missing!"
+        shinyalert::shinyalert(title = "Merge Files ZIP Calculation Error"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## IF ~ is.null (mf1)
+
+      # Prep Files
+
+      ## Unzip files
+      zip::unzip(fn_mf1_zip, exdir = path_mf1_zip)
+      zip::unzip(fn_mf2_zip, exdir = path_mf2_zip)
+
+      # delete zips
+      file.remove(fn_mf1_zip)
+      file.remove(fn_mf2_zip)
+
+      # listfiles
+      files_zip1 <- list.files(path_mf1_zip
+                               , pattern = "\\.csv$"
+                               , full.names = FALSE
+                               , recursive = TRUE
+                               , include.dirs = TRUE)
+      files_zip2 <- list.files(path_mf2_zip
+                               , pattern = "\\.csv$"
+                               , full.names = FALSE
+                               , recursive = TRUE
+                               , include.dirs = TRUE)
+
+      # base names
+      base_name1 <- basename(files_zip1)
+      base_name2 <- basename(files_zip2)
+
+      # match files
+      files_common <- NA
+      files_1not2 <- base_name1[!base_name1 %in% base_name2]
+      files_2not1 <- base_name2[!base_name2 %in% base_name1]
+
+      files_zip1_sanszipdir <- gsub(paste0("^",
+                                           file_path_sans_ext(fn_mf1),
+                                           "/"),
+                                    "",
+                                    files_zip1)
+      files_zip2_sanszipdir <- gsub(paste0("^",
+                                           file_path_sans_ext(fn_mf2),
+                                           "/"),
+                                    "",
+                                    files_zip2)
+
+
+      # Stop if no common files
+      if (length(files_common) == 0) {
+        msg <- "Merge Files, No Common Files!"
+        shinyalert::shinyalert(title = "Merge Files ZIP Calculation Error"
+                               , text = msg
+                               , type = "error"
+                               , closeOnEsc = TRUE
+                               , closeOnClickOutside = TRUE)
+        validate(msg)
+      }## IF ~ is.null (mf1)
+
+      # Create Dataframe of files
+      df_zip <- data.frame(path_1 = files_zip1,
+                           base_1 = base_name1,
+                           base_1_sanszipdir = files_zip1_sanszipdir)
+      df_zip$match <- files_zip1_sanszipdir %in% files_zip2_sanszipdir
+      match_files12_sanszipdir <- match(files_zip1_sanszipdir
+                                      , files_zip2_sanszipdir)
+      df_zip$path_2 <- files_zip2[match_files12_sanszipdir]
+      df_zip$base_2 <- base_name2[match_files12_sanszipdir]
+      df_zip$path_3 <- gsub(paste0("^", path_results),
+                            path_results_sub,
+                            df_zip$base_1_sanszipdir)
+      df_zip$dir_3 <- dirname(df_zip$path_3)
+
+      ### Calc, 03, Run Function----
+      prog_detail <- "Merge Files"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(2 * prog_sleep)
+
+      # Merge Files
+      suff_1x <- ".A"
+      suff_2y <- ".B"
+
+      for (i in seq_len(nrow(df_zip))) {
+        # ensure dir exists
+        path_dir3_i <- file.path(df_zip[i, "dir_3"])
+        boo_dir3_i <- dir.exists(path_dir3_i)
+        if (boo_dir3_i == FALSE) {
+          dir.create(path_dir3_i)
+        }## IF ~ boo_dir3
+
+        if(df_zip[i, "match"] == FALSE) {
+          # Non-Matches, copy without any merge
+          fc_from <- file.path(path_mf1_zip, df_zip[i, "path_1"])
+          fc_to <- df_zip[i, "path_3"]
+          file.copy(fc_from, fc_to)
+        } else {
+          # open A
+          df1_i <- read.csv(file.path(path_mf1_zip, df_zip[i, "path_1"]))
+          # open B
+          df2_i <- read.csv(file.path(path_mf2_zip, df_zip[i, "path_2"]))
+          # Merge as C
+          df3_i <- merge(df1_i,
+                         df2_i,
+                         suffixes = c(suff_1x, suff_2y),
+                         all = TRUE,
+                         sort = FALSE)
+          # Save C
+          write.csv(df3_i, df_zip[i, "path_3"])
+        }## IF ~ match
+      }## FOR ~ i
+
+      # Copy non-matching files
+      ## Files 1 not 2
+      ### in loop above
+
+      ## Files 2 not 1
+      ## similar to match == false in loop above
+      fc_filter <- match(files_2not1, base_name2)
+      fc_from <- file.path(path_mf2_zip, files_zip2) # path_1 equivalent
+      fc_to <- gsub(paste0("^", path_results),
+                    path_results_sub,
+                    files_zip2_sanszipdir)
+      file.copy(fc_from[fc_filter], fc_to[fc_filter])
+
+      ## Calc, 04, Clean Up----
+      prog_detail <- "Clean Up"
+      message(paste0("\n", prog_detail))
+      # Increment the progress bar, and update the detail text.
+      incProgress(1/prog_n, detail = prog_detail)
+      Sys.sleep(2 * prog_sleep)
+
+      # Remove user input before zip
+      unlink(file.path(path_results, dn_files_input), recursive = TRUE) # includes directories
+
+
+      ## Calc, 05, Zip Results ----
+      fn_4zip <- list.files(path = path_results
+                            , full.names = TRUE)
+      zip::zip(file.path(path_results, "results.zip"), fn_4zip)
+
+      # button, enable, download
+      shinyjs::enable("b_download_mergefiles_zip")
+
+      # time, end
+      toc <- Sys.time()
+      duration <- difftime(toc, tic)
+
+      # pop up
+      msg <- paste0("Elapse Time (",
+                    units(duration),
+                    ") = ",
+                    round(duration, 2),
+                    "\n\n",
+                    "Files not matching (A to B):\n",
+                    paste(files_1not2, collapse = "\n"),
+                    "\n\n",
+                    "Files not matching (B to A):\n",
+                    paste(files_2not1, collapse = "\n")
+                    )
+      shinyalert::shinyalert(title = "Task Complete"
+                             , text = msg
+                             , type = "success"
+                             , closeOnEsc = TRUE
+                             , closeOnClickOutside = TRUE)
+      # validate(msg)
+
+    }## expr ~ withProgress ~ END
+    , message = "Merging Files, ZIP"
+    )## withProgress ~ END
+  }##expr ~ ObserveEvent ~ END
+  )##observeEvent ~ b_calc_met_therm ~ END
+
+
+  ## b_download_mergefiles_zip ----
+  output$b_download_mergefiles_zip <- downloadHandler(
+
+    filename = function() {
+      inFile <- input$fn_input_mf2_zip
       fn_input_base <- tools::file_path_sans_ext(inFile$name)
       fn_abr <- abr_mergefiles
       fn_abr_save <- paste0("_", fn_abr, "_")
