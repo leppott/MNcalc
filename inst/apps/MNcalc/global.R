@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "0.2.0.9059"
+pkg_version <- "0.2.0.9060"
 
 # Packages----
 # nolint start
@@ -85,20 +85,12 @@ tab_code_calc_bcg              <- source("external/tab_calc_bcg.R"
                                          , local = TRUE)$value
 tab_code_calc_ibi              <- source("external/tab_calc_ibi.R"
                                          , local = TRUE)$value
-# tab_code_calc_thermalmetrics   <- source("external/tab_calc_thermalmetrics.R"
-#                                          , local = TRUE)$value
-# tab_code_calc_thermalfuzzy     <- source("external/tab_calc_thermalfuzzy.R"
-#                                          , local = TRUE)$value
-# tab_code_calc_mtti             <- source("external/tab_calc_mtti.R"
-#                                          , local = TRUE)$value
-# tab_code_calc_bdi              <- source("external/tab_calc_bdi.R"
-#                                          , local = TRUE)$value
 tab_code_map                   <- source("external/tab_map.R"
                                          , local = TRUE)$value
-# tab_code_rep_single            <- source("external/tab_report_single.R"
-#                                          , local = TRUE)$value
-# tab_code_rep_multi             <- source("external/tab_report_multi.R"
-#                                          , local = TRUE)$value
+tab_code_rep_single            <- source("external/tab_report_single.R"
+                                         , local = TRUE)$value
+tab_code_rep_multi             <- source("external/tab_report_multi.R"
+                                         , local = TRUE)$value
 tab_code_references             <- source("external/tab_references.R"
                                          , local = TRUE)$value
 tab_code_troubleshoot             <- source("external/tab_troubleshoot.R"

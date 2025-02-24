@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9060 (2025-02-24)
+
+* refactor: Add report feature placeholder to Shiny
+
 # MNcalc 0.2.0.9059 (2025-02-24)
 
 * refactor: Add mapping feature to Shiny
