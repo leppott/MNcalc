@@ -1,0 +1,18 @@
+---
+title: "Map"
+date: "2025-02-24"
+output: html_fragment
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE
+                      , results = 'asis'
+                      , warning = FALSE
+                      , message = FALSE)
+```
+
+The color of the clustered points (those with numbers) is a based on the 
+number of points (green is low and red is high) not the value being mapped.

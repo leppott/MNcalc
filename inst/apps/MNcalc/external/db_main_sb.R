@@ -103,6 +103,9 @@ function(id) {
       #                          , tabName = "tab_rep_multi"
       #                          , icon = icon("pen-to-square"))
       #            )## menuItem ~ Reports ~ END
+      , menuItem(text = "Map"
+                 , tabName = "tab_map"
+                 , icon = icon("map"))## menuItem ~ Map
       , menuItem(text = "References"
                  , tabName = "tab_references"
                  , icon = icon("book"))

@@ -1860,9 +1860,10 @@ shinyServer(function(input, output) {
 
       # Prep Files
 
+      print("unzip")
       ## Unzip files
-      zip::unzip(fn_mf1_zip, exdir = path_mf1_zip)
-      zip::unzip(fn_mf2_zip, exdir = path_mf2_zip)
+      utils::unzip(fn_mf1_zip, exdir = path_mf1_zip)
+      utils::unzip(fn_mf2_zip, exdir = path_mf2_zip)
 
       # delete zips
       file.remove(fn_mf1_zip)
@@ -3672,5 +3673,589 @@ shinyServer(function(input, output) {
     }##content~END
     #, contentType = "application/zip"
   )##download ~ IBI
+
+
+  #~~~~MAP~~~~----
+  ### MAP ----
+
+  ### Map, UI ----
+
+  output$UI_map_datatype <- renderUI({
+    str_col <- "Select data type (calculation) to map."
+    selectInput("map_datatype"
+                , label = str_col
+                , choices = c("", map_datatypes)
+                , multiple = FALSE)
+  })## UI_datatype
+
+  output$UI_map_col_xlong <- renderUI({
+    str_col <- "Column, Longitude (decimal degrees))"
+    selectInput("map_col_xlong"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "Longitude"
+                , multiple = FALSE)
+  })## UI_colnames
+
+  output$UI_map_col_ylat <- renderUI({
+    str_col <- "Column, Latitude (decimal degrees)"
+    selectInput("map_col_ylat"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "Latitude"
+                , multiple = FALSE)
+  })## UI_colnames
+
+  output$UI_map_col_sampid <- renderUI({
+    str_col <- "Column, SampleID (unique station or sample identifier)"
+    selectInput("map_col_sampid"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "SampleID"
+                , multiple = FALSE)
+  })## UI_colnames
+
+  output$UI_map_col_mapval <- renderUI({
+    str_col <- "Column, Value to Map (e.g., BCG or IBI value)"
+    selectInput("map_col_mapval"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , selected = "Index_Value"
+                , multiple = FALSE)
+  })## UI_colnames
+
+  output$UI_map_col_keep <- renderUI({
+    str_col <- "Additional Columns to Keep in Map Popup"
+    selectInput("map_col_keep"
+                , label = str_col
+                , choices = c("", names(df_import()))
+                , multiple = TRUE)
+  })## UI_colnames
+
+  ### Map, Leaflet ----
+  output$map_leaflet <- renderLeaflet({
+
+    # data for plot
+    df_map <- df_import()
+
+    #     # Rename columns based on user selection
+    #     df_map[, ]
+
+
+    #
+    # col_Stations <- "blue"
+    # col_Segs     <- "black" # "grey59"
+    # fill_Segs    <- "lightskyblue"
+
+    # data_GIS_eco3_orwa_bcg <- data_GIS_eco3_orwa_bcg %>%
+    #   mutate(Fill = case_when(BCG_Valid == TRUE ~ "#FFFFFF"
+    #                           , TRUE ~ "#808080"
+    #   )) %>%
+    #   mutate(Border = case_when(BCG_Valid == TRUE ~ "#000000"
+    #                             , TRUE ~ "#03F"
+    #   ))
+
+    # Map
+    #leaflet() %>%
+    leaflet(data = df_map) %>%
+      # Groups, Base
+      # addTiles(group="OSM (default)") %>%  #default tile too cluttered
+      addProviderTiles("CartoDB.Positron"
+                       , group = "Positron") %>%
+      addProviderTiles(providers$OpenStreetMap
+                       , group = "Open Street Map") %>%
+      addProviderTiles(providers$Esri.WorldImagery
+                       , group = "ESRI World Imagery") %>%
+      # addProviderTiles(providers$USGS.USImagery
+      #                  , group = "USGS Imagery") %>%
+      # addPolygons(data = data_GIS_eco3_orwa
+      #             , group = "Ecoregions, Level III"
+      #             , popup = ~paste0(LEVEL3, ", ", LEVEL3_NAM)
+      #             , fillColor = ~LEVEL3
+      #             ) %>%
+      # addPolygons(data = data_GIS_eco3_orwa_bcg
+      #             , group = "Ecoregions, Level III"
+      #             , popup = ~paste0(US_L3CODE
+      #                               , ", "
+      #                               , US_L3NAME
+      #                               , ", valid for BCG = "
+      #                               , BCG_Valid)
+      #             , fillColor = ~Fill
+      #             , color = ~Border
+      #             , weight = 3
+      # ) %>%
+      # addPolygons(data = data_GIS_BCGclass
+      #             , group = "BCG Class"
+      #             , popup = ~BCGclass_v
+      #             , fillColor = rgb(255, 0, 195, maxColorValue = 255)) %>%
+      # addPolygons(data = data_GIS_NorWeST_ORWA
+      #             , group = "NorWeST"
+      #             , popup = ~Unit_OBSPR) %>%
+      # addPolygons(data = data_GIS_NHDplus_catch_ORWA
+      #             , group = "NHD+ Catchments") %>%
+      # addPolylines(data = data_GIS_NHDplus_flowline_ORWA
+      #              , group = "NHD+ Flowline") %>%
+      # # # Groups, Overlay
+      # addCircles(lng = ~longitude
+      #            , lat = ~latitude
+      #            , color = col_Stations
+      #            , popup = ~paste0("Station: ", station, as.character("<br>")
+      #                            , "Latitude: ", latitude, as.character("<br>")
+      #                            , "Longitude: ", longitude, as.character("<br>")
+      #                            )
+      #            , radius = 30
+      #            , group = "Stations") %>%
+      # # Legend
+      # addLegend("bottomleft"
+      #           , colors = c(col_Stations, col_Segs)
+      #           , labels = c("Stations", "CB Outline")
+      #           , values = NA) %>%
+      # Layers, Control
+      addLayersControl(baseGroups = c("Positron"
+                                      , "Open Street Map"
+                                      , "ESRI World Imagery"
+                                      # , "USGS Imagery"
+      )
+      , overlayGroups = c("Ecoregions, Level III"
+                          # , "BCG Class"
+                          # , "NorWeST"
+                          # , "NHD+ Catchments"
+                          # , "NHD+ Flowlines"
+      )
+      ) %>%
+      # Layers, Hide
+      # hideGroup(c("Ecoregions, Level III"
+      #            # , "BCG Class"
+      #            # , "NorWeST"
+      #            # , "NHD+ Catchments"
+      #            # , "NHD+ Flowlines"
+      # )) %>%
+      # # Mini map
+      addMiniMap(toggleDisplay = TRUE) %>%
+    # Legend
+    # addLegend("bottomleft"
+    #           , title = "L3 Ecoregions, BCG Valid"
+    #           , colors = c("#000000", "#03F")
+    #           , labels = c("TRUE", "FALSE")
+    #           # , layerID = "Ecoregions, Level III"
+    #           )
+      # # Set zoom and view to MN
+      # setView(lng = -94.6859,
+      #         lat = 46.7296,
+      #         zoom = 6)
+    # Set zoom and view to Bemidji, MN
+    setView(lng = -94.8882,
+            lat = 47.4810,
+            zoom = 8)
+
+
+
+  })## map_leaflet ~ END
+
+  ### Map, Leaflet, Proxy ----
+  # update map based on user selections
+  # tied to Update button
+  # https://rstudio.github.io/leaflet/shiny.html
+  # need a reactive to trigger, use map update button
+  observeEvent(input$but_map_update, {
+
+    #### Data ----
+    df_map <- df_import()
+    names_data <- names(df_map)
+
+    no_narrative <- "No Narrative Designation"
+    size_default <- 50
+
+    ### Map_L_P, Gather and Test Inputs----
+    sel_map_datatype   <- input$map_datatype
+    sel_map_col_xlong  <- input$map_col_xlong
+    sel_map_col_ylat   <- input$map_col_ylat
+    sel_map_col_sampid <- input$map_col_sampid
+    sel_map_col_keep   <- input$map_col_keep
+
+    sel_map_col_mapval <- NA_character_
+    sel_map_col_mapnar <- NA_character_
+    sel_map_col_color  <- NA_character_
+
+    if (is.null(sel_map_datatype) | sel_map_datatype == "") {
+      # end process with pop up
+      msg <- "'Data Type' name is missing!"
+      shinyalert::shinyalert(title = "Update Map"
+                             , text = msg
+                             , type = "error"
+                             , closeOnEsc = TRUE
+                             , closeOnClickOutside = TRUE)
+      # validate(msg)
+    }## IF ~ sel_map_datatype
+
+    if (is.null(sel_map_col_xlong) | sel_map_col_xlong == "") {
+      # end process with pop up
+      msg <- "'Longitude' column name is missing!"
+      shinyalert::shinyalert(title = "Update Map"
+                             , text = msg
+                             , type = "error"
+                             , closeOnEsc = TRUE
+                             , closeOnClickOutside = TRUE)
+      # validate(msg)
+    }## IF ~ sel_map_col_xlong
+
+    if (is.null(sel_map_col_ylat) | sel_map_col_ylat == "") {
+      # end process with pop up
+      msg <- "'Latitude' column name is missing!"
+      shinyalert::shinyalert(title = "Update Map"
+                             , text = msg
+                             , type = "error"
+                             , closeOnEsc = TRUE
+                             , closeOnClickOutside = TRUE)
+      # validate(msg)
+    }## IF ~ sel_map_col_ylat
+
+    if (is.null(sel_map_col_sampid) | sel_map_col_sampid == "") {
+      # end process with pop up
+      msg <- "'SampleID' column name is missing!"
+      shinyalert::shinyalert(title = "Update Map"
+                             , text = msg
+                             , type = "error"
+                             , closeOnEsc = TRUE
+                             , closeOnClickOutside = TRUE)
+      # validate(msg)
+    }## IF ~ sel_map_col_sampid
+
+    ### Munge Data ----
+    #### Munge, Val, Nar, Size
+    if (sel_map_datatype == "BCG_bugs") {
+      sel_map_col_mapval <- "BCG_Status"
+      sel_map_col_mapnar <- "BCG_Status2"
+    } else if (sel_map_datatype == "BCG_fish") {
+      sel_map_col_mapval <- "BCG_Status"
+      sel_map_col_mapnar <- "BCG_Status2"
+    } else if (sel_map_datatype == "IBI_bugs") {
+      sel_map_col_mapval <- "Index"
+      sel_map_col_mapnar <- "Index_Nar"
+    } else if (sel_map_datatype == "IBI_fish") {
+      sel_map_col_mapval <- "Index"
+      sel_map_col_mapnar <- "Index_Nar"
+    }## IF ~ sel_datatype ~ END
+
+
+    # QC, Value in data frame
+    boo_map_col_mapval <- sel_map_col_mapval %in% names_data
+    if (boo_map_col_mapval == FALSE) {
+      # end process with pop up
+      msg <- paste0("Map Value column name ("
+                    , sel_map_col_mapval
+                    , ") is missing!")
+      shinyalert::shinyalert(title = "Update Data"
+                             , text = msg
+                             , type = "error"
+                             , closeOnEsc = TRUE
+                             , closeOnClickOutside = TRUE)
+      # validate(msg)
+    }## IF ~ sel_map_col_sampid
+
+
+
+    # Rename Columns to known values
+    ## Add Jitter to Lat-Long to avoid overlap
+    # 1 second ~ 1/3600 ~ 0.000278 ~ 37.5 meters
+    # 7 seconds ~ 262.3 meters
+    jit_fac <- 0/3600
+    nrow_data <- nrow(df_map)
+    noise_y <- runif(nrow_data, -jit_fac, jit_fac)
+    noise_x <- runif(nrow_data, -jit_fac, jit_fac)
+    # no jitter so points are exact
+    # leave in so can use at a later date if needed
+
+    df_map <- df_map %>%
+      mutate(map_ID = df_map[, sel_map_col_sampid]
+             # , map_ylat = jitter(df_map[, sel_map_col_ylat], jit_fac)
+             # , map_xlong = jitter(df_map[, sel_map_col_xlong], jit_fac)
+             , map_ylat = df_map[, sel_map_col_ylat] + noise_y
+             , map_xlong = df_map[, sel_map_col_xlong] + noise_x
+             , map_mapval = df_map[, sel_map_col_mapval]
+             , map_mapnar = df_map[, sel_map_col_mapnar]
+             , map_color = NA_character_
+             , map_size = NA_real_
+             , map_popup = paste0(as.character("<b>"), "SampleID: ", as.character("</b>"), df_map[, sel_map_col_sampid], as.character("<br>")
+                                  , as.character("<b>"), "Latitude: ", as.character("</b>"), df_map[, sel_map_col_ylat], as.character("<br>")
+                                  , as.character("<b>"), "Longitude: ", as.character("</b>"), df_map[, sel_map_col_xlong], as.character("<br>")
+                                  , as.character("<b>"), "Data Type: ", as.character("</b>"), sel_map_datatype, as.character("<br>")
+                                  , as.character("<b>"), "Value: ", as.character("</b>"), df_map[, sel_map_col_mapval], as.character("<br>")
+                                  , as.character("<b>"), "Narrative: ", as.character("</b>"), df_map[, sel_map_col_mapnar], as.character("<br>")
+             )
+      )
+
+    ### Munge, Color, Size, Legend
+    # by index value or narrative
+    if (sel_map_datatype == "BCG_bugs") {
+      #### BCG_bugs ----
+      leg_title <- "Biological Condition Gradient, Benthic Macroinvertebrates"
+      # cut_brk <- seq(0.5, 6.5, 1)
+      # cut_lab <- c("blue", "green", "lightgreen", "gray", "orange", "red")
+      # leg_col <- cut_lab
+      # leg_nar <- paste0("L", 1:6)
+      # df_map[, "map_color"] <- cut(df_map[, "map_mapval"]
+      #                              , breaks = cut_brk
+      #                              , labels = cut_lab
+      #                              , include.lowest = TRUE
+      #                              , right = FALSE
+      #                              , ordered_result = TRUE)
+      leg_col <- c("blue"
+                   , "green"
+                   , "darkgreen"
+                   , "lightgreen"
+                   , "yellow"
+                   , "gray"
+                   , "brown"
+                   , "orange"
+                   , "purple"
+                   , "red"
+                   , "#808080"
+      )
+      leg_nar <- c("1"
+                   , "2"
+                   , "2.5"
+                   , "3"
+                   , "3.5"
+                   , "4"
+                   , "4.5"
+                   , "5"
+                   , "5.5"
+                   , "6"
+                   , "NA"
+      )
+      df_map <- df_map %>%
+        mutate(map_color = case_when(map_mapval == leg_nar[1] ~ leg_col[1]
+                                     , map_mapval == leg_nar[2] ~ leg_col[2]
+                                     , map_mapval == leg_nar[3] ~ leg_col[3]
+                                     , map_mapval == leg_nar[4] ~ leg_col[4]
+                                     , map_mapval == leg_nar[5] ~ leg_col[5]
+                                     , map_mapval == leg_nar[6] ~ leg_col[6]
+                                     , map_mapval == leg_nar[7] ~ leg_col[7]
+                                     , map_mapval == leg_nar[8] ~ leg_col[8]
+                                     , map_mapval == leg_nar[9] ~ leg_col[9]
+                                     , map_mapval == leg_nar[10] ~ leg_col[10]
+                                     , TRUE ~ leg_col[11]
+        ))
+      # TRUE is ELSE and #808080 is gray
+      df_map[, "map_size"] <- size_default
+    } else if (sel_map_datatype == "BCG_fish") {
+      #### BCG_fish ----
+      leg_title <- "Biological Condition Gradient, Fish"
+      # cut_brk <- seq(0.5, 6.5, 1)
+      # cut_lab <- c("blue", "green", "lightgreen", "gray", "orange", "red")
+      # leg_col <- cut_lab
+      # leg_nar <- paste0("L", 1:6)
+      # df_map[, "map_color"] <- cut(df_map[, "map_mapval"]
+      #                              , breaks = cut_brk
+      #                              , labels = cut_lab
+      #                              , include.lowest = TRUE
+      #                              , right = FALSE
+      #                              , ordered_result = TRUE)
+      leg_col <- c("blue"
+                   , "green"
+                   , "darkgreen"
+                   , "lightgreen"
+                   , "yellow"
+                   , "gray"
+                   , "brown"
+                   , "orange"
+                   , "purple"
+                   , "red"
+                   , "#808080"
+      )
+      leg_nar <- c("1"
+                   , "2"
+                   , "2.5"
+                   , "3"
+                   , "3.5"
+                   , "4"
+                   , "4.5"
+                   , "5"
+                   , "5.5"
+                   , "6"
+                   , "NA"
+      )
+      df_map <- df_map %>%
+        mutate(map_color = case_when(map_mapval == leg_nar[1] ~ leg_col[1]
+                                     , map_mapval == leg_nar[2] ~ leg_col[2]
+                                     , map_mapval == leg_nar[3] ~ leg_col[3]
+                                     , map_mapval == leg_nar[4] ~ leg_col[4]
+                                     , map_mapval == leg_nar[5] ~ leg_col[5]
+                                     , map_mapval == leg_nar[6] ~ leg_col[6]
+                                     , map_mapval == leg_nar[7] ~ leg_col[7]
+                                     , map_mapval == leg_nar[8] ~ leg_col[8]
+                                     , map_mapval == leg_nar[9] ~ leg_col[9]
+                                     , map_mapval == leg_nar[10] ~ leg_col[10]
+                                     , TRUE ~ leg_col[11]
+        ))
+      # TRUE is ELSE and #808080 is gray
+      df_map[, "map_size"] <- size_default
+    } else if (sel_map_datatype == "IBI_bugs") {
+      #### IBI_bugs ----
+      leg_title <- "Index of Biolgical Integrity, Benthic Macroinvertebrates"
+      # cut_brk <- seq(0.5, 6.5, 1)
+      # cut_lab <- c("blue", "green", "lightgreen", "gray", "orange", "red")
+      # leg_col <- cut_lab
+      # leg_nar <- paste0("L", 1:6)
+      # df_map[, "map_color"] <- cut(df_map[, "map_mapval"]
+      #                              , breaks = cut_brk
+      #                              , labels = cut_lab
+      #                              , include.lowest = TRUE
+      #                              , right = FALSE
+      #                              , ordered_result = TRUE)
+      leg_col <- c("blue"
+                   , "green"
+                   , "yellow"
+                   , "orange"
+                   , "red"
+                   , "#808080"
+      )
+      leg_nar <- c("Exceptional"
+                   , "Upper CL"
+                   , "General"
+                   , "Lower CL"
+                   , "Below General"
+                   , "NA"
+      )
+      df_map <- df_map %>%
+        mutate(map_color = case_when(map_mapnar == leg_nar[1] ~ leg_col[1]
+                                     , map_mapnar == leg_nar[2] ~ leg_col[2]
+                                     , map_mapnar == leg_nar[3] ~ leg_col[3]
+                                     , map_mapnar == leg_nar[4] ~ leg_col[4]
+                                     , map_mapnar == leg_nar[5] ~ leg_col[5]
+                                     , TRUE ~ leg_col[6]
+        ))
+      # TRUE is ELSE and #808080 is gray
+      df_map[, "map_size"] <- size_default
+    } else if (sel_map_datatype == "IBI_fish") {
+      #### IBI_bugs ----
+      leg_title <- "Index of Biolgical Integrity, Fish"
+      # cut_brk <- seq(0.5, 6.5, 1)
+      # cut_lab <- c("blue", "green", "lightgreen", "gray", "orange", "red")
+      # leg_col <- cut_lab
+      # leg_nar <- paste0("L", 1:6)
+      # df_map[, "map_color"] <- cut(df_map[, "map_mapval"]
+      #                              , breaks = cut_brk
+      #                              , labels = cut_lab
+      #                              , include.lowest = TRUE
+      #                              , right = FALSE
+      #                              , ordered_result = TRUE)
+      leg_col <- c("blue"
+                   , "green"
+                   , "yellow"
+                   , "orange"
+                   , "red"
+                   , "#808080"
+      )
+      leg_nar <- c("Exceptional"
+                   , "Upper CL"
+                   , "General"
+                   , "Lower CL"
+                   , "Below General"
+                   , "NA"
+      )
+      df_map <- df_map %>%
+        mutate(map_color = case_when(map_mapnar == leg_nar[1] ~ leg_col[1]
+                                     , map_mapnar == leg_nar[2] ~ leg_col[2]
+                                     , map_mapnar == leg_nar[3] ~ leg_col[3]
+                                     , map_mapnar == leg_nar[4] ~ leg_col[4]
+                                     , map_mapnar == leg_nar[5] ~ leg_col[5]
+                                     , TRUE ~ leg_col[6]
+        ))
+      # TRUE is ELSE and #808080 is gray
+      df_map[, "map_size"] <- size_default
+    } else {
+      leg_title <- NA
+      df_map[, "map_color"] <- "gray"
+      df_map[, "map_size"] <- size_default
+      leg_col <- "gray"
+      leg_nar <- no_narrative
+    }## IF ~ sel_datatype ~ COLOR
+
+
+
+    ### Map ----
+    # Bounding box
+    # zoom to data
+    map_bbox <- c(min(df_map[, sel_map_col_xlong], na.rm = TRUE)
+                  , min(df_map[, sel_map_col_ylat], na.rm = TRUE)
+                  , max(df_map[, sel_map_col_xlong], na.rm = TRUE)
+                  , max(df_map[, sel_map_col_ylat], na.rm = TRUE)
+    )
+
+    #~~~~~~~~~~~~~~~~~~~~~~
+    # repeat code from base
+    #~~~~~~~~~~~~~~~~~~~~~~
+    # zoom levels, https://leafletjs.com/examples/zoom-levels/
+
+    #leaflet() %>%
+    leafletProxy("map_leaflet", data = df_map) %>%
+      # Groups, Base
+      # addProviderTiles("CartoDB.Positron"
+      #                  , group = "Positron") %>%
+      # addProviderTiles(providers$Stamen.TonerLite
+      #                  , group = "Toner Lite") %>%
+      # addProviderTiles(providers$OpenStreetMap
+      #                  , group = "Open Street Map") %>%
+      clearControls() %>%
+      clearShapes() %>%
+      clearMarkers() %>%
+      # Groups, Overlay
+      # addCircles(lng = ~map_xlong
+      #            , lat = ~map_ylat
+      #            , color = ~map_color
+      #            , popup = ~map_popup
+      #            , radius = ~map_size
+      #            , group = "Samples") %>%
+      addCircleMarkers(lng = ~map_xlong
+                       , lat = ~map_ylat
+                       , color = ~map_color
+                       , popup = ~map_popup
+                       #, radius = ~map_size
+                       , fill = ~map_color
+                       , stroke = TRUE
+                       , fillOpacity = 0.75
+                       , group = "Samples"
+                       , clusterOptions = markerClusterOptions(
+                                              spiderfyDistanceMultiplier = 1.5
+                                              , showCoverageOnHover = TRUE
+                                              , freezeAtZoom = 13)
+      ) %>%
+      # Test different points
+      # addAwesomeMarkers(lng = ~map_xlong
+      #                   , lat = ~map_ylat
+      #                   , popup = ~map_popup
+      #                   , clusterOptions = markerClusterOptions()) %>%
+      # Legend
+      addLegend("bottomleft"
+                , colors = leg_col
+                , labels = leg_nar
+                , values = NA
+                , title = leg_title) %>%
+      # Layers, Control
+      addLayersControl(baseGroups = c("Positron"
+                                      , "Open Street Map"
+                                      , "ESRI World Imagery")
+                       , overlayGroups = c("Samples"
+                                           , "Ecoregions, Level III"
+                                           #, "BCG Class"
+                                           # , "NorWeST"
+                                           # , "NHD+ Catchments"
+                                           # , "NHD+ Flowlines"
+                       )
+      ) %>%
+      # Layers, Hide
+      hideGroup(c("Ecoregions, Level III"
+                  # , "BCG Class"
+                  # , "NorWeST"
+                  # , "NHD+ Catchments"
+                  # , "NHD+ Flowlines"
+      )) %>%
+      # Bounds
+      fitBounds(map_bbox[1], map_bbox[2], map_bbox[3], map_bbox[4])
+
+
+  })## MAP, Leaflet, PROXY
 
 })##shinyServer ~ END

@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "0.2.0.9058"
+pkg_version <- "0.2.0.9059"
 
 # Packages----
 # nolint start
@@ -93,8 +93,8 @@ tab_code_calc_ibi              <- source("external/tab_calc_ibi.R"
 #                                          , local = TRUE)$value
 # tab_code_calc_bdi              <- source("external/tab_calc_bdi.R"
 #                                          , local = TRUE)$value
-# tab_code_map                   <- source("external/tab_map.R"
-#                                          , local = TRUE)$value
+tab_code_map                   <- source("external/tab_map.R"
+                                         , local = TRUE)$value
 # tab_code_rep_single            <- source("external/tab_report_single.R"
 #                                          , local = TRUE)$value
 # tab_code_rep_multi             <- source("external/tab_report_multi.R"
@@ -252,20 +252,13 @@ epsg_nad83_na <- 4269
 epsg_default <- epsg_nad83_na
 
 # Map ----
-map_datatypes <- c("BCG"
-                   , "Fuzzy Temp Model"
-                   , "MTTI"
-                   , "BDI"
-                   , "Thermal Metrics, nt_ti_stenocold"
-                   , "Thermal Metrics, nt_ti_stenocold_cold"
-                   , "Thermal Metrics, nt_ti_stenocold_cold_cool"
-                   , "Thermal Metrics, pt_ti_stenocold_cold_cool"
-                   , "Thermal Metrics, pi_ti_stenocold_cold_cool"
-                   , "Thermal Metrics, pt_ti_warm_stenowarm"
-                   , "Thermal Metrics, nt_ti_warm_stenowarm"
+map_datatypes <- c("BCG_bugs"
+                   , "BCG_fish"
+                   , "IBI_bugs"
+                   , "IBI_fish"
                    )
 
-fn_map_meta <- "BCGcalc_Shiny_map_inputs_20230828.xlsx"
+fn_map_meta <- "BCGcalc_Shiny_map_inputs_20250224.xlsx"
 map_meta <- as.data.frame(readxl::read_excel(file.path(path_data, fn_map_meta)
                                              , sheet = "field_names"
                                              , skip = 7))
