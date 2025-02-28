@@ -1,11 +1,15 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2025-02-24 16:06:20.941524
+2025-02-28 11:04:15.261585
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2025-02-24 16:06:20.961666
+    #> Last Update: 2025-02-28 11:04:15.280959
+
+# MNcalc 0.2.0.9061 (2025-02-28)
+
+- refactor: Turn off report in Shiny since incomplete
 
 # MNcalc 0.2.0.9060 (2025-02-24)
 
@@ -35,7 +39,7 @@ MNcalc-NEWS
   - Calculations are “delt_ExclSchool” but this wasn’t in the column
     names
 - fix: Update DELT modification order of operations, high to low
-  - Was \>=2 then \>=4 and \>=4 not getting trigged
+  - Was \>=2 then \>=4 and \>=4 not getting triggered
 
 # MNcalc 0.2.0.9054 (2024-10-25)
 

@@ -204,7 +204,6 @@ build_report_table <- function(df_template_data
   # show
   df_import_files
 
-
   ## primary key
   pk_orig <- df_template_data[1, fld_name_orig, TRUE]
   pk_disp <- df_template_data[1, fld_name_disp, TRUE]
@@ -215,7 +214,7 @@ build_report_table <- function(df_template_data
 
     i_exists <- df_import_files[i, fld_exists, TRUE]
     if (i_exists == FALSE) {
-      skip
+      next
     }## IF ~ i_exists
 
     i_file <- df_import_files[i, fld_file, TRUE]

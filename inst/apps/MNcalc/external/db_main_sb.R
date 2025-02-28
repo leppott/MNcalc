@@ -106,16 +106,16 @@ function(id) {
       , menuItem(text = "Map"
                  , tabName = "tab_map"
                  , icon = icon("map"))## menuItem ~ Map
-      , menuItem(text = "Reports"
-                 , icon = icon("clipboard-check")
-                 , menuSubItem("Single Site"
-                               , tabName = "tab_rep_single"
-                               , icon = icon("pen")
-                               )
-                 , menuSubItem("Multiple Sites"
-                               , tabName = "tab_rep_multi"
-                               , icon = icon("pen-to-square"))
-                 )## menuItem ~ Reports ~ END
+      # , menuItem(text = "Reports"
+      #            , icon = icon("clipboard-check")
+      #            , menuSubItem("Biological"
+      #                          , tabName = "tab_rep_bio"
+      #                          , icon = icon("pen")
+      #                          )
+      #            # , menuSubItem("Multiple Sites"
+      #            #               , tabName = "tab_rep_multi"
+      #            #               , icon = icon("pen-to-square"))
+      #            )## menuItem ~ Reports ~ END
       , menuItem(text = "References"
                  , tabName = "tab_references"
                  , icon = icon("book"))

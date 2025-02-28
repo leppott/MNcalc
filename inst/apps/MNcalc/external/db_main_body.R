@@ -40,10 +40,10 @@ function(id) {
       #           , tab_code_calc_bdi())
       , tabItem(tabName = "tab_map"
                 , tab_code_map())
-      , tabItem(tabName = "tab_rep_single"
-                , tab_code_rep_single())
-      , tabItem(tabName = "tab_rep_multi"
-                , tab_code_rep_multi())
+      # , tabItem(tabName = "tab_rep_bio"
+      #           , tab_code_rep_bio())
+      # , tabItem(tabName = "tab_rep_multi"
+      #           , tab_code_rep_multi())
       , tabItem(tabName = "tab_references"
                 , tab_code_references())
       , tabItem(tabName = "tab_troubleshoot"
