@@ -1,11 +1,16 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2025-02-28 11:04:15.261585
+2025-03-04 16:22:17.105578
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2025-02-28 11:04:15.280959
+    #> Last Update: 2025-03-04 16:22:17.130475
+
+# MNcalc 0.2.0.9062 (2025-03-04)
+
+- refactor: Change colors for bcg and ibi on Leaflet map
+- refactor: Move color definitions for map points to global
 
 # MNcalc 0.2.0.9061 (2025-02-28)
 

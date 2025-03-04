@@ -4000,18 +4000,17 @@ shinyServer(function(input, output) {
       #                              , include.lowest = TRUE
       #                              , right = FALSE
       #                              , ordered_result = TRUE)
-      leg_col <- c("blue"
-                   , "green"
-                   , "darkgreen"
-                   , "lightgreen"
-                   , "yellow"
-                   , "gray"
-                   , "brown"
-                   , "orange"
-                   , "purple"
-                   , "red"
-                   , "#808080"
-      )
+      leg_col <- c(col_bcg_1,
+                   col_bcg_2,
+                   col_bcg_2.5,
+                   col_bcg_3,
+                   col_bcg_3.5,
+                   col_bcg_4,
+                   col_bcg_4.5,
+                   col_bcg_5,
+                   col_bcg_5.5,
+                   col_bcg_6,
+                   col_bcg_NA)
       leg_nar <- c("1"
                    , "2"
                    , "2.5"
@@ -4052,18 +4051,17 @@ shinyServer(function(input, output) {
       #                              , include.lowest = TRUE
       #                              , right = FALSE
       #                              , ordered_result = TRUE)
-      leg_col <- c("blue"
-                   , "green"
-                   , "darkgreen"
-                   , "lightgreen"
-                   , "yellow"
-                   , "gray"
-                   , "brown"
-                   , "orange"
-                   , "purple"
-                   , "red"
-                   , "#808080"
-      )
+      leg_col <- c(col_bcg_1,
+                   col_bcg_2,
+                   col_bcg_2.5,
+                   col_bcg_3,
+                   col_bcg_3.5,
+                   col_bcg_4,
+                   col_bcg_4.5,
+                   col_bcg_5,
+                   col_bcg_5.5,
+                   col_bcg_6,
+                   col_bcg_NA)
       leg_nar <- c("1"
                    , "2"
                    , "2.5"
@@ -4104,13 +4102,12 @@ shinyServer(function(input, output) {
       #                              , include.lowest = TRUE
       #                              , right = FALSE
       #                              , ordered_result = TRUE)
-      leg_col <- c("blue"
-                   , "green"
-                   , "yellow"
-                   , "orange"
-                   , "red"
-                   , "#808080"
-      )
+      leg_col <- c(col_ibi_excep,
+                   col_ibi_ucl,
+                   col_ibi_gen,
+                   col_ibi_lcl,
+                   col_ibi_bgen,
+                   col_ibi_NA)
       leg_nar <- c("Exceptional"
                    , "Upper CL"
                    , "General"
@@ -4141,13 +4138,12 @@ shinyServer(function(input, output) {
       #                              , include.lowest = TRUE
       #                              , right = FALSE
       #                              , ordered_result = TRUE)
-      leg_col <- c("blue"
-                   , "green"
-                   , "yellow"
-                   , "orange"
-                   , "red"
-                   , "#808080"
-      )
+      leg_col <- c(col_ibi_excep,
+                   col_ibi_ucl,
+                   col_ibi_gen,
+                   col_ibi_lcl,
+                   col_ibi_bgen,
+                   col_ibi_NA)
       leg_nar <- c("Exceptional"
                    , "Upper CL"
                    , "General"

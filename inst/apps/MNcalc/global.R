@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "0.2.0.9060"
+pkg_version <- "0.2.0.9062"
 
 # Packages----
 # nolint start
@@ -254,5 +254,44 @@ fn_map_meta <- "BCGcalc_Shiny_map_inputs_20250224.xlsx"
 map_meta <- as.data.frame(readxl::read_excel(file.path(path_data, fn_map_meta)
                                              , sheet = "field_names"
                                              , skip = 7))
+
+## map, colors ----
+### bcg
+col_bcg_1   <- "#83CBEB"
+col_bcg_2   <- "green"
+col_bcg_2.5 <- "darkgreen"
+col_bcg_3   <- "lightgreen"
+col_bcg_3.5 <- "yellow"
+col_bcg_4   <- "#7F7F7F"
+col_bcg_4.5 <- "brown"
+col_bcg_5   <- "orange"
+col_bcg_5.5 <- "#F2AA84"
+col_bcg_6   <- "red"
+col_bcg_NA  <- "lightgray"
+col_bcg_key <- c(col_bcg_1,
+                 col_bcg_2,
+                 col_bcg_2.5,
+                 col_bcg_3,
+                 col_bcg_3.5,
+                 col_bcg_4,
+                 col_bcg_4.5,
+                 col_bcg_5,
+                 col_bcg_5.5,
+                 col_bcg_6,
+                 col_bcg_NA)
+### ibi
+col_ibi_excep <- "#83CBEB"
+col_ibi_ucl   <- "green"
+col_ibi_gen   <- "#7F7F7F"
+col_ibi_lcl   <- "yellow"
+col_ibi_bgen  <- "red"
+col_ibi_NA    <- "lightgray"
+col_ibi_key <- c(col_ibi_excep,
+                 col_ibi_ucl,
+                 col_ibi_gen,
+                 col_ibi_lcl,
+                 col_ibi_bgen,
+                 col_ibi_NA)
+
 
 # Report ----

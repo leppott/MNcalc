@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9062 (2025-03-04)
+
+* refactor: Change colors for bcg and ibi on Leaflet map
+* refactor: Move color definitions for map points to global
+
 # MNcalc 0.2.0.9061 (2025-02-28)
 
 * refactor: Turn off report in Shiny since incomplete
