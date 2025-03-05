@@ -3989,7 +3989,7 @@ shinyServer(function(input, output) {
     # by index value or narrative
     if (sel_map_datatype == "BCG_bugs") {
       #### BCG_bugs ----
-      leg_title <- "Biological Condition Gradient, Benthic Macroinvertebrates"
+      leg_title <- "BCG, Bugs"
       # cut_brk <- seq(0.5, 6.5, 1)
       # cut_lab <- c("blue", "green", "lightgreen", "gray", "orange", "red")
       # leg_col <- cut_lab
@@ -4040,7 +4040,7 @@ shinyServer(function(input, output) {
       df_map[, "map_size"] <- size_default
     } else if (sel_map_datatype == "BCG_fish") {
       #### BCG_fish ----
-      leg_title <- "Biological Condition Gradient, Fish"
+      leg_title <- "BCG, Fish"
       # cut_brk <- seq(0.5, 6.5, 1)
       # cut_lab <- c("blue", "green", "lightgreen", "gray", "orange", "red")
       # leg_col <- cut_lab
@@ -4091,7 +4091,7 @@ shinyServer(function(input, output) {
       df_map[, "map_size"] <- size_default
     } else if (sel_map_datatype == "IBI_bugs") {
       #### IBI_bugs ----
-      leg_title <- "Index of Biolgical Integrity, Benthic Macroinvertebrates"
+      leg_title <- "IBI, Bugs"
       # cut_brk <- seq(0.5, 6.5, 1)
       # cut_lab <- c("blue", "green", "lightgreen", "gray", "orange", "red")
       # leg_col <- cut_lab
@@ -4127,7 +4127,7 @@ shinyServer(function(input, output) {
       df_map[, "map_size"] <- size_default
     } else if (sel_map_datatype == "IBI_fish") {
       #### IBI_bugs ----
-      leg_title <- "Index of Biolgical Integrity, Fish"
+      leg_title <- "IBI, Fish"
       # cut_brk <- seq(0.5, 6.5, 1)
       # cut_lab <- c("blue", "green", "lightgreen", "gray", "orange", "red")
       # leg_col <- cut_lab

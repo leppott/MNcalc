@@ -21,6 +21,12 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9063 (2025-03-05)
+
+* refactor: Update map legends on Leaflent map
+    + colors
+    + titles
+
 # MNcalc 0.2.0.9062 (2025-03-04)
 
 * refactor: Change colors for bcg and ibi on Leaflet map

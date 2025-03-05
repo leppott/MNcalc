@@ -1,7 +1,7 @@
 # Shiny Global File
 
 # Version ----
-pkg_version <- "0.2.0.9062"
+pkg_version <- "0.2.0.9063"
 
 # Packages----
 # nolint start
@@ -262,12 +262,12 @@ col_bcg_2   <- "green"
 col_bcg_2.5 <- "darkgreen"
 col_bcg_3   <- "lightgreen"
 col_bcg_3.5 <- "yellow"
-col_bcg_4   <- "#7F7F7F"
-col_bcg_4.5 <- "brown"
-col_bcg_5   <- "orange"
-col_bcg_5.5 <- "#F2AA84"
+col_bcg_4   <- "#D9D9D9"
+col_bcg_4.5 <- "#7F7F7F"
+col_bcg_5   <- "#FFE697"
+col_bcg_5.5 <- "#FABE00"
 col_bcg_6   <- "red"
-col_bcg_NA  <- "lightgray"
+col_bcg_NA  <- "#000000"
 col_bcg_key <- c(col_bcg_1,
                  col_bcg_2,
                  col_bcg_2.5,
@@ -285,7 +285,7 @@ col_ibi_ucl   <- "green"
 col_ibi_gen   <- "#7F7F7F"
 col_ibi_lcl   <- "yellow"
 col_ibi_bgen  <- "red"
-col_ibi_NA    <- "lightgray"
+col_ibi_NA    <- "#000000"
 col_ibi_key <- c(col_ibi_excep,
                  col_ibi_ucl,
                  col_ibi_gen,

@@ -1,11 +1,17 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2025-03-04 16:22:17.105578
+2025-03-05 07:26:21.771889
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2025-03-04 16:22:17.130475
+    #> Last Update: 2025-03-05 07:26:21.799124
+
+# MNcalc 0.2.0.9063 (2025-03-05)
+
+- refactor: Update map legends on Leaflent map
+  - colors
+  - titles
 
 # MNcalc 0.2.0.9062 (2025-03-04)
 
