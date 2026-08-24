@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9066 (2026-08-24)
+
+* fix: Remove browser()
+
 # MNcalc 0.2.0.9065 (2026-08-24)
 
 * refactor: Add "BCG_3metmemb_xtab_METRICSORT.csv" to results, Issue #18
