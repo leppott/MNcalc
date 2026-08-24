@@ -676,29 +676,29 @@ shinyServer(function(input, output) {
         validate(msg)
       }## IF ~ sel_user_gprr
 
-      ### Check TaxaID for bad characters----
-      tnames_user <- sort(unique(df_input[, sel_user_taxaid]))
-      tnames_iconv <- iconv(tnames_user)
-      tnames_bad <- tnames_user[is.na(tnames_iconv) |
-                                  tnames_user != tnames_iconv]
-      tnames_recnum <- which(df_input[, sel_user_taxaid] %in% tnames_bad)
-      if (length(tnames_bad) != 0) {
-        # end process with pop up
-        msg <- paste0("Bad (non-ASCII) characters in taxa names!"
-                      , "\n\n"
-                      , "Imported file record numbers:"
-                      , "\n"
-                      , "R doesn't count the title row so add one to get the row number in Excel."
-                      , "\n\n"
-                      , paste(tnames_recnum, collapse = "\n")
-        )
-        shinyalert::shinyalert(title = "Taxa Translate"
-                               , text = msg
-                               , type = "error"
-                               , closeOnEsc = TRUE
-                               , closeOnClickOutside = TRUE)
-        validate(msg)
-      }## IF ~ sel_user_taxaid ~ non-ASCII
+      # ### Check TaxaID for bad characters----
+      # tnames_user <- sort(unique(df_input[, sel_user_taxaid]))
+      # tnames_iconv <- iconv(tnames_user)
+      # tnames_bad <- tnames_user[is.na(tnames_iconv) |
+      #                             tnames_user != tnames_iconv]
+      # tnames_recnum <- which(df_input[, sel_user_taxaid] %in% tnames_bad)
+      # if (length(tnames_bad) != 0) {
+      #   # end process with pop up
+      #   msg <- paste0("Bad (non-ASCII) characters in taxa names!"
+      #                 , "\n\n"
+      #                 , "Imported file record numbers:"
+      #                 , "\n"
+      #                 , "R doesn't count the title row so add one to get the row number in Excel."
+      #                 , "\n\n"
+      #                 , paste(tnames_recnum, collapse = "\n")
+      #   )
+      #   shinyalert::shinyalert(title = "Taxa Translate"
+      #                          , text = msg
+      #                          , type = "error"
+      #                          , closeOnEsc = TRUE
+      #                          , closeOnClickOutside = TRUE)
+      #   validate(msg)
+      # }## IF ~ sel_user_taxaid ~ non-ASCII
 
       ## Calc, 03, Import Official Data (and Metadata)  ----
       prog_detail <- "Import Data, Official and Metadata"

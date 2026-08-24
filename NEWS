@@ -1,15 +1,20 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2025-03-05 07:26:21.771889
+2026-08-24 13:59:40.640488
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2025-03-05 07:26:21.799124
+    #> Last Update: 2026-08-24 13:59:40.72611
+
+# MNcalc 0.2.0.9064 (2026-08-24)
+
+- refactor: Remove non-ASCII Shiny Alert, Issue \#20
+  - BioMonTools::taxa_translate now handles non-ASCII characters
 
 # MNcalc 0.2.0.9063 (2025-03-05)
 
-- refactor: Update map legends on Leaflent map
+- refactor: Update map legends on Leaflet map
   - colors
   - titles
 

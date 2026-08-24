@@ -21,9 +21,14 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9064 (2026-08-24)
+
+* refactor: Remove non-ASCII Shiny Alert, Issue #20
+    + BioMonTools::taxa_translate now handles non-ASCII characters
+
 # MNcalc 0.2.0.9063 (2025-03-05)
 
-* refactor: Update map legends on Leaflent map
+* refactor: Update map legends on Leaflet map
     + colors
     + titles
 
