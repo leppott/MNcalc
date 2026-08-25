@@ -1096,6 +1096,19 @@ shinyServer(function(input, output) {
       file.copy(temp_taxoff_attr_meta
                 , file.path(path_results_ref, fn_taxoff_attr_meta))
 
+      # 20260807, mod col names (Boise)
+      # 20260825, MN
+      taxatrans_results$taxatrans_unique <-
+        taxatrans_results$taxatrans_unique |>
+        # redefine mod caps cols
+        dplyr::mutate(Modified =
+                        dplyr::case_when(Modified_woCAPS == TRUE &
+                                           Modified_wCAPS == TRUE ~
+                                           TRUE,
+                                         .default = FALSE)) |>
+        # remove mod caps cols
+        dplyr::select(-c(Modified_wCAPS, Modified_woCAPS))
+
       ## translate - crosswalk
       df_save <- taxatrans_results$taxatrans_unique # df_taxoff_meta
       # fn_part <- paste0(fn_abr_save, "2taxamatch", ".csv")
