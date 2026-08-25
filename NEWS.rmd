@@ -21,6 +21,10 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9068 (2026-08-25)
+
+* refactor: Modify order of columns in BCG Results file, Issue #21
+
 # MNcalc 0.2.0.9067 (2026-08-25)
 
 * refactor: Taxa translate CAPS modified to single column, Issue #19

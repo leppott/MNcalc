@@ -1,11 +1,19 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-08-24 16:50:28.532667
+2026-08-25 17:13:10.175229
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-08-24 16:50:28.555979
+    #> Last Update: 2026-08-25 17:13:10.225932
+
+# MNcalc 0.2.0.9068 (2026-08-25)
+
+- refactor: Modify order of columns in BCG Results file, Issue \#21
+
+# MNcalc 0.2.0.9067 (2026-08-25)
+
+- refactor: Taxa translate CAPS modified to single column, Issue \#19
 
 # MNcalc 0.2.0.9066 (2026-08-24)
 

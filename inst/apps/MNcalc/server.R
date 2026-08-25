@@ -2551,6 +2551,13 @@ shinyServer(function(input, output) {
       bcg_diff_2_pf <- ifelse(bcg_diff_2 >= 2, "FAIL", "PASS")
       df_results[, "QC_BCG_NonConsecutive"] <- bcg_diff_2_pf
 
+      # Mofidy RESULTS column order, 20260521 (Boise)
+      # 20260825, MN
+      df_results <- df_results |>
+        dplyr::relocate(BCG_Status,
+                        BCG_Status2,
+                        .before = Primary_BCG_Level)
+
       # Save, Flags Summary
       # fn_levflags <- paste0(fn_input_base, fn_abr_save, "6levflags.csv")
       fn_levflags <- "BCG_6levflags.csv"
@@ -3555,7 +3562,6 @@ shinyServer(function(input, output) {
       #
       # }## IF ~ check for matching index name and class
 
-
       # # Save, Flags Summary
       # fn_levflags <- paste0(fn_input_base, fn_abr_save, "6levflags.csv")
       # dn_levflags <- path_results_sub
@@ -3564,6 +3570,7 @@ shinyServer(function(input, output) {
 
       # Save, Results
       df_results <- df_metric_scores
+
       # Munge
       ## Rename SAMP_LENGTH_M to DISTANCE_M
       names(df_results)[names(df_results) %in% "SAMP_LENGTH_M"] <- "DISTANCE_M"
