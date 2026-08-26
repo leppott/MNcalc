@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+# MNcalc 0.2.0.9070 (2026-08-26)
+
+* refactor: Modify "BCG_3metmemb_xtab_METRICSORT.csv" for alternate rules, Issue #18
+    + Add package to distinct function call
+
 # MNcalc 0.2.0.9069 (2026-08-26)
 
 * refactor: Modify "BCG_3metmemb_xtab_METRICSORT.csv" for alternate rules, Issue #18

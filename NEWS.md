@@ -1,11 +1,17 @@
 MNcalc-NEWS
 ================
 <Erik.Leppo@tetratech.com>
-2026-08-26 10:27:30.658115
+2026-08-26 12:48:03.75289
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2026-08-26 10:27:30.690665
+    #> Last Update: 2026-08-26 12:48:03.777935
+
+# MNcalc 0.2.0.9070 (2026-08-26)
+
+- refactor: Modify “BCG_3metmemb_xtab_METRICSORT.csv” for alternate
+  rules, Issue \#18
+  - Add package to distinct function call
 
 # MNcalc 0.2.0.9069 (2026-08-26)
 
