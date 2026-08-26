@@ -1,0 +1,2 @@
+"SampleID","INDEX_NAME","INDEX_CLASS","Membership_Total","Membership_Total_QC","BCG_Status","BCG_Status2","Primary_BCG_Level","Primary_Membership","Secondary_BCG_Level","Secondary_Membership","Membership_Diff","Membership_Close","Continuous_BCG_Level","QC_BCG_NonConsecutive"
+20000142,"MN_BCG","fish2",1,"PASS",4,4,4,1,NA,0,1,NA,4,"PASS"

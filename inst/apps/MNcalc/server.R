@@ -2598,7 +2598,9 @@ shinyServer(function(input, output) {
                                          METRIC_VALUE,
                                          LEVEL,
                                          MEMBERSHIP,
-                                         METRIC_SORT),
+                                         METRIC_SORT) |>
+                           # account for Rule 1 and 2 duplicates
+                           distinct(),
                          by = dplyr::join_by(SampleID == SAMPLEID)) |>
         # pivot
         tidyr::pivot_wider(id_cols = c(INDEX_CLASS,
@@ -2619,8 +2621,7 @@ shinyServer(function(input, output) {
       fn_metmemb_xtab <- paste0(fn_abr_save, "3metmemb_xtab_METRICSORT.csv")
       dn_metmemb_xtab <- path_results_sub
       pn_metmemb_xtab <- file.path(dn_metmemb_xtab, fn_metmemb_xtab)
-      # write.csv(df_metmemb_xtab, pn_metmemb_xtab, row.names = FALSE)
-      # 20260824, comment out to avoid crash
+      write.csv(df_metmemb_xtab, pn_metmemb_xtab, row.names = FALSE)
 
       ## Calc, 9, RMD----
       prog_detail <- "Calculate, Create Report"
